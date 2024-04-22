@@ -232,8 +232,14 @@ class _MyAppState extends State<MyApp> {
         routes: {'signup': (context) => myRegister(),
          'login':(context) => Login_Screen.LoginScreen(),
          'homepage':(context) => WelcomeScreen(),
+
+        //  /lkolko
          },
       ),
     );
   }
 }
+
+
+
+

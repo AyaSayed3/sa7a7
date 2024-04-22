@@ -20,6 +20,8 @@ class _LoginScreenState extends State<Login_Screen> {
 
   var FormKey = GlobalKey<FormState>();
 
+  int x=0;
+
   bool isPasswoed = true;
   String? user;
   String? user_system;
