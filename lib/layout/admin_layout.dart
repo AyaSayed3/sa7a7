@@ -32,6 +32,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
       builder: (BuildContext context, state) {
         return Background(
           child: Scaffold(
+            appBar: AppBar(),
             key: cubit.scaffoldKey,
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: cubit.currentIndex,

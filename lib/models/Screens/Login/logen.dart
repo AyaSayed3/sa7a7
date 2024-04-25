@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sa7a7/layout/admin_layout.dart';
 import 'package:sa7a7/models/Screens/Welcome/welcome_screen.dart';
+import 'package:sa7a7/models/register/register_screen.dart';
+import 'package:sa7a7/models/register/resetpass.dart';
 import 'package:sa7a7/models/shared/componantes/back_ground2.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
 
@@ -14,8 +16,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
-
   var formKey = GlobalKey<FormState>();
 
   bool isPasswoed = true;
@@ -104,73 +104,81 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: double.infinity,
                           background: const Color(0xffF8DEFF),
                           onPressedFunction: () async {
-                            if(formKey.currentState!.validate()){
-                                try {
-                              final credential = await FirebaseAuth.instance
-                                  .signInWithEmailAndPassword(
-                                email: emailController.text,
-                                password: passwordController.text,
-                              );
-                              print(credential.user!.email);
-                              print(credential.user!.uid);
-                              if (user == "Admin") {
-                                if (credential.user?.uid != null) {
-                                  if (passwordController.text != '') {
-                                    if (emailController.text != '') {
-                                      setState(() {
-                                      if (credential.user!.emailVerified)
-                                      {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const AdminHomePage()));
-                                      }else {
-                                         AwesomeDialog(
-                                  context: context,
-                                  dialogType: DialogType.error,
-                                  animType: AnimType.rightSlide,
-                                  title: 'Error',
-                                  desc: '----->Please Check your Email we Send Verification e-mail......',
-                                
-                                ).show();
+                            if (formKey.currentState!.validate()) {
+                              try {
+                                final credential = await FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                                print(credential.user!.email);
+                                print(credential.user!.uid);
+                                if (user == "Admin") {
+                                  if (credential.user?.uid != null) {
+                                    if (passwordController.text != '') {
+                                      if (emailController.text != '') {
+                                        setState(() {
+                                          if (credential.user!.emailVerified) {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const AdminHomePage()));
+                                          } else {
+                                            AwesomeDialog(
+                                              context: context,
+                                              dialogType: DialogType.error,
+                                              animType: AnimType.rightSlide,
+                                              title: 'Error',
+                                              desc:
+                                                  '----->Please Check your Email we Send Verification e-mail......',
+                                            ).show();
+                                          }
+                                        });
                                       }
-                                      });
                                     }
                                   }
                                 }
-                              }
-                            } on FirebaseAuthException catch (e) {
-                              if (e.code == 'user-not-found') {
-                                print('----->No user found for that email.');
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'user-not-found') {
+                                  print('----->No user found for that email.');
 
-                                //not work 
-                                AwesomeDialog(
-                                  context: context,
-                                  dialogType: DialogType.error,
-                                  animType: AnimType.rightSlide,
-                                  title: 'Error',
-                                  desc: '----->No user found for that email......',
-                                
-                                ).show();
-                              } else if (e.code == 'wrong-password') {
-                                print(
-                                    '---->Wrong password provided for that user.');
-                                      //not work 
-                                     AwesomeDialog(
-                                  context: context,
-                                  dialogType: DialogType.error,
-                                  animType: AnimType.rightSlide,
-                                  title: 'Error',
-                                  desc: '---->Wrong password provided for that user...',
-                                
-                                ).show();
+                                  //not work
+                                  AwesomeDialog(
+                                    context: context,
+                                    dialogType: DialogType.error,
+                                    animType: AnimType.rightSlide,
+                                    title: 'Error',
+                                    desc:
+                                        '----->No user found for that email......',
+                                  ).show();
+                                } else if (e.code == 'wrong-password') {
+                                  print(
+                                      '---->Wrong password provided for that user.');
+                                  //not work
+                                  AwesomeDialog(
+                                    context: context,
+                                    dialogType: DialogType.error,
+                                    animType: AnimType.rightSlide,
+                                    title: 'Error',
+                                    desc:
+                                        '---->Wrong password provided for that user...',
+                                  ).show();
+                                }
                               }
                             }
-                            }
-                          
                           },
                           text: 'login'),
+                      const SizedBox(height: 20),
+                      defaultButton(
+                          onPressedFunction: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ResetPassword()));
+                          },
+                          text: 'Forget Passward'),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -182,13 +190,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           TextButton(
                             onPressed: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context)=> const myRegister())
-                              // );
-                              Navigator.of(context)
-                                  .pushReplacementNamed('signup');
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const MyRegister()));
                             },
                             child: const Text(
                               'Register',
@@ -245,7 +251,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             user = value.toString();
                           });
                         },
-                      )
+                      ),
                     ],
                   ),
                 ),

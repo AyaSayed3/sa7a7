@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
 
 Widget defaultButton(
         {double width = double.infinity,
         Color background = const Color(0xffF8DEFF),
         bool isUpperCase = true,
-        required VoidCallback onPressedFunction,
+        required void Function()? onPressedFunction,
         required String text,
         double radius = 20.0}) =>
     Container(
@@ -18,7 +17,10 @@ Widget defaultButton(
         onPressed: onPressedFunction,
         child: Text(
           isUpperCase ? text.toUpperCase() : text,
-          style: const TextStyle(color: Colors.black87,fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            color: Colors.black87,
+            // fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
@@ -44,7 +46,8 @@ Widget defaultTextFromFiled({
       obscureText: ispasswoard,
       decoration: InputDecoration(
         labelText: label,
-        border: OutlineInputBorder( borderSide: const BorderSide(color: Colors.grey),
+        border: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.grey),
             borderRadius: BorderRadius.circular(20)),
         enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.grey),
@@ -59,10 +62,9 @@ Widget defaultTextFromFiled({
       ),
     );
 
-Widget buildCourseItem(Map model) =>  Padding(
+Widget buildCourseItem(Map model) => Padding(
       padding: const EdgeInsets.all(10.0),
       child: Row(
-       
         children: [
           CircleAvatar(
             radius: 40,
@@ -96,12 +98,7 @@ Widget buildCourseItem(Map model) =>  Padding(
         ],
       ),
     );
-  var emailController = TextEditingController();
+var emailController = TextEditingController();
 
-  var passwordController = TextEditingController();
-
-
-
-
-
-  
+var passwordController = TextEditingController();
+ GlobalKey<FormState> formKey = GlobalKey<FormState>();
