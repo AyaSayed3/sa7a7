@@ -1,6 +1,8 @@
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sa7a7/models/Screens/Welcome/welcome_screen.dart';
+import 'package:sa7a7/models/Screens/verification.dart/verifiction_email.dart';
 import 'package:sa7a7/models/register/resetpass.dart';
 import 'package:sa7a7/models/shared/componantes/back_ground2.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
@@ -67,7 +69,7 @@ class _MyRegisterState extends State<MyRegister> {
                       keyboardType: TextInputType.name,
                       prefix: Icons.person,
                       vlidator: (value) {
-                        if (value.isEmpty()) return 'Name Must not Empty';
+                        if (value.isEmpty) return 'Name Must not Empty';
                       },
                     ),
                     const SizedBox(height: 30),
@@ -77,7 +79,7 @@ class _MyRegisterState extends State<MyRegister> {
                       keyboardType: TextInputType.emailAddress,
                       prefix: Icons.email,
                       vlidator: (value) {
-                        if (value.isEmpty()) return 'Email Must not Empty';
+                        if (value.isEmpty) return 'Email Must not Empty';
                       },
                     ),
                     const SizedBox(height: 30),
@@ -87,7 +89,7 @@ class _MyRegisterState extends State<MyRegister> {
                       keyboardType: TextInputType.number,
                       prefix: Icons.perm_identity,
                       vlidator: (value) {
-                        if (value.isEmpty()) return 'ID Must not Empty';
+                        if (value.isEmpty) return 'ID Must not Empty';
                       },
                     ),
                     const SizedBox(height: 30),
@@ -117,58 +119,58 @@ class _MyRegisterState extends State<MyRegister> {
                         child: defaultButton(
                             onPressedFunction: () async {
                               if (formKey.currentState!.validate()) {
-                                // FirebaseAuth.instance.currentUser!
-                                //     .sendEmailVerification();
-                                // try {
-                                //   await FirebaseAuth.instance
-                                //       .createUserWithEmailAndPassword(
-                                //     email: emailController.text,
-                                //     password: passwardController.text,
-                                //   )
-                                //       .then((value) {
-                                //     Navigator.push(
-                                //         context,
-                                //         MaterialPageRoute(
-                                //             builder: (context) =>
-                                //                 const VerifictionEmail()));
-                                //   });
-                                // } on FirebaseAuthException catch (e) {
-                                //   if (e.code == 'weak-password') {
-                                //     print('The password provided is too weak.');
-                                //   } else if (e.code == 'email-already-in-use') {
-                                //     print(
-                                //         'The account already exists for that email.');
-                                //   }
-                                // } catch (e) {
-                                //   print('@@@@@@@@@@@@@@@@@@@@@  $e');
-                                // }
+                                FirebaseAuth.instance.currentUser!
+                                    .sendEmailVerification();
+                                try {
+                                  await FirebaseAuth.instance
+                                      .createUserWithEmailAndPassword(
+                                    email: emailController.text,
+                                    password: passwardController.text,
+                                  )
+                                      .then((value) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const VerifictionEmail()));
+                                  });
+                                } on FirebaseAuthException catch (e) {
+                                  if (e.code == 'weak-password') {
+                                    print('The password provided is too weak.');
+                                  } else if (e.code == 'email-already-in-use') {
+                                    print(
+                                        'The account already exists for that email.');
+                                  }
+                                } catch (e) {
+                                  print('@@@@@@@@@@@@@@@@@@@@@  $e');
+                                }
 
                                 
-                                // FirebaseAuth.instance.currentUser!
-                                //     .sendEmailVerification();
-                                // try {
-                                //   await FirebaseAuth.instance
-                                //       .createUserWithEmailAndPassword(
-                                //     email: emailController.text,
-                                //     password: passwardController.text,
-                                //   )
-                                //       .then((value) {
-                                //     Navigator.push(
-                                //         context,
-                                //         MaterialPageRoute(
-                                //             builder: (context) =>
-                                //                 const VerifictionEmail()));
-                                //   });
-                                // } on FirebaseAuthException catch (e) {
-                                //   if (e.code == 'weak-password') {
-                                //     print('The password provided is too weak.');
-                                //   } else if (e.code == 'email-already-in-use') {
-                                //     print(
-                                //         'The account already exists for that email.');
-                                //   }
-                                // } catch (e) {
-                                //   print('@@@@@@@@@@@@@@@@@@@@@  $e');
-                                // }
+                                FirebaseAuth.instance.currentUser!
+                                    .sendEmailVerification();
+                                try {
+                                  await FirebaseAuth.instance
+                                      .createUserWithEmailAndPassword(
+                                    email: emailController.text,
+                                    password: passwardController.text,
+                                  )
+                                      .then((value) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const VerifictionEmail()));
+                                  });
+                                } on FirebaseAuthException catch (e) {
+                                  if (e.code == 'weak-password') {
+                                    print('The password provided is too weak.');
+                                  } else if (e.code == 'email-already-in-use') {
+                                    print(
+                                        'The account already exists for that email.');
+                                  }
+                                } catch (e) {
+                                  print('@@@@@@@@@@@@@@@@@@@@@  $e');
+                                }
                               }
                             },
                             text: 'Regster'),

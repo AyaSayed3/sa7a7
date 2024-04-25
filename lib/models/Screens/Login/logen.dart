@@ -104,8 +104,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: double.infinity,
                           background: const Color(0xffF8DEFF),
                           onPressedFunction: () async {
+
+
+
+
+
                             if (formKey.currentState!.validate()) {
                               try {
+                                        print("///////////////////////11\\\\\\\\\\\\\\\\\\\\\\");
+                                       
+                                        
                                 final credential = await FirebaseAuth.instance
                                     .signInWithEmailAndPassword(
                                   email: emailController.text,
@@ -140,6 +148,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }
                                 }
                               } on FirebaseAuthException catch (e) {
+                                        print("///////////////////////error\\\\\\\\\\\\\\\\\\\\\\");
+                                        print("${e}//////");
+                                         print("${e.message}");
+                                        print("///////////////////////error\\\\\\\\\\\\\\\\\\\\\\");
                                 if (e.code == 'user-not-found') {
                                   print('----->No user found for that email.');
 
@@ -167,6 +179,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                               }
                             }
+
+
+
+
+
+
+
+
+
+
                           },
                           text: 'login'),
                       const SizedBox(height: 20),
