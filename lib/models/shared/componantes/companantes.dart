@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 
@@ -11,30 +10,30 @@ Widget defaultButton(
         double radius = 20.0}) =>
     Container(
       width: width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(radius),
+        color: background,
+      ),
       child: MaterialButton(
         onPressed: onPressedFunction,
         child: Text(
           isUpperCase ? text.toUpperCase() : text,
-          style: TextStyle(color: Colors.black87,fontWeight: FontWeight.bold),
+          style: const TextStyle(color: Colors.black87,fontWeight: FontWeight.bold),
         ),
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius),
-        color: background,
       ),
     );
 
 Widget defaultTextFromFiled({
   required TextEditingController controller,
-  Void onSubmitted(String)?,
-  Void onChange(String)?,
+  void onSubmitted(String)?,
+  void onChange(String)?,
   String? vlidator(String)?,
   bool ispasswoard = false,
   required String label,
   required TextInputType keyboardType,
   required IconData prefix,
   IconData? sufix,
-  Void? sufixFunction()?,
+  void sufixFunction()?,
 }) =>
     TextFormField(
       controller: controller,
@@ -45,10 +44,10 @@ Widget defaultTextFromFiled({
       obscureText: ispasswoard,
       decoration: InputDecoration(
         labelText: label,
-        border: OutlineInputBorder( borderSide: BorderSide(color: Colors.grey),
+        border: OutlineInputBorder( borderSide: const BorderSide(color: Colors.grey),
             borderRadius: BorderRadius.circular(20)),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey),
+            borderSide: const BorderSide(color: Colors.grey),
             borderRadius: BorderRadius.circular(20)),
         prefixIcon: Icon(prefix),
         suffixIcon: sufix != null
@@ -61,46 +60,18 @@ Widget defaultTextFromFiled({
     );
 
 Widget buildCourseItem(Map model) =>  Padding(
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       child: Row(
-        //   children: [
-        //      Text( cubit.nameController.text??"test 1",
-        //  style: TextStyle(
-        //      fontSize: 20,
-        //      fontWeight: FontWeight.bold,
-        //      color: Colors.black
-        //    ),
-        //  ),
-        //  Spacer(
-        //    flex: 1,
-        //  ),
-        //       Text( cubit.idController.text??"test 2",
-        //  style: TextStyle(
-        //      fontSize: 20,
-        //      fontWeight: FontWeight.bold,
-        //      color: Colors.black
-        //    ),
-        //  ),
-        //  Spacer(
-        //    flex: 1,
-        //  ),
-        //       Text( cubit.levelController.text??"test 2",
-        //  style: TextStyle(
-        //      fontSize: 20,
-        //      fontWeight: FontWeight.bold,
-        //      color: Colors.black
-        //    ),
-        //  ),
-        //   ],
+       
         children: [
           CircleAvatar(
             radius: 40,
             child: Text(
               '${model['courseLevel']}',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 30,
           ),
           Column(
@@ -108,14 +79,14 @@ Widget buildCourseItem(Map model) =>  Padding(
             children: [
               Text(
                 '${model['couseName']}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                   // fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
                 '${model['courseId']}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                   //fontWeight: FontWeight.bold,
                 ),
@@ -125,3 +96,12 @@ Widget buildCourseItem(Map model) =>  Padding(
         ],
       ),
     );
+  var emailController = TextEditingController();
+
+  var passwordController = TextEditingController();
+
+
+
+
+
+  

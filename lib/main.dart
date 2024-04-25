@@ -1,11 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sa7a7/layout/amdin_layout/cubit/cubit.dart';
-import 'package:sa7a7/models/Screens/Login/logen.dart';
 import 'package:sa7a7/models/Screens/Welcome/welcome_screen.dart';
-import 'package:sa7a7/models/register/register_screen.dart';
 
 import 'firebase_options.dart';
 
@@ -27,176 +26,16 @@ class MyApp extends StatefulWidget {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    // FirebaseAuth.instance.authStateChanges().listen((User? user) {
-    //   if (user == null) {
-    //     print('-------------------->User is currently signed out!');
-    //   } else {
-    //     print('--------------------->User is signed in!');
-    //   }
-    // });
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('-------------------->User is currently signed out!');
+      } else {
+        print('--------------------->User is signed in!');
+      }
+    });
     super.initState();
   }
 
@@ -229,12 +68,6 @@ class _MyAppState extends State<MyApp> {
         ),
         /*home: HomeScreen(),*/
         home: const WelcomeScreen(),
-        routes: {'signup': (context) => myRegister(),
-         'login':(context) => Login_Screen.LoginScreen(),
-         'homepage':(context) => WelcomeScreen(),
-
-        //  /lkolko
-         },
       ),
     );
   }

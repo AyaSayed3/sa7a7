@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path/path.dart';
 import 'package:sa7a7/layout/amdin_layout/cubit/states.dart';
 import 'package:sa7a7/models/add_edecatour/add_edecator.dart';
 import 'package:sa7a7/models/add_students/add_students.dart';
@@ -33,7 +32,7 @@ class AdminCubit extends Cubit<AdminStates> {
   ];
 
   List<Widget> screens = [
-    AllCoursesPage(),
+    const AllCoursesPage(),
     const AddEdecatorPage(),
     const AddStudentsPage(),
     const AdminSettingPage(),
@@ -49,10 +48,10 @@ class AdminCubit extends Cubit<AdminStates> {
   //       onPressed: () {}, child: const Icon(Icons.person_pin_outlined)),
   // ];
   List<Icon> icons = [
-    Icon(Icons.note_add_rounded),
+    const Icon(Icons.note_add_rounded),
     const Icon(Icons.account_circle_rounded),
-    Icon(Icons.group_add_rounded),
-    Icon(Icons.person_pin_outlined),
+    const Icon(Icons.group_add_rounded),
+    const Icon(Icons.person_pin_outlined),
   ];
 
   Widget ActionButtonCourse(BuildContext context) {
@@ -68,7 +67,7 @@ class AdminCubit extends Cubit<AdminStates> {
           padding:  EdgeInsets.all(20.0),
           child: Column(
             children: [
-              Text(
+              const Text(
                 'Add Courses',
                 style: TextStyle(
                   fontSize: 20,

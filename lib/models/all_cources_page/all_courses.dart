@@ -3,7 +3,7 @@ import 'package:sa7a7/models/shared/componantes/companantes.dart';
 import 'package:sa7a7/models/shared/componantes/constents.dart';
 
 class AllCoursesPage extends StatelessWidget {
-  AllCoursesPage({
+  const AllCoursesPage({
     super.key,
   });
   @override

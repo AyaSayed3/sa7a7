@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sa7a7/models/register/register_screen.dart';
+
 import '../../../constants.dart';
 import '../../Login/logen.dart';
 
@@ -7,8 +8,8 @@ import '../../Login/logen.dart';
 
 class LoginAndSignupBtn extends StatelessWidget {
   const LoginAndSignupBtn({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class LoginAndSignupBtn extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return  Login_Screen.LoginScreen();
+                  return  LoginScreen.LoginScreen();
                 },
               ),
             );
@@ -36,7 +37,7 @@ class LoginAndSignupBtn extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return const myRegister();
+                  return const MyRegister();
                 },
               ),
             );

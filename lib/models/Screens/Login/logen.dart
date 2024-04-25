@@ -1,4 +1,4 @@
-
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sa7a7/layout/admin_layout.dart';
@@ -6,25 +6,21 @@ import 'package:sa7a7/models/Screens/Welcome/welcome_screen.dart';
 import 'package:sa7a7/models/shared/componantes/back_ground2.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
 
-class Login_Screen extends StatefulWidget {
-  Login_Screen.LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen.LoginScreen({super.key});
 
   @override
-  State<Login_Screen> createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<Login_Screen> {
-  var emailController = TextEditingController();
+class _LoginScreenState extends State<LoginScreen> {
 
-  var passwordController = TextEditingController();
 
-  var FormKey = GlobalKey<FormState>();
-
-  int x=0;
+  var formKey = GlobalKey<FormState>();
 
   bool isPasswoed = true;
   String? user;
-  String? user_system;
+  String? usersystem;
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +37,9 @@ class _LoginScreenState extends State<Login_Screen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => WelcomeScreen()));
+                            builder: (context) => const WelcomeScreen()));
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_back_ios_rounded,
                     color: Colors.black,
                   ),
@@ -52,17 +48,17 @@ class _LoginScreenState extends State<Login_Screen> {
             body: Center(
               child: SingleChildScrollView(
                 child: Form(
-                  key: FormKey,
+                  key: formKey,
                   child: Column(
                     children: [
-                      Text(
+                      const Text(
                         'LOGIN',
                         style: TextStyle(
                           fontSize: 40.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30.0,
                       ),
                       defaultTextFromFiled(
@@ -77,7 +73,7 @@ class _LoginScreenState extends State<Login_Screen> {
                           return null;
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20.0,
                       ),
                       defaultTextFromFiled(
@@ -101,54 +97,87 @@ class _LoginScreenState extends State<Login_Screen> {
                           });
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20.0,
                       ),
                       defaultButton(
                           width: double.infinity,
-                          background: Color(0xffF8DEFF),
+                          background: const Color(0xffF8DEFF),
                           onPressedFunction: () async {
-                            try {
+                            if(formKey.currentState!.validate()){
+                                try {
                               final credential = await FirebaseAuth.instance
                                   .signInWithEmailAndPassword(
-                                      email: emailController.text,
-                                      password: passwordController.text);
-                                      if (user == "Admin") {
-                              if (passwordController.text != null) {
-                                if (emailController.text != null) {
-                                  setState(() {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const AdminHomePage()));
-                                  });
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                              print(credential.user!.email);
+                              print(credential.user!.uid);
+                              if (user == "Admin") {
+                                if (credential.user?.uid != null) {
+                                  if (passwordController.text != '') {
+                                    if (emailController.text != '') {
+                                      setState(() {
+                                      if (credential.user!.emailVerified)
+                                      {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const AdminHomePage()));
+                                      }else {
+                                         AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.error,
+                                  animType: AnimType.rightSlide,
+                                  title: 'Error',
+                                  desc: '----->Please Check your Email we Send Verification e-mail......',
+                                
+                                ).show();
+                                      }
+                                      });
+                                    }
+                                  }
                                 }
                               }
-                            }
-
                             } on FirebaseAuthException catch (e) {
                               if (e.code == 'user-not-found') {
                                 print('----->No user found for that email.');
+
+                                //not work 
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.error,
+                                  animType: AnimType.rightSlide,
+                                  title: 'Error',
+                                  desc: '----->No user found for that email......',
+                                
+                                ).show();
                               } else if (e.code == 'wrong-password') {
-                                print('---->Wrong password provided for that user.');
+                                print(
+                                    '---->Wrong password provided for that user.');
+                                      //not work 
+                                     AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.error,
+                                  animType: AnimType.rightSlide,
+                                  title: 'Error',
+                                  desc: '---->Wrong password provided for that user...',
+                                
+                                ).show();
                               }
                             }
-
-                            // if (FormKey.currentState!.validate()) {
-                            //   print(emailController.text);
-                            //   print(passwordController.text);
-                            // }
-                            
+                            }
+                          
                           },
                           text: 'login'),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             'Don\'t Have An account ?',
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20.0,
                           ),
                           TextButton(
@@ -161,13 +190,13 @@ class _LoginScreenState extends State<Login_Screen> {
                               Navigator.of(context)
                                   .pushReplacementNamed('signup');
                             },
-                            child: Text(
+                            child: const Text(
                               'Register',
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15.0,
                       ),
                       Row(
@@ -191,7 +220,7 @@ class _LoginScreenState extends State<Login_Screen> {
                           ),
                           Expanded(
                             child: RadioListTile(
-                              title: Text(
+                              title: const Text(
                                 "Doctor",
                                 style: TextStyle(fontSize: 19),
                               ),

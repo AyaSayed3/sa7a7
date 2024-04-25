@@ -1,20 +1,20 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sa7a7/models/Screens/Login/logen.dart';
 import 'package:sa7a7/models/Screens/Welcome/welcome_screen.dart';
+import 'package:sa7a7/models/Screens/verification.dart/verifiction_email.dart';
 import 'package:sa7a7/models/register/resetpass.dart';
 import 'package:sa7a7/models/shared/componantes/back_ground2.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
 
-class myRegister extends StatefulWidget {
-  const myRegister({Key? key}) : super(key: key);
+class MyRegister extends StatefulWidget {
+  const MyRegister({super.key});
 
   @override
-  _myRegisterState createState() => _myRegisterState();
+  _MyRegisterState createState() => _MyRegisterState();
 }
 
-class _myRegisterState extends State<myRegister> {
+class _MyRegisterState extends State<MyRegister> {
   //Password Field obscureText  Handler
 
   var emailController = TextEditingController();
@@ -23,116 +23,117 @@ class _myRegisterState extends State<myRegister> {
   var idController = TextEditingController();
 
   bool isPasswoed = true;
-  var FormKey = GlobalKey<FormState>();
+  var formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Background(
       child: SafeArea(
-        child: Container(
-          child: Scaffold(
-            appBar: AppBar(
-                elevation: null,
-                backgroundColor: Colors.transparent,
-                leading: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => WelcomeScreen()));
-                  },
-                  child: Icon(
-                    Icons.arrow_back_ios_rounded,
-                    color: Colors.black,
-                  ),
-                )),
-            backgroundColor: Colors.transparent,
-            body: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: FormKey,
-                  child: Column(
-                    children: [
-                      Center(
-                        child: Text(
-                          'Register Now',
-                          style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),
-                        ),
+        child: Scaffold(
+          appBar: AppBar(
+              elevation: null,
+              backgroundColor: Colors.transparent,
+              leading: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WelcomeScreen()));
+                },
+                child: const Icon(
+                  Icons.arrow_back_ios_rounded,
+                  color: Colors.black,
+                ),
+              )),
+          backgroundColor: Colors.transparent,
+          body: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    const Center(
+                      child: Text(
+                        'Register Now',
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 30),
-                      defaultTextFromFiled(
-                        controller: nameController,
-                        label: ' Enter User Name',
-                        keyboardType: TextInputType.name,
-                        prefix: Icons.person,
-                        vlidator: (value) {
-                          if (value.isEmpty()) return 'Name Must not Empty';
-                        },
-                      ),
-                      SizedBox(height: 30),
-                      defaultTextFromFiled(
-                        controller: emailController,
-                        label: ' Enter Your Email',
-                        keyboardType: TextInputType.emailAddress,
-                        prefix: Icons.email,
-                        vlidator: (value) {
-                          if (value.isEmpty()) return 'Email Must not Empty';
-                        },
-                      ),
-                      SizedBox(height: 30),
-                      defaultTextFromFiled(
-                        controller: idController,
-                        label: ' Enter Your ID',
-                        keyboardType: TextInputType.number,
-                        prefix: Icons.perm_identity,
-                        vlidator: (value) {
-                          if (value.isEmpty()) return 'ID Must not Empty';
-                        },
-                      ),
-                      SizedBox(height: 30),
-                      defaultTextFromFiled(
-                        controller: passwardController,
-                        label: 'Password',
-                        keyboardType: TextInputType.visiblePassword,
-                        prefix: Icons.lock,
-                        vlidator: (value) {
-                          if (value.isEmpty) {
-                            return ' password must be nit empty';
-                          }
-                          return null;
-                        },
-                        ispasswoard: isPasswoed,
-                        sufix: isPasswoed
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                        sufixFunction: () {
-                          setState(() {
-                            isPasswoed = !isPasswoed;
-                          });
-                        },
-                      ),
-                      SizedBox(height: 80),
-                      Row(children: [
-                        Expanded(
-                          child: defaultButton(
-                              onPressedFunction: () async {
+                    ),
+                    const SizedBox(height: 30),
+                    defaultTextFromFiled(
+                      controller: nameController,
+                      label: ' Enter User Name',
+                      keyboardType: TextInputType.name,
+                      prefix: Icons.person,
+                      vlidator: (value) {
+                        if (value.isEmpty()) return 'Name Must not Empty';
+                      },
+                    ),
+                    const SizedBox(height: 30),
+                    defaultTextFromFiled(
+                      controller: emailController,
+                      label: ' Enter Your Email',
+                      keyboardType: TextInputType.emailAddress,
+                      prefix: Icons.email,
+                      vlidator: (value) {
+                        if (value.isEmpty()) return 'Email Must not Empty';
+                      },
+                    ),
+                    const SizedBox(height: 30),
+                    defaultTextFromFiled(
+                      controller: idController,
+                      label: ' Enter Your ID',
+                      keyboardType: TextInputType.number,
+                      prefix: Icons.perm_identity,
+                      vlidator: (value) {
+                        if (value.isEmpty()) return 'ID Must not Empty';
+                      },
+                    ),
+                    const SizedBox(height: 30),
+                    defaultTextFromFiled(
+                      controller: passwardController,
+                      label: 'Password',
+                      keyboardType: TextInputType.visiblePassword,
+                      prefix: Icons.lock,
+                      vlidator: (value) {
+                        if (value.isEmpty) {
+                          return ' password must be nit empty';
+                        }
+                        return null;
+                      },
+                      ispasswoard: isPasswoed,
+                      sufix:
+                          isPasswoed ? Icons.visibility_off : Icons.visibility,
+                      sufixFunction: () {
+                        setState(() {
+                          isPasswoed = !isPasswoed;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 80),
+                    Row(children: [
+                      Expanded(
+                        child: defaultButton(
+                            onPressedFunction: () async {
+                              if (formKey.currentState!.validate()) {
+                                FirebaseAuth.instance.currentUser!
+                                    .sendEmailVerification();
                                 try {
                                   await FirebaseAuth.instance
                                       .createUserWithEmailAndPassword(
                                     email: emailController.text,
                                     password: passwardController.text,
-                                  ).then((value) {
-                                      Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            Login_Screen.LoginScreen()));
+                                  )
+                                      .then((value) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const VerifictionEmail()));
                                   });
-                                  
                                 } on FirebaseAuthException catch (e) {
                                   if (e.code == 'weak-password') {
                                     print('The password provided is too weak.');
@@ -143,25 +144,49 @@ class _myRegisterState extends State<myRegister> {
                                 } catch (e) {
                                   print('@@@@@@@@@@@@@@@@@@@@@  $e');
                                 }
-
-                                
-                              },
-                              text: 'Regster'),
-                        ),
-                        SizedBox(width: 15),
-                        Expanded(
-                          child: defaultButton(
-                              onPressedFunction: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => resetPassword()));
-                              },
-                              text: 'Forget Passward'),
-                        ),
-                      ]),
-                    ],
-                  ),
+                                FirebaseAuth.instance.currentUser!
+                                    .sendEmailVerification();
+                                try {
+                                  await FirebaseAuth.instance
+                                      .createUserWithEmailAndPassword(
+                                    email: emailController.text,
+                                    password: passwardController.text,
+                                  )
+                                      .then((value) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const VerifictionEmail()));
+                                  });
+                                } on FirebaseAuthException catch (e) {
+                                  if (e.code == 'weak-password') {
+                                    print('The password provided is too weak.');
+                                  } else if (e.code == 'email-already-in-use') {
+                                    print(
+                                        'The account already exists for that email.');
+                                  }
+                                } catch (e) {
+                                  print('@@@@@@@@@@@@@@@@@@@@@  $e');
+                                }
+                              }
+                            },
+                            text: 'Regster'),
+                      ),
+                      const SizedBox(width: 15),
+                      Expanded(
+                        child: defaultButton(
+                            onPressedFunction: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ResetPassword()));
+                            },
+                            text: 'Forget Passward'),
+                      ),
+                    ]),
+                  ],
                 ),
               ),
             ),

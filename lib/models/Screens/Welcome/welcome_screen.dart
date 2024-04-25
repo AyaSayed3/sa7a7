@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sa7a7/models/Screens/Welcome/copmonents/login_signup_btn.dart';
 import 'package:sa7a7/models/coponents/background.dart';
 import 'package:sa7a7/models/responsive.dart';
-import 'copmonents/login_signup_btn.dart';
+
 import 'copmonents/welcome_image.dart';
 
 

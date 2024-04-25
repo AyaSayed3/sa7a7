@@ -19,7 +19,8 @@ class _AdminHomePageState extends State<AdminHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    super.initState();
+   
     creatDataBase();
   }
 
