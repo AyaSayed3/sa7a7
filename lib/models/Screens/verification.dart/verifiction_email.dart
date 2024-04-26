@@ -68,7 +68,7 @@ class _VerifictionEmailState extends State<VerifictionEmail> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              const LoginScreen.LoginScreen()));
+                              const LoginScreen()));
                 },
                 text: 'Continue'),
           ],

@@ -84,7 +84,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               const LoginScreen
-                                                  .LoginScreen())));
+                                                  ())));
                                   //don't work
                                 } catch (e) {
                                   print(e);
@@ -134,7 +134,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const LoginScreen.LoginScreen()));
+                                          const LoginScreen()));
                             },
                             child: const Text(
                               'LOGIN',
