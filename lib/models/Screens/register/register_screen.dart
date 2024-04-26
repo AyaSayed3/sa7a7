@@ -1,9 +1,10 @@
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sa7a7/models/Screens/Welcome/welcome_screen.dart';
+import 'package:sa7a7/models/Screens/register/resetpass.dart';
 import 'package:sa7a7/models/Screens/verification.dart/verifiction_email.dart';
-import 'package:sa7a7/models/register/resetpass.dart';
 import 'package:sa7a7/models/shared/componantes/back_ground2.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
 
@@ -23,13 +24,13 @@ class _MyRegisterState extends State<MyRegister> {
   var idController = TextEditingController();
 
   bool isPasswoed = true;
- 
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Background(
-      child: SafeArea(
-        child: Scaffold(
+      child:  SafeArea(
+        child:isLoading? const Center(child: CircularProgressIndicator()) : Scaffold(
           appBar: AppBar(
               elevation: null,
               backgroundColor: Colors.transparent,
@@ -119,34 +120,10 @@ class _MyRegisterState extends State<MyRegister> {
                         child: defaultButton(
                             onPressedFunction: () async {
                               if (formKey.currentState!.validate()) {
-                       
-                                // // try {
-                                //   await FirebaseAuth.instance
-                                //       .createUserWithEmailAndPassword(
-                                //     email: emailController.text,
-                                //     password: passwardController.text,
-                                //   )
-                                //       .then((value) {
-                                //     Navigator.push(
-                                //         context,
-                                //         MaterialPageRoute(
-                                //             builder: (context) =>
-                                //                 const VerifictionEmail()));
-                             
-                                //   });
-                                // // } on FirebaseAuthException catch (e) {
-                                // //   if (e.code == 'weak-password') {
-                                // //     print('The password provided is too weak.');
-                                // //   } else if (e.code == 'email-already-in-use') {
-                                // //     print(
-                                // //         'The account already exists for that email.');
-                                // //   }
-                                // // } catch (e) {
-                                // //   print('@@@@@@@@@@@@@@@@@@@@@  $e');
-                                // // }
-
-                           
+                               
                                 try {
+                                  isLoading = true;
+                                  setState(() {});
                                   await FirebaseAuth.instance
                                       .createUserWithEmailAndPassword(
                                     email: emailController.text,
@@ -158,20 +135,42 @@ class _MyRegisterState extends State<MyRegister> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 const VerifictionEmail()));
-     
-                                FirebaseAuth.instance.currentUser!
-                                    .sendEmailVerification();
+                                  
+                                    FirebaseAuth.instance.currentUser!
+                                        .sendEmailVerification();
                                   });
                                 } on FirebaseAuthException catch (e) {
                                   if (e.code == 'weak-password') {
-                                    print('The password provided is too weak.');
+                                     AwesomeDialog(
+                                                      context: context,
+                                                      dialogType:
+                                                          DialogType.error,
+                                                      animType:
+                                                          AnimType.rightSlide,
+                                                      title: 'Error',
+                                                      desc:
+                                                          '-->The password provided is too weak...',
+                                                    ).show();
+                                   
                                   } else if (e.code == 'email-already-in-use') {
-                                    print(
-                                        'The account already exists for that email.');
+                                     AwesomeDialog(
+                                                      context: context,
+                                                      dialogType:
+                                                          DialogType.error,
+                                                      animType:
+                                                          AnimType.rightSlide,
+                                                      title: 'Error',
+                                                      desc:
+                                                          '-->The account already exists for that email....',
+                                                    ).show();
+                                   
+                                   
                                   }
                                 } catch (e) {
                                   print('@@@@@@@@@@@@@@@@@@@@@  $e');
                                 }
+                                  isLoading = false;
+                                    setState(() {});
                               }
                             },
                             text: 'Regster'),

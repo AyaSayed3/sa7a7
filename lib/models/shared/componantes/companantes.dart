@@ -102,3 +102,7 @@ var emailController = TextEditingController();
 
 var passwordController = TextEditingController();
  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+   var scaffoldKey = GlobalKey<ScaffoldState>();
+  var nameController = TextEditingController();
+  var idController = TextEditingController();
+  var levelController = TextEditingController();

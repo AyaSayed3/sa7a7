@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sa7a7/layout/amdin_layout/cubit/cubit.dart';
 import 'package:sa7a7/layout/amdin_layout/cubit/states.dart';
 import 'package:sa7a7/models/shared/componantes/back_ground2.dart';
-import 'package:sa7a7/models/shared/componantes/constents.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AdminHomePage extends StatefulWidget {
@@ -21,7 +20,6 @@ class _AdminHomePageState extends State<AdminHomePage> {
   void initState() {
     super.initState();
    
-    creatDataBase();
   }
 
   @override
@@ -47,21 +45,13 @@ class _AdminHomePageState extends State<AdminHomePage> {
               child: FloatingActionButton(
                   onPressed: () {
                     if (isButtomSheetShown) {
-                      insertToDataBase(
-                              couseName: cubit.nameController.text,
-                              courseId: cubit.idController.text,
-                              courseLevel: cubit.levelController.text)
-                          .then((value) {
-                        getDataFromDataBase(database).then((value) {
-                          Navigator.pop(context);
+                      
+                         Navigator.pop(context);
                           setState(() {
                             
                         isButtomSheetShown = false;
-                            courses = value;
+                           
                           });
-                        });
-                        
-                      });
                     } else {
                       cubit.scaffoldKey.currentState!
                           .showBottomSheet((context) {
@@ -93,37 +83,9 @@ class _AdminHomePageState extends State<AdminHomePage> {
     );
   }
 
-  void creatDataBase() async {
-    database = await openDatabase(
-      'courses.db',
-      version: 1,
-      onCreate: (database, version) async {
-        print('Data Base Created');
-        await database.execute(
-            'CREATE TABLE courses (couseName TEXT,courseId TEXT,courseLevel INTEGER)');
-      },
-      onOpen: (database) async {
-        print('Data Base opend');
-      },
-    );
-  }
+ 
 
-  Future insertToDataBase({
-    required String couseName,
-    required String courseId,
-    required String courseLevel,
-  }) async {
-    await database.transaction(
-      (txn) => txn
-          .rawInsert(
-              'INSERT INTO courses(couseName,courseId,courseLevel) VALUES ("$couseName","$courseId","$courseLevel")')
-          .then((value) {
-        print('$value Inserted successfully');
-      }).catchError((error) {}),
-    );
-  }
+  
 
-  Future<List<Map>> getDataFromDataBase(database) async {
-    return await database.rawQuery('SELECT * FROM courses');
-  }
+  
 }

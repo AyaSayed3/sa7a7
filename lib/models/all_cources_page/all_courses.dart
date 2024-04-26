@@ -1,44 +1,62 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sa7a7/models/shared/componantes/companantes.dart';
-import 'package:sa7a7/models/shared/componantes/constents.dart';
 
-class AllCoursesPage extends StatelessWidget {
+class AllCoursesPage extends StatefulWidget {
   const AllCoursesPage({
     super.key,
   });
+
+  @override
+  State<AllCoursesPage> createState() => _AllCoursesPageState();
+}
+
+class _AllCoursesPageState extends State<AllCoursesPage> {
+  List<QueryDocumentSnapshot> dataCourse = [];
+  bool isLoading = true;
+
+  getData() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('Courses').get();
+    dataCourse.addAll(querySnapshot.docs);
+    isLoading = false;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // return  Back_ground(
-    //   child: Column(
-    //     children: [
-    //       Text(
-    //         'All Courses',
-    //         style: TextStyle(
-    //           fontSize: 30,
-    //           fontWeight: FontWeight.bold,
-    //         ),
-    //       ),
-    //       //  Spacer(
-    //       //    flex: 1,
-    //       //  ),
-       return  ListView.separated(
-              
-              itemBuilder:(context,index) => buildCourseItem(courses[index]), 
-              separatorBuilder: (context,index)=>Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  right: 10
+    return isLoading
+        ? const Center(
+            child:CircularProgressIndicator())
+        : GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, mainAxisExtent: 160),
+            itemCount: dataCourse.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/images/files.png',
+                          height: 100,
+                        ),
+                        const SizedBox(height: 10),
+                        Text("${dataCourse[index]['Course_Name']}"),
+                      ],
+                    ),
+                  ),
                 ),
-                child: Container(
-                  width: double.infinity,
-                  height: 1,
-                  color: Colors.grey[300],
-                ),
-              ),
-               itemCount: courses.length,
-       );
-    //    ],
-    //   ),
-    // );
+              );
+            },
+          );
   }
 }

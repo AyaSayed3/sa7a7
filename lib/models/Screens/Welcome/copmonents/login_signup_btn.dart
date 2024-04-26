@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sa7a7/models/Screens/Login/logen.dart';
-import 'package:sa7a7/models/register/register_screen.dart';
+import 'package:sa7a7/models/Screens/register/register_screen.dart';
 
 import '../../../constants.dart';
 
