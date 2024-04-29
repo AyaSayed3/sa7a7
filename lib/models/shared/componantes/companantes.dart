@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 Widget defaultButton(
@@ -102,7 +103,50 @@ var emailController = TextEditingController();
 
 var passwordController = TextEditingController();
  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-   var scaffoldKey = GlobalKey<ScaffoldState>();
+
+   
+
   var nameController = TextEditingController();
   var idController = TextEditingController();
   var levelController = TextEditingController();
+
+  clearMethod(){
+    
+   nameController.clear();
+   idController.clear() ;
+   levelController.clear();
+  }
+
+
+
+
+  var formKeyAddCourse = GlobalKey<FormState>();
+
+  bool isButtomSheetShown = false;
+ 
+   List <QueryDocumentSnapshot> dataCourse = [];
+  bool isLoading = true;
+  int count=0;
+   Future<void> getData({required BuildContext context}) async {
+    count++;
+            print("///////////////////////count\\\\\\\\\\\\\\\\\\\\\\");
+        print("${count}");
+        print("///////////////////////count\\\\\\\\\\\\\\\\\\\\\\");
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('Courses').get();
+    dataCourse.clear();
+    dataCourse.addAll(querySnapshot.docs);
+    isLoading = false;
+    isButtomSheetShown=false;
+
+     print("///////////////////////dataCourse.length\\\\\\\\\\\\\\\\\\\\\\");
+        print("${dataCourse.length}");
+        print("///////////////////////dataCourse.length\\\\\\\\\\\\\\\\\\\\\\");
+    //Navigator.pop(context);
+  
+    // setState(() {
+      
+    // });
+    
+
+    
+  }

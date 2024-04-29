@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sa7a7/layout/amdin_layout/cubit/cubit.dart';
-import 'package:sa7a7/layout/amdin_layout/cubit/states.dart';
 import 'package:sa7a7/models/shared/componantes/back_ground2.dart';
+import 'package:sa7a7/models/shared/componantes/companantes.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AdminHomePage extends StatefulWidget {
@@ -13,7 +12,7 @@ class AdminHomePage extends StatefulWidget {
 }
 
 class _AdminHomePageState extends State<AdminHomePage> {
-  bool isButtomSheetShown = false;
+  
   late Database database;
 
   @override
@@ -24,26 +23,33 @@ class _AdminHomePageState extends State<AdminHomePage> {
 
   @override
   Widget build(BuildContext context1) {
-    var cubit = AdminCubit.get(context);
+    var scaffoldKey = GlobalKey<ScaffoldState>();
+   // var cubit = Adminget(context);
 
-    return BlocConsumer<AdminCubit, AdminStates>(
-      builder: (BuildContext context, state) {
+  
+
         return Background(
           child: Scaffold(
             appBar: AppBar(),
-            key: cubit.scaffoldKey,
+           key: scaffoldKey,
             bottomNavigationBar: BottomNavigationBar(
-              currentIndex: cubit.currentIndex,
+              currentIndex: currentIndex,
               onTap: (index) {
-                cubit.changeBottomNaveBar(index);
+                changeBottomNaveBar(index);
+                setState(() {
+                  
+                });
               },
-              items: cubit.bottomItems,
+              items: bottomItems,
             ),
-            body: cubit.screens[cubit.currentIndex],
-            floatingActionButton: Visibility(
-              visible: cubit.isVisable(cubit.currentIndex),
+             floatingActionButton: Visibility(
+              visible: isVisable(currentIndex),
               child: FloatingActionButton(
                   onPressed: () {
+
+
+
+                    
                     if (isButtomSheetShown) {
                       
                          Navigator.pop(context);
@@ -53,34 +59,47 @@ class _AdminHomePageState extends State<AdminHomePage> {
                            
                           });
                     } else {
-                      cubit.scaffoldKey.currentState!
-                          .showBottomSheet((context) {
-                        if (cubit.currentIndex == 0) {
-                          return cubit.ActionButtonCourse(context);
-                        } else if (cubit.currentIndex == 1) {
+                      scaffoldKey.currentState!.showBottomSheet((context) {
+    //                      showModalBottomSheet(
+    //   backgroundColor: Colors.white,
+    //   shape: const RoundedRectangleBorder(
+    //       borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
+    //   context: context,
+    //   builder: (context) {
+       
+    //   },
+    // );
+                        if (currentIndex == 0) {
+                          return ActionButtonCourse(context);
+                        } else if (currentIndex == 1) {
                           return Container(
                             height: 100,
                             color: Colors.grey,
                           );
                         }
-                        if (cubit.currentIndex == 2) {
+                        if (currentIndex == 2) {
                           return Container(
                             height: 100,
                             color: Colors.pink,
                           );
                         }
-                        return cubit.screens[3];
+                        return screens[3];
                       });
-                      isButtomSheetShown = true;
+                     isButtomSheetShown = true;
                     }
                   },
-                  child: cubit.icons[cubit.currentIndex]),
+                  child: icons[currentIndex]),
             ),
+          
+
+
+            body: screens[currentIndex],
+
+           
           ),
         );
-      },
-      listener: (BuildContext context, state) {},
-    );
+     
+      
   }
 
  

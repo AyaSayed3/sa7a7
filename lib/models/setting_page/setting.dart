@@ -5,6 +5,6 @@ class AdminSettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Setting Page'));
+    return const Center(child: Text('Setting Page',style: TextStyle(color: Colors.black),));
   }
 }

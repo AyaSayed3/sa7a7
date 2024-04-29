@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sa7a7/layout/amdin_layout/cubit/states.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:sa7a7/layout/amdin_layout/cubit/states.dart';
 import 'package:sa7a7/models/add_edecatour/add_edecator.dart';
 import 'package:sa7a7/models/add_students/add_students.dart';
 import 'package:sa7a7/models/all_cources_page/action_logic_od_bottom_navi.dart';
 import 'package:sa7a7/models/all_cources_page/all_courses.dart';
 import 'package:sa7a7/models/setting_page/setting.dart';
 
-class AdminCubit extends Cubit<AdminStates> {
-  AdminCubit() : super(AdminInitialState());
+// class AdminCubit extends Cubit<AdminStates> {
+//   AdminCubit() : super(AdminInitialState());
 
-  static AdminCubit get(context) => BlocProvider.of(context);
+//   static AdminCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-      var nameController = TextEditingController();
+
+    // var scaffoldKey = GlobalKey<ScaffoldState>();
+
+    var nameController = TextEditingController();
     var idController = TextEditingController();
     var levelController = TextEditingController();
     
@@ -31,7 +33,7 @@ class AdminCubit extends Cubit<AdminStates> {
   ];
 
   List<Widget> screens = [
-    const AllCoursesPage(),
+    const AllCoursesScreen(),
     const AddEdecatorPage(),
     const AddStudentsPage(),
     const AdminSettingPage(),
@@ -47,12 +49,12 @@ class AdminCubit extends Cubit<AdminStates> {
   Widget ActionButtonCourse(BuildContext context) {
 
 
-    return LogicOfBottomNavigationAction(nameController: nameController, idController: idController, levelController: levelController);
+    return LogicOfBottomNavigationAction();
   }
 
   void changeBottomNaveBar(int index) {
     currentIndex = index;
-    emit(AdminBottomNafState());
+    // emit(AdminBottomNafState());
   }
 
   bool isVisable(int index) {
@@ -65,4 +67,4 @@ class AdminCubit extends Cubit<AdminStates> {
    
 
  
-}
+// }
