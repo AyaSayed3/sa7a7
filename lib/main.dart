@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sa7a7/layout/admin_layout.dart';
+import 'package:sa7a7/models/Screens/register/before_register.dart';
 
 import 'firebase_options.dart';
 
@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       /*home: HomeScreen(),*/
-      home: const AdminHomePage(),
+      home: const ChooseStutesOfMemberBeforRegister(),
     );
   }
 }

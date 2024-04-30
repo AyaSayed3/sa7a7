@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sa7a7/models/Screens/Login/logen.dart';
-import 'package:sa7a7/models/Screens/register/register_screen.dart';
+import 'package:sa7a7/models/Screens/register/before_register.dart';
 
 import '../../../constants.dart';
 
@@ -37,7 +37,7 @@ class LoginAndSignupBtn extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return const MyRegister();
+                  return const ChooseStutesOfMemberBeforRegister();
                 },
               ),
             );

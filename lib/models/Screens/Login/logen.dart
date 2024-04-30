@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sa7a7/layout/admin_layout.dart';
 import 'package:sa7a7/models/Screens/Welcome/welcome_screen.dart';
-import 'package:sa7a7/models/Screens/register/register_screen.dart';
+import 'package:sa7a7/models/Screens/register/before_register.dart';
 import 'package:sa7a7/models/Screens/register/resetpass.dart';
 import 'package:sa7a7/models/shared/componantes/back_ground2.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
@@ -160,28 +160,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ).show();
                                       }
 
-//                               try {
-//                                 print('go to sign');
-//   final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-//     email: emailController.text,
-//     password: passwordController.text,
-//   );
-//   print(credential.user?.email);
-//                                 print('sign');
-// } on FirebaseAuthException catch (e) {
-//        AwesomeDialog(
-// context: context,
-//                                        dialogType: DialogType.error,
-//                                        animType: AnimType.rightSlide,
-//                                        title: 'Error',
-//                                        desc:
-//                                            'email or Password wong',
-//                                      ).show();
-//   }
+
                                     }
                                   },
                                   text: 'login'),
-                              const SizedBox(height: 20),
+                              const SizedBox(height: 30),
                               defaultButton(
                                   onPressedFunction: () {
                                     Navigator.push(
@@ -191,6 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 const ResetPassword()));
                                   },
                                   text: 'Forget Passward'),
+                                    const SizedBox(height: 30),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -206,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const MyRegister()));
+                                                  const ChooseStutesOfMemberBeforRegister()));
                                     },
                                     child: const Text(
                                       'Register',
@@ -264,6 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   });
                                 },
                               ),
+                          
                             ],
                           ),
                         ),

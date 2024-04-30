@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:sa7a7/layout/amdin_layout/cubit/states.dart';
 import 'package:sa7a7/models/add_edecatour/add_edecator.dart';
 import 'package:sa7a7/models/add_students/add_students.dart';
-import 'package:sa7a7/models/all_cources_page/action_logic_od_bottom_navi.dart';
+import 'package:sa7a7/models/all_cources_page/action_logic_of_floting_actionB.dart';
 import 'package:sa7a7/models/all_cources_page/all_courses.dart';
 import 'package:sa7a7/models/setting_page/setting.dart';
 
-// class AdminCubit extends Cubit<AdminStates> {
-//   AdminCubit() : super(AdminInitialState());
-
-//   static AdminCubit get(context) => BlocProvider.of(context);
-
   int currentIndex = 0;
 
-    // var scaffoldKey = GlobalKey<ScaffoldState>();
 
     var nameController = TextEditingController();
     var idController = TextEditingController();
@@ -49,7 +41,7 @@ import 'package:sa7a7/models/setting_page/setting.dart';
   Widget ActionButtonCourse(BuildContext context) {
 
 
-    return LogicOfBottomNavigationAction();
+    return const LogicOfFlotingActionBottom();
   }
 
   void changeBottomNaveBar(int index) {
@@ -67,4 +59,4 @@ import 'package:sa7a7/models/setting_page/setting.dart';
    
 
  
-// }
+

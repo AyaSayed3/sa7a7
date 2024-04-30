@@ -7,8 +7,11 @@ Widget defaultButton(
         bool isUpperCase = true,
         required void Function()? onPressedFunction,
         required String text,
-        double radius = 20.0}) =>
+        double radius = 20.0,
+        double height=40,
+        }) =>
     Container(
+      height: height,
       width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
@@ -102,7 +105,7 @@ Widget buildCourseItem(Map model) => Padding(
 var emailController = TextEditingController();
 
 var passwordController = TextEditingController();
- GlobalKey<FormState> formKey = GlobalKey<FormState>();
+ 
 
    
 

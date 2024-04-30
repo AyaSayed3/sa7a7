@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sa7a7/layout/amdin_layout/cubit/cubit.dart';
+import 'package:sa7a7/layout/amdin_layout/logic_admin_screens.dart';
 import 'package:sa7a7/models/shared/componantes/back_ground2.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
 import 'package:sqflite/sqflite.dart';

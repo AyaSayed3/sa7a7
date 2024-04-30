@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:sa7a7/layout/admin_layout.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
 
-class LogicOfBottomNavigationAction extends StatefulWidget {
-  const LogicOfBottomNavigationAction({
+class LogicOfFlotingActionBottom extends StatefulWidget {
+  const LogicOfFlotingActionBottom({
     super.key,
  
   });
@@ -13,10 +13,10 @@ class LogicOfBottomNavigationAction extends StatefulWidget {
 
 
   @override
-  State<LogicOfBottomNavigationAction> createState() => _LogicOfBottomNavigationActionState();
+  State<LogicOfFlotingActionBottom> createState() => _LogicOfFlotingActionBottomState();
 }
 
-class _LogicOfBottomNavigationActionState extends State<LogicOfBottomNavigationAction> {
+class _LogicOfFlotingActionBottomState extends State<LogicOfFlotingActionBottom> {
 
 
 
@@ -41,7 +41,6 @@ class _LogicOfBottomNavigationActionState extends State<LogicOfBottomNavigationA
     
     return SizedBox(
       height: 300,
-      // width: double.infinity,
       child: SafeArea(
         child: Form(
          key: formKeyAddCourse,
@@ -120,20 +119,7 @@ class _LogicOfBottomNavigationActionState extends State<LogicOfBottomNavigationA
                       Navigator.pop(context);
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const AdminHomePage() ));
                       });
-                      
-
-                      // Navigator.pop(
-                      //     context  ,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => const AdminHomePage(),
-                         
-                      //     )
-                      //     );
-
-                       
-                      //      setState(() {
-                        
-                      // });
+                  
                     }
                   
             
