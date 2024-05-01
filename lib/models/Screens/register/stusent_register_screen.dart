@@ -167,7 +167,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     const ChooseStutesOfMemberBeforRegister())));
-                                                     clearMethodofStudentRegister();
+                                                    
                                       } else {
                                         try {
                                           isLoading = true;

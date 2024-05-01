@@ -52,6 +52,7 @@ class _VerifictionEmailState extends State<VerifictionEmail> {
                           onPressed: () {
                             FirebaseAuth.instance.currentUser!
                                 .sendEmailVerification();
+                                 clearMethodofStudentRegister();
                           },
                           child: const Text('Resend'))
                     ],

@@ -116,43 +116,39 @@ class _LoginScreenState extends State<LoginScreen> {
                                   background: const Color(0xffF8DEFF),
                                   onPressedFunction: () async {
                                     if (formKey.currentState!.validate()) {
-                                      //isLoading = true;
+                                      isLoading = true;
                                       try {
-                                        isLoading = true;
                                         setState(() {});
-                                        final credential = await FirebaseAuth
-                                            .instance
-                                            .signInWithEmailAndPassword(
+                                        final credential =
+                                            await FirebaseAuth.instance
+                                                .signInWithEmailAndPassword(
                                           email: emailController.text,
                                           password: passwordController.text,
-                                        );
+                                        )
+                                                .then((value) {
+                                          if (user == "Admin") {
+                                            CheckIfUserAdmin(context, value);
+                                          } else if (user == "Edecatour") {
+                                            // ignore: use_build_context_synchronously
+                                            CheckIfUserEdecatour(
+                                                context, value);
+                                          } else if (user == "Student") {
+                                            // ignore: use_build_context_synchronously
+                                            CheckIfUserStudent(context, value);
+                                          } else {
+                                            AwesomeDialog(
+                                              context: context,
+                                              dialogType: DialogType.error,
+                                              animType: AnimType.rightSlide,
+                                              title: 'Error',
+                                              desc:
+                                                  '=> Please Choose the Stutes....',
+                                            ).show();
+                                          }
+                                        });
 
-                                        setState(() {});
-                                        isLoading = false;
-                                        if (user == "Admin") {
-                                          ////  admin data and compare it
-                                          // ignore: use_build_context_synchronously
-                                          CheckIfUserAdmin(context, credential);
-                                        } else if (user == "Edecatour") {
-                                          ////  admin data and compare it
-                                          // ignore: use_build_context_synchronously
-                                          CheckIfUserEdecatour(
-                                              context, credential);
-                                        } else if (user == "Student") {
-                                          ////  admin data and compare it
-                                          // ignore: use_build_context_synchronously
-                                          CheckIfUserEdecatour(
-                                              context, credential);
-                                        } else {
-                                          AwesomeDialog(
-                                            context: context,
-                                            dialogType: DialogType.error,
-                                            animType: AnimType.rightSlide,
-                                            title: 'Error',
-                                            desc:
-                                                '=> Please Choose the Stutes....',
-                                          ).show();
-                                        }
+                                        // setState(() {});
+                                        // isLoading = false;
                                       } on FirebaseAuthException catch (e) {
                                         isLoading = false;
                                         setState(() {});
@@ -220,6 +216,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       onChanged: (value) {
                                         setState(() {
                                           user = value.toString();
+                                          print(
+                                              '>>>>>>>>>> $user <<<<<<<<<<<<');
                                         });
                                       },
                                       dense: true,
@@ -236,6 +234,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       onChanged: (value) {
                                         setState(() {
                                           user = value.toString();
+                                          print(
+                                              '>>>>>>>>>> $user <<<<<<<<<<<<');
                                         });
                                       },
                                     ),
@@ -250,6 +250,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onChanged: (value) {
                                   setState(() {
                                     user = value.toString();
+                                    print('>>>>>>>>>> $user <<<<<<<<<<<<');
                                   });
                                 },
                               ),
@@ -272,28 +273,22 @@ class _LoginScreenState extends State<LoginScreen> {
       for (int i = 0; i < adminData.length; i++) {
         if (adminData[i]['Email'] == emailController.text) {
           isAdmin = true;
+          print('<<<<<<<<<<<<<<<<<<<<4 $isAdmin >>>>>>>>>>>>>>>>>>>>>');
 
-          break;
-        }
-      }
-    });
+          if (credential.user != null &&
+              credential.user?.uid != null &&
+              isAdmin) {
+            print('<<<<<<<<<<<<<<<<<<<<5>>>>>>>>>>>>>>>>>>>>>');
 
-    /// email and passwowrd => login
-
-    /// navgator to screen
-    if (credential.user != null && credential.user?.uid != null && isAdmin) {
-      if (passwordController.text != '') {
-        if (emailController.text != '') {
-          setState(() {
             if (credential.user!.emailVerified) {
-              setState(() {
-                isLoading = true;
-              });
+              print('<<<<<<<<<<<<<<<<<<<<6>>>>>>>>>>>>>>>>>>>>>');
+
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const AdminHomePage()),
               ).then((value) {
                 isLoading = false;
+                print('<<<<<<<<<<<<<<<<<<<<2>>>>>>>>>>>>>>>>>>>>>');
                 setState(() {});
               });
             } else {
@@ -309,10 +304,58 @@ class _LoginScreenState extends State<LoginScreen> {
                     '----->Please Check your Email we Send Verification e-mail......',
               ).show();
             }
-          });
+          }
+
+          break;
         }
       }
-    }
+      if (isAdmin == false) {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.rightSlide,
+          title: 'Error',
+          desc: 'اختر صح يا حيوان.',
+        ).show();
+        setState(() {
+          isLoading = false;
+        });
+      }
+    });
+
+    /// email and passwowrd => login
+
+    /// navgator to screen
+    // if (credential.user != null && credential.user?.uid != null && isAdmin) {
+
+    //             print('<<<<<<<<<<<<<<<<<<<<5>>>>>>>>>>>>>>>>>>>>>');
+
+    //         if (credential.user!.emailVerified) {
+    //             print('<<<<<<<<<<<<<<<<<<<<6>>>>>>>>>>>>>>>>>>>>>');
+
+    //           Navigator.push(
+    //             context,
+    //             MaterialPageRoute(builder: (context) => const AdminHomePage()),
+    //           ).then((value) {
+    //             isLoading = false;
+    //             print('<<<<<<<<<<<<<<<<<<<<2>>>>>>>>>>>>>>>>>>>>>');
+    //             setState(() {});
+    //           });
+    //         } else {
+    //           setState(() {
+    //             isLoading = false;
+    //           });
+    //           AwesomeDialog(
+    //             context: context,
+    //             dialogType: DialogType.error,
+    //             animType: AnimType.rightSlide,
+    //             title: 'Error',
+    //             desc:
+    //                 '----->Please Check your Email we Send Verification e-mail......',
+    //           ).show();
+    //         }
+
+    // }
   }
 
   void CheckIfUserEdecatour(BuildContext context, UserCredential credential) {
@@ -323,24 +366,10 @@ class _LoginScreenState extends State<LoginScreen> {
         if (edecatourData[i]['Email'] == emailController.text) {
           isEdecatour = true;
 
-          break;
-        }
-      }
-    });
-
-    /// email and passwowrd => login
-
-    /// navgator to screen
-    if (credential.user != null &&
-        credential.user?.uid != null &&
-        isEdecatour) {
-      if (passwordController.text != '') {
-        if (emailController.text != '') {
-          setState(() {
+          if (credential.user != null &&
+              credential.user?.uid != null &&
+              isEdecatour) {
             if (credential.user!.emailVerified) {
-              setState(() {
-                isLoading = true;
-              });
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const DoctorHomPage()),
@@ -361,10 +390,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     '----->Please Check your Email we Send Verification e-mail......',
               ).show();
             }
-          });
+          }
+          break;
         }
       }
-    }
+      if (isEdecatour == false) {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.rightSlide,
+          title: 'Error',
+          desc: 'اختر صح يا حيوان.',
+        ).show();
+        setState(() {
+          isLoading = false;
+        });
+      }
+    });
+
+    /// email and passwowrd => login
+
+    /// navgator to screen
   }
 
   void CheckIfUserStudent(BuildContext context, UserCredential credential) {
@@ -374,23 +420,10 @@ class _LoginScreenState extends State<LoginScreen> {
       for (int i = 0; i < studentData.length; i++) {
         if (studentData[i]['Email'] == emailController.text) {
           isStudent = true;
-
-          break;
-        }
-      }
-    });
-
-    /// email and passwowrd => login
-
-    /// navgator to screen
-    if (credential.user != null && credential.user?.uid != null && isStudent) {
-      if (passwordController.text != '') {
-        if (emailController.text != '') {
-          setState(() {
+          if (credential.user != null &&
+              credential.user?.uid != null &&
+              isStudent) {
             if (credential.user!.emailVerified) {
-              setState(() {
-                isLoading = true;
-              });
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const StudentHomPage()),
@@ -411,9 +444,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     '----->Please Check your Email we Send Verification e-mail......',
               ).show();
             }
-          });
+          }
+          break;
         }
       }
-    }
+        if (isStudent == false) {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.rightSlide,
+          title: 'Error',
+          desc: 'اختر صح يا حيوان.',
+        ).show();
+        setState(() {
+          isLoading = false;
+        });
+      }
+    });
+
+    /// email and passwowrd => login
+
+    /// navgator to screen
   }
 }
