@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sa7a7/views/adminScreen/amdin_layout/admin_layout.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
@@ -27,7 +28,8 @@ class _LogicOfFlotingActionBottomState extends State<LogicOfFlotingActionBottom>
           .add({
             'Course_Name': nameCourseController.text, 
             'Course_ID': idCourseController.text, 
-            'Level': levelCourseController.text 
+            'Level': levelCourseController.text ,
+            'Uniq_ID' : FirebaseAuth.instance.currentUser!.uid,
           })
           .then((value) => print("Course Added"))
           .catchError((error) => print("Failed to add Course: $error"));

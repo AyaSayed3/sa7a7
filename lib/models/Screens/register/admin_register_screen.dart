@@ -27,7 +27,7 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
             'Email': emailController.text ,
             'Status': 'admin',
             'Passward': passwordController.text,
-            'Uniq_ID' : FirebaseAuth.instance.currentUser!.uid,
+            // 'Uniq_ID' : FirebaseAuth.instance.currentUser!.uid,
           })
           .then((value) => print("Admin member Added"))
           .catchError((error) => print("Failed to add Amin member: $error"));
@@ -158,7 +158,7 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
                                                     const ChooseStutesOfMemberBeforRegister())),
                                                      
                                                     );
-                                                     clearMethodofRegister();
+                                                   
                                       } else {
                                         try {
                                           isLoading = true;
@@ -177,9 +177,12 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
 
                                             FirebaseAuth.instance.currentUser!
                                                 .sendEmailVerification();
-                                                addAmdinMember();
-                                                clearMethodofRegister();
+                                                
+                                                // addAmdinMember();
+                                                //clearMethodofRegister();
                                           });
+                                           addAmdinMember();
+                                           clearMethodofRegister();
                                         } on FirebaseAuthException catch (e) {
                                           if (e.code == 'weak-password') {
                                             AwesomeDialog(
@@ -201,6 +204,7 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
                                                   '-->The account already exists for that email....',
                                             ).show();
                                           }
+                                           // clearMethodofRegister();
                                         }
                                         // catch (e) {
                                         //   print('@@@@@@@@@@@@@@@@@@@@@  $e');

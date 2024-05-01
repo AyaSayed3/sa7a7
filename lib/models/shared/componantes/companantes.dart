@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-Widget defaultButton(
-        {double width = double.infinity,
-        Color background = const Color(0xffF8DEFF),
-        bool isUpperCase = true,
-        required void Function()? onPressedFunction,
-        required String text,
-        double radius = 20.0,
-        double height=40,
-        }) =>
+Widget defaultButton({
+  double width = double.infinity,
+  Color background = const Color(0xffF8DEFF),
+  bool isUpperCase = true,
+  required void Function()? onPressedFunction,
+  required String text,
+  double radius = 20.0,
+  double height = 40,
+}) =>
     Container(
       height: height,
       width: width,
@@ -104,108 +105,94 @@ Widget buildCourseItem(Map model) => Padding(
     );
 var emailController = TextEditingController();
 var passwordController = TextEditingController();
-  var nameController = TextEditingController();
-  var idController = TextEditingController();
-  var levelController = TextEditingController();
- clearMethodofRegister(){
-    
-   emailController.clear();
-   passwordController.clear() ;
-   nameController.clear();
-   idController.clear();
-  }
+var nameController = TextEditingController();
+var idController = TextEditingController();
+var levelController = TextEditingController();
+clearMethodofRegister() {
+  emailController.clear();
+  passwordController.clear();
+  nameController.clear();
+  idController.clear();
+}
 
-   clearMethodofStudentRegister(){
-    
+clearMethodofStudentRegister() {
   clearMethodofRegister();
-   levelController.clear();
-  }
+  levelController.clear();
+}
 
+var nameCourseController = TextEditingController();
+var idCourseController = TextEditingController();
+var levelCourseController = TextEditingController();
 
-  var nameCourseController = TextEditingController();
-  var idCourseController = TextEditingController();
-  var levelCourseController = TextEditingController();
+clearMethodOfFlotBottom() {
+  nameCourseController.clear();
+  idCourseController.clear();
+  levelCourseController.clear();
+}
 
-  clearMethodOfFlotBottom(){
-    
-   nameCourseController.clear();
-   idCourseController.clear() ;
-   levelCourseController.clear();
-  }
+var formKeyAddCourse = GlobalKey<FormState>();
 
+bool isButtomSheetShown = false;
 
+List<QueryDocumentSnapshot> dataCourse = [];
+bool isLoading = true;
 
+Future<void> getData({required BuildContext context}) async {
+  dataCourse = [];
 
-  var formKeyAddCourse = GlobalKey<FormState>();
+  print("///////////////////////count\\\\\\\\\\\\\\\\\\\\\\");
+  QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      .collection('Courses')
+      .where('Uniq_ID', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .get();
+  dataCourse.clear();
+  dataCourse.addAll(querySnapshot.docs);
+  isLoading = false;
+  isButtomSheetShown = false;
 
-  bool isButtomSheetShown = false;
- 
-   List <QueryDocumentSnapshot> dataCourse = [];
-  bool isLoading = true;
-  
-   Future<void> getData({required BuildContext context}) async {
-   
-    dataCourse = [];
-          
-        print("///////////////////////count\\\\\\\\\\\\\\\\\\\\\\");
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('Courses').get();
-    dataCourse.clear();
-    dataCourse.addAll(querySnapshot.docs);
-    isLoading = false;
-    isButtomSheetShown=false;
+  print("///////////////////////dataCourse.length\\\\\\\\\\\\\\\\\\\\\\");
+  print("${dataCourse.length}");
+  print("///////////////////////dataCourse.length\\\\\\\\\\\\\\\\\\\\\\");
+}
 
-     print("///////////////////////dataCourse.length\\\\\\\\\\\\\\\\\\\\\\");
-        print("${dataCourse.length}");
-        print("///////////////////////dataCourse.length\\\\\\\\\\\\\\\\\\\\\\");
-    
-    
+List<QueryDocumentSnapshot> adminData = [];
+bool isLoadingTOadmin = true;
 
-    
-  }
+Future<void> getAdminData({required BuildContext context}) async {
+  adminData = [];
 
-  
-   List <QueryDocumentSnapshot> adminData = [];
-  bool isLoadingTOadmin = true;
-  
-   Future<void> getAdminData({required BuildContext context}) async {
-   
-    adminData = [];
-          
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('Admins').get();
+  QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      .collection('Admins')
+      //not work
+      //.where('Uniq_ID', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .get();
 
-    adminData.addAll(querySnapshot.docs);
-    isLoadingTOadmin = false;
+  adminData.addAll(querySnapshot.docs);
+  isLoadingTOadmin = false;
+}
 
-  }
+List<QueryDocumentSnapshot> edecatourData = [];
+bool isLoadingTOedecatour = true;
 
+Future<void> getEdecatourData({required BuildContext context}) async {
+  edecatourData = [];
 
-List <QueryDocumentSnapshot> edecatourData = [];
-  bool isLoadingTOedecatour = true;
-  
-   Future<void> getEdecatourData({required BuildContext context}) async {
-   
-    edecatourData = [];
-          
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('Edecatour').get();
+  QuerySnapshot querySnapshot =
+      await FirebaseFirestore.instance.collection('Edecatour').get();
 
-    edecatourData.addAll(querySnapshot.docs);
-    isLoadingTOedecatour = false;
+  edecatourData.addAll(querySnapshot.docs);
+  isLoadingTOedecatour = false;
+}
 
-  }
+List<QueryDocumentSnapshot> studentData = [];
+bool isLoadingTOstudent = true;
 
+Future<void> getstudentData({required BuildContext context}) async {
+  studentData = [];
 
+  QuerySnapshot querySnapshot =
+      await FirebaseFirestore.instance.collection('Students').get();
 
-  List <QueryDocumentSnapshot> studentData = [];
-  bool isLoadingTOstudent = true;
-  
-   Future<void> getstudentData({required BuildContext context}) async {
-   
-    studentData = [];
-          
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('Students').get();
-
-    studentData.addAll(querySnapshot.docs);
-    isLoadingTOstudent = false;
-
-  }
-  
+  studentData.addAll(querySnapshot.docs);
+  isLoadingTOstudent = false;
+}

@@ -1,12 +1,16 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sa7a7/views/adminScreen/amdin_layout/admin_layout.dart';
 import 'package:sa7a7/models/Screens/Welcome/welcome_screen.dart';
 import 'package:sa7a7/models/Screens/register/before_register.dart';
 import 'package:sa7a7/models/Screens/register/resetpass.dart';
 import 'package:sa7a7/models/shared/background.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
+import 'package:sa7a7/views/adminScreen/amdin_layout/admin_layout.dart';
+import 'package:sa7a7/views/doctorScreen/doctor.dart';
+import 'package:sa7a7/views/studentScreen/student.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,8 +25,10 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isPasswoed = true;
   bool isLoading = false;
   bool isAdmin = false;
+  bool isEdecatour = false;
+  bool isStudent = false;
+
   String? user;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -110,9 +116,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   background: const Color(0xffF8DEFF),
                                   onPressedFunction: () async {
                                     if (formKey.currentState!.validate()) {
-                                      isLoading = true;
+                                      //isLoading = true;
                                       try {
-                                        // isLoading = true;
+                                        isLoading = true;
                                         setState(() {});
                                         final credential = await FirebaseAuth
                                             .instance
@@ -120,78 +126,36 @@ class _LoginScreenState extends State<LoginScreen> {
                                           email: emailController.text,
                                           password: passwordController.text,
                                         );
-                                        // isLoading = true;
-                                        setState(() {});
-                                        if (user == "Admin") {
 
+                                        setState(() {});
+                                        isLoading = false;
+                                        if (user == "Admin") {
                                           ////  admin data and compare it
                                           // ignore: use_build_context_synchronously
-                                          getAdminData(context: context).then((value) {
-                                            for(int i =0 ; i<adminData.length; i++) {
-                                             if (adminData[i]['Email']==emailController.text) 
-                                             {
-                                              
-                                             
-                                                isAdmin = true;
-                                              
-                                              break;
-
-                                              }
-                                            };
-                                          });
-                                          /// email and passwowrd => login 
-                                         
-                                          /// navgator to screen 
-                                          if (credential.user != null &&
-                                              credential.user?.uid != null&& isAdmin) {
-                                            if (passwordController.text != '') {
-                                              if (emailController.text != '') {
-                                                setState(() {
-                                                  
-                                                  if (credential
-                                                      .user!.emailVerified) {
-                                                        setState(() {
-                                                  
-                                                        
-                                                      });
-                                                    Navigator.push(
-                                                      
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                const AdminHomePage()),).then((value) {
-                                                                  isLoading = false;
-                                                                  setState(() {
-                                                                    
-                                                                  });
-                                                                });
-                                                  } else {
-                                                      setState(() {
-                                                  isLoading = false;
-                                                        
-                                                      });
-                                                    AwesomeDialog(
-                                                      context: context,
-                                                      dialogType:
-                                                          DialogType.error,
-                                                      animType:
-                                                          AnimType.rightSlide,
-                                                      title: 'Error',
-                                                      desc:
-                                                          '----->Please Check your Email we Send Verification e-mail......',
-                                                    ).show();
-                                                  }
-                                                });
-                                              }
-                                            }
-                                          }
-                                     
+                                          CheckIfUserAdmin(context, credential);
+                                        } else if (user == "Edecatour") {
+                                          ////  admin data and compare it
+                                          // ignore: use_build_context_synchronously
+                                          CheckIfUserEdecatour(
+                                              context, credential);
+                                        } else if (user == "Student") {
+                                          ////  admin data and compare it
+                                          // ignore: use_build_context_synchronously
+                                          CheckIfUserEdecatour(
+                                              context, credential);
+                                        } else {
+                                          AwesomeDialog(
+                                            context: context,
+                                            dialogType: DialogType.error,
+                                            animType: AnimType.rightSlide,
+                                            title: 'Error',
+                                            desc:
+                                                '=> Please Choose the Stutes....',
+                                          ).show();
                                         }
                                       } on FirebaseAuthException catch (e) {
-                                                  isLoading = false;
-                                                  setState(() {
-                                                    
-                                                  });
+                                        isLoading = false;
+                                        setState(() {});
 
                                         AwesomeDialog(
                                           // ignore: use_build_context_synchronously
@@ -202,8 +166,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           desc: 'email or Password wong',
                                         ).show();
                                       }
-
-
                                     }
                                   },
                                   text: 'login'),
@@ -217,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 const ResetPassword()));
                                   },
                                   text: 'Forget Passward'),
-                                    const SizedBox(height: 30),
+                              const SizedBox(height: 30),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -266,10 +228,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Expanded(
                                     child: RadioListTile(
                                       title: const Text(
-                                        "Doctor",
+                                        "Edecatour",
                                         style: TextStyle(fontSize: 19),
                                       ),
-                                      value: "Doctor",
+                                      value: "Edecatour",
                                       groupValue: user,
                                       onChanged: (value) {
                                         setState(() {
@@ -291,7 +253,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   });
                                 },
                               ),
-                          
                             ],
                           ),
                         ),
@@ -302,5 +263,157 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void CheckIfUserAdmin(BuildContext context, UserCredential credential) {
+    ////  admin data and compare it
+    // ignore: use_build_context_synchronously
+    getAdminData(context: context).then((value) {
+      for (int i = 0; i < adminData.length; i++) {
+        if (adminData[i]['Email'] == emailController.text) {
+          isAdmin = true;
+
+          break;
+        }
+      }
+    });
+
+    /// email and passwowrd => login
+
+    /// navgator to screen
+    if (credential.user != null && credential.user?.uid != null && isAdmin) {
+      if (passwordController.text != '') {
+        if (emailController.text != '') {
+          setState(() {
+            if (credential.user!.emailVerified) {
+              setState(() {
+                isLoading = true;
+              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AdminHomePage()),
+              ).then((value) {
+                isLoading = false;
+                setState(() {});
+              });
+            } else {
+              setState(() {
+                isLoading = false;
+              });
+              AwesomeDialog(
+                context: context,
+                dialogType: DialogType.error,
+                animType: AnimType.rightSlide,
+                title: 'Error',
+                desc:
+                    '----->Please Check your Email we Send Verification e-mail......',
+              ).show();
+            }
+          });
+        }
+      }
+    }
+  }
+
+  void CheckIfUserEdecatour(BuildContext context, UserCredential credential) {
+    ////  admin data and compare it
+    // ignore: use_build_context_synchronously
+    getEdecatourData(context: context).then((value) {
+      for (int i = 0; i < edecatourData.length; i++) {
+        if (edecatourData[i]['Email'] == emailController.text) {
+          isEdecatour = true;
+
+          break;
+        }
+      }
+    });
+
+    /// email and passwowrd => login
+
+    /// navgator to screen
+    if (credential.user != null &&
+        credential.user?.uid != null &&
+        isEdecatour) {
+      if (passwordController.text != '') {
+        if (emailController.text != '') {
+          setState(() {
+            if (credential.user!.emailVerified) {
+              setState(() {
+                isLoading = true;
+              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const DoctorHomPage()),
+              ).then((value) {
+                isLoading = false;
+                setState(() {});
+              });
+            } else {
+              setState(() {
+                isLoading = false;
+              });
+              AwesomeDialog(
+                context: context,
+                dialogType: DialogType.error,
+                animType: AnimType.rightSlide,
+                title: 'Error',
+                desc:
+                    '----->Please Check your Email we Send Verification e-mail......',
+              ).show();
+            }
+          });
+        }
+      }
+    }
+  }
+
+  void CheckIfUserStudent(BuildContext context, UserCredential credential) {
+    ////  admin data and compare it
+    // ignore: use_build_context_synchronously
+    getstudentData(context: context).then((value) {
+      for (int i = 0; i < studentData.length; i++) {
+        if (studentData[i]['Email'] == emailController.text) {
+          isStudent = true;
+
+          break;
+        }
+      }
+    });
+
+    /// email and passwowrd => login
+
+    /// navgator to screen
+    if (credential.user != null && credential.user?.uid != null && isStudent) {
+      if (passwordController.text != '') {
+        if (emailController.text != '') {
+          setState(() {
+            if (credential.user!.emailVerified) {
+              setState(() {
+                isLoading = true;
+              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const StudentHomPage()),
+              ).then((value) {
+                isLoading = false;
+                setState(() {});
+              });
+            } else {
+              setState(() {
+                isLoading = false;
+              });
+              AwesomeDialog(
+                context: context,
+                dialogType: DialogType.error,
+                animType: AnimType.rightSlide,
+                title: 'Error',
+                desc:
+                    '----->Please Check your Email we Send Verification e-mail......',
+              ).show();
+            }
+          });
+        }
+      }
+    }
   }
 }

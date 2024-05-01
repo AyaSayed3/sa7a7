@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sa7a7/models/Screens/register/stusent_register_screen.dart';
+import 'package:sa7a7/models/Screens/Welcome/welcome_screen.dart';
 
 import 'firebase_options.dart';
 
@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       /*home: HomeScreen(),*/
-      home: const StudentRegisterScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }
