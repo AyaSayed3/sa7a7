@@ -125,6 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         if (user == "Admin") {
 
                                           ////  admin data and compare it
+                                          // ignore: use_build_context_synchronously
                                           getAdminData(context: context).then((value) {
                                             for(int i =0 ; i<adminData.length; i++) {
                                              if (adminData[i]['Email']==emailController.text) 

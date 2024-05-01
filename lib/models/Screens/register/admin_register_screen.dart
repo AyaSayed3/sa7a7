@@ -26,7 +26,8 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
             'Admin_ID': idController.text, 
             'Email': emailController.text ,
             'Status': 'admin',
-            'Passward': passwordController.text
+            'Passward': passwordController.text,
+            'Uniq_ID' : FirebaseAuth.instance.currentUser!.uid,
           })
           .then((value) => print("Admin member Added"))
           .catchError((error) => print("Failed to add Amin member: $error"));

@@ -27,7 +27,9 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
             'Student_ID': idController.text, 
             'Email': emailController.text ,
             'Status': 'Student',
-            'Passward': passwordController.text
+            'Passward': passwordController.text,
+            'Student_Level': levelController.text,
+            'Uniq_ID' : FirebaseAuth.instance.currentUser!.uid,
           })
           .then((value) => print("/////////////Student member Added"))
           .catchError((error) => print("========Failed to add Student member: $error"));
@@ -87,6 +89,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                       prefix: Icons.person,
                       vlidator: (value) {
                         if (value.isEmpty) return 'Name Must not Empty';
+                        return null;
                       },
                     ),
                     const SizedBox(height: 30),
@@ -97,6 +100,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                       prefix: Icons.email,
                       vlidator: (value) {
                         if (value.isEmpty) return 'Email Must not Empty';
+                        return null;
                       },
                     ),
                     const SizedBox(height: 30),
@@ -107,8 +111,22 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                       prefix: Icons.perm_identity,
                       vlidator: (value) {
                         if (value.isEmpty) return 'ID Must not Empty';
+                        return null;
                       },
                     ),
+                    
+                     const SizedBox(height: 30),
+                     defaultTextFromFiled(
+                      controller: levelController,
+                      label: ' Enter Your Level',
+                      keyboardType: TextInputType.number,
+                      prefix: Icons.school_rounded,
+                      vlidator: (value) {
+                        if (value.isEmpty) return 'Student Level Must not Empty';
+                        return null;
+                      },
+                    ),
+                    
                     const SizedBox(height: 30),
                     defaultTextFromFiled(
                       controller: passwordController,
@@ -149,7 +167,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     const ChooseStutesOfMemberBeforRegister())));
-                                                     clearMethodofRegister();
+                                                     clearMethodofStudentRegister();
                                       } else {
                                         try {
                                           isLoading = true;
@@ -169,7 +187,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                             FirebaseAuth.instance.currentUser!
                                                 .sendEmailVerification();
                                                 addStudentMember();
-                                                 clearMethodofRegister();
+                                                 clearMethodofStudentRegister();
                                           });
                                         } on FirebaseAuthException catch (e) {
                                           if (e.code == 'weak-password') {

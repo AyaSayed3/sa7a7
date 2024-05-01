@@ -106,12 +106,19 @@ var emailController = TextEditingController();
 var passwordController = TextEditingController();
   var nameController = TextEditingController();
   var idController = TextEditingController();
+  var levelController = TextEditingController();
  clearMethodofRegister(){
     
    emailController.clear();
    passwordController.clear() ;
    nameController.clear();
    idController.clear();
+  }
+
+   clearMethodofStudentRegister(){
+    
+  clearMethodofRegister();
+   levelController.clear();
   }
 
 
