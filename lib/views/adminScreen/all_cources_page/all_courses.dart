@@ -1,8 +1,8 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sa7a7/layout/admin_layout.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
+import 'package:sa7a7/views/adminScreen/amdin_layout/admin_layout.dart';
 
 class AllCoursesScreen extends StatefulWidget {
   const AllCoursesScreen({
@@ -99,4 +99,5 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
             },
           );
   }
+
 }

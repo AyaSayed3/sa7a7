@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sa7a7/models/add_edecatour/add_edecator.dart';
-import 'package:sa7a7/models/add_students/add_students.dart';
-import 'package:sa7a7/models/all_cources_page/action_logic_of_floting_actionB.dart';
-import 'package:sa7a7/models/all_cources_page/all_courses.dart';
+import 'package:sa7a7/views/adminScreen/add_edecatour/add_edecator.dart';
+import 'package:sa7a7/views/adminScreen/add_students/add_students.dart';
+import 'package:sa7a7/views/adminScreen/all_cources_page/action_logic_of_floting_actionB.dart';
+import 'package:sa7a7/views/adminScreen/all_cources_page/all_courses.dart';
 import 'package:sa7a7/models/setting_page/setting.dart';
 
   int currentIndex = 0;
@@ -26,8 +26,8 @@ import 'package:sa7a7/models/setting_page/setting.dart';
 
   List<Widget> screens = [
     const AllCoursesScreen(),
-    const AddEdecatorPage(),
-    const AddStudentsPage(),
+    const AddCourseToEdecatourScreen(),
+    const AddCourseToStudentScreen(),
     const AdminSettingPage(),
   ];
 

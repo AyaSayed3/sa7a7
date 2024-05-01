@@ -1,11 +1,11 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sa7a7/layout/admin_layout.dart';
+import 'package:sa7a7/views/adminScreen/amdin_layout/admin_layout.dart';
 import 'package:sa7a7/models/Screens/Welcome/welcome_screen.dart';
 import 'package:sa7a7/models/Screens/register/before_register.dart';
 import 'package:sa7a7/models/Screens/register/resetpass.dart';
-import 'package:sa7a7/models/shared/componantes/back_ground2.dart';
+import 'package:sa7a7/models/shared/background.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,8 +20,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool isPasswoed = true;
   bool isLoading = false;
+  bool isAdmin = false;
   String? user;
-  String? usersystem;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -109,8 +110,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   background: const Color(0xffF8DEFF),
                                   onPressedFunction: () async {
                                     if (formKey.currentState!.validate()) {
+                                      isLoading = true;
                                       try {
-                                        isLoading = true;
+                                        // isLoading = true;
                                         setState(() {});
                                         final credential = await FirebaseAuth
                                             .instance
@@ -118,22 +120,55 @@ class _LoginScreenState extends State<LoginScreen> {
                                           email: emailController.text,
                                           password: passwordController.text,
                                         );
-                                        isLoading = true;
+                                        // isLoading = true;
                                         setState(() {});
                                         if (user == "Admin") {
+
+                                          ////  admin data and compare it
+                                          getAdminData(context: context).then((value) {
+                                            for(int i =0 ; i<adminData.length; i++) {
+                                             if (adminData[i]['Email']==emailController.text) 
+                                             {
+                                              
+                                             
+                                                isAdmin = true;
+                                              
+                                              break;
+
+                                              }
+                                            };
+                                          });
+                                          /// email and passwowrd => login 
+                                         
+                                          /// navgator to screen 
                                           if (credential.user != null &&
-                                              credential.user?.uid != null) {
+                                              credential.user?.uid != null&& isAdmin) {
                                             if (passwordController.text != '') {
                                               if (emailController.text != '') {
                                                 setState(() {
+                                                  
                                                   if (credential
                                                       .user!.emailVerified) {
+                                                        setState(() {
+                                                  
+                                                        
+                                                      });
                                                     Navigator.push(
+                                                      
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                const AdminHomePage()));
+                                                                const AdminHomePage()),).then((value) {
+                                                                  isLoading = false;
+                                                                  setState(() {
+                                                                    
+                                                                  });
+                                                                });
                                                   } else {
+                                                      setState(() {
+                                                  isLoading = false;
+                                                        
+                                                      });
                                                     AwesomeDialog(
                                                       context: context,
                                                       dialogType:
@@ -149,9 +184,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                               }
                                             }
                                           }
+                                     
                                         }
                                       } on FirebaseAuthException catch (e) {
+                                                  isLoading = false;
+                                                  setState(() {
+                                                    
+                                                  });
+
                                         AwesomeDialog(
+                                          // ignore: use_build_context_synchronously
                                           context: context,
                                           dialogType: DialogType.error,
                                           animType: AnimType.rightSlide,

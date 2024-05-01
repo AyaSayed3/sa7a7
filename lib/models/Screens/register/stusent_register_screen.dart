@@ -1,10 +1,11 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sa7a7/models/Screens/register/before_register.dart';
 import 'package:sa7a7/models/Screens/register/resetpass.dart';
 import 'package:sa7a7/models/Screens/verification.dart/verifiction_email.dart';
-import 'package:sa7a7/models/shared/componantes/back_ground2.dart';
+import 'package:sa7a7/models/shared/background.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
 
 class StudentRegisterScreen extends StatefulWidget {
@@ -16,12 +17,26 @@ class StudentRegisterScreen extends StatefulWidget {
 }
 
 class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
+
+  CollectionReference students = FirebaseFirestore.instance.collection('Students');
+    Future<void> addStudentMember() {
+     
+      return students
+          .add({
+            'Student_Name': nameController.text, 
+            'Student_ID': idController.text, 
+            'Email': emailController.text ,
+            'Status': 'Student',
+            'Passward': passwordController.text
+          })
+          .then((value) => print("/////////////Student member Added"))
+          .catchError((error) => print("========Failed to add Student member: $error"));
+    }
+
+
   //Password Field obscureText  Handler
 
-  var emailController = TextEditingController();
-  var passwardController = TextEditingController();
-  var nameController = TextEditingController();
-  var idController = TextEditingController();
+ 
   GlobalKey<FormState> adminFormKey = GlobalKey<FormState>();
 
   bool isPasswoed = true;
@@ -96,7 +111,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                     ),
                     const SizedBox(height: 30),
                     defaultTextFromFiled(
-                      controller: passwardController,
+                      controller: passwordController,
                       label: 'Password',
                       keyboardType: TextInputType.visiblePassword,
                       prefix: Icons.lock,
@@ -134,6 +149,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     const ChooseStutesOfMemberBeforRegister())));
+                                                     clearMethodofRegister();
                                       } else {
                                         try {
                                           isLoading = true;
@@ -141,7 +157,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                           await FirebaseAuth.instance
                                               .createUserWithEmailAndPassword(
                                             email: emailController.text,
-                                            password: passwardController.text,
+                                            password: passwordController.text,
                                           )
                                               .then((value) {
                                             Navigator.push(
@@ -152,6 +168,8 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
 
                                             FirebaseAuth.instance.currentUser!
                                                 .sendEmailVerification();
+                                                addStudentMember();
+                                                 clearMethodofRegister();
                                           });
                                         } on FirebaseAuthException catch (e) {
                                           if (e.code == 'weak-password') {

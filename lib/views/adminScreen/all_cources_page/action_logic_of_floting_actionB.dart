@@ -1,7 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sa7a7/layout/admin_layout.dart';
+import 'package:sa7a7/views/adminScreen/amdin_layout/admin_layout.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
 
 class LogicOfFlotingActionBottom extends StatefulWidget {
@@ -25,9 +25,9 @@ class _LogicOfFlotingActionBottomState extends State<LogicOfFlotingActionBottom>
      
       return courses
           .add({
-            'Course_Name': nameController.text, 
-            'Course_ID': idController.text, 
-            'Level': levelController.text 
+            'Course_Name': nameCourseController.text, 
+            'Course_ID': idCourseController.text, 
+            'Level': levelCourseController.text 
           })
           .then((value) => print("Course Added"))
           .catchError((error) => print("Failed to add Course: $error"));
@@ -40,7 +40,7 @@ class _LogicOfFlotingActionBottomState extends State<LogicOfFlotingActionBottom>
   Widget build(BuildContext context) {
     
     return SizedBox(
-      height: 300,
+      height: 350,
       child: SafeArea(
         child: Form(
          key: formKeyAddCourse,
@@ -59,7 +59,7 @@ class _LogicOfFlotingActionBottomState extends State<LogicOfFlotingActionBottom>
                   flex: 1,
                 ),
                 defaultTextFromFiled(
-                  controller: nameController,
+                  controller: nameCourseController,
                   label: 'Course Name',
                   keyboardType: TextInputType.text,
                   prefix: Icons.menu_book_sharp,
@@ -76,7 +76,7 @@ class _LogicOfFlotingActionBottomState extends State<LogicOfFlotingActionBottom>
                   children: [
                     Expanded(
                       child: defaultTextFromFiled(
-                        controller: idController,
+                        controller: idCourseController,
                         label: 'course ID',
                         keyboardType: TextInputType.text,
                         prefix: Icons.vpn_lock_sharp,
@@ -91,7 +91,7 @@ class _LogicOfFlotingActionBottomState extends State<LogicOfFlotingActionBottom>
                     const SizedBox(width: 20),
                     Expanded(
                       child: defaultTextFromFiled(
-                        controller: levelController,
+                        controller: levelCourseController,
                         label: 'course\'s Level',
                         keyboardType: TextInputType.number,
                         prefix: Icons.star_rounded,
@@ -114,7 +114,7 @@ class _LogicOfFlotingActionBottomState extends State<LogicOfFlotingActionBottom>
                       addCourses();
 
                       await getData(context: context).then((value) {
-                        clearMethod();
+                        clearMethodOfFlotBottom();
                      
                       Navigator.pop(context);
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const AdminHomePage() ));

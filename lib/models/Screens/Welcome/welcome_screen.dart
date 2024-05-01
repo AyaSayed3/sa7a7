@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sa7a7/models/Screens/Welcome/copmonents/background.dart';
 import 'package:sa7a7/models/Screens/Welcome/copmonents/login_signup_btn.dart';
-import 'package:sa7a7/models/responsive.dart';
+import 'package:sa7a7/models/Screens/Welcome/copmonents/responsive.dart';
 
 import 'copmonents/welcome_image.dart';
 
@@ -45,8 +45,8 @@ class WelcomeScreen extends StatelessWidget {
 
 class MobileWelcomeScreen extends StatelessWidget {
   const MobileWelcomeScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

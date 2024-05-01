@@ -103,21 +103,27 @@ Widget buildCourseItem(Map model) => Padding(
       ),
     );
 var emailController = TextEditingController();
-
 var passwordController = TextEditingController();
- 
-
-   
-
   var nameController = TextEditingController();
   var idController = TextEditingController();
-  var levelController = TextEditingController();
-
-  clearMethod(){
+ clearMethodofRegister(){
     
+   emailController.clear();
+   passwordController.clear() ;
    nameController.clear();
-   idController.clear() ;
-   levelController.clear();
+   idController.clear();
+  }
+
+
+  var nameCourseController = TextEditingController();
+  var idCourseController = TextEditingController();
+  var levelCourseController = TextEditingController();
+
+  clearMethodOfFlotBottom(){
+    
+   nameCourseController.clear();
+   idCourseController.clear() ;
+   levelCourseController.clear();
   }
 
 
@@ -129,11 +135,11 @@ var passwordController = TextEditingController();
  
    List <QueryDocumentSnapshot> dataCourse = [];
   bool isLoading = true;
-  int count=0;
+  
    Future<void> getData({required BuildContext context}) async {
-    count++;
-            print("///////////////////////count\\\\\\\\\\\\\\\\\\\\\\");
-        print("${count}");
+   
+    dataCourse = [];
+          
         print("///////////////////////count\\\\\\\\\\\\\\\\\\\\\\");
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('Courses').get();
     dataCourse.clear();
@@ -144,12 +150,55 @@ var passwordController = TextEditingController();
      print("///////////////////////dataCourse.length\\\\\\\\\\\\\\\\\\\\\\");
         print("${dataCourse.length}");
         print("///////////////////////dataCourse.length\\\\\\\\\\\\\\\\\\\\\\");
-    //Navigator.pop(context);
-  
-    // setState(() {
-      
-    // });
+    
     
 
     
   }
+
+  
+   List <QueryDocumentSnapshot> adminData = [];
+  bool isLoadingTOadmin = true;
+  
+   Future<void> getAdminData({required BuildContext context}) async {
+   
+    adminData = [];
+          
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('Admins').get();
+
+    adminData.addAll(querySnapshot.docs);
+    isLoadingTOadmin = false;
+
+  }
+
+
+List <QueryDocumentSnapshot> edecatourData = [];
+  bool isLoadingTOedecatour = true;
+  
+   Future<void> getEdecatourData({required BuildContext context}) async {
+   
+    edecatourData = [];
+          
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('Edecatour').get();
+
+    edecatourData.addAll(querySnapshot.docs);
+    isLoadingTOedecatour = false;
+
+  }
+
+
+
+  List <QueryDocumentSnapshot> studentData = [];
+  bool isLoadingTOstudent = true;
+  
+   Future<void> getstudentData({required BuildContext context}) async {
+   
+    studentData = [];
+          
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('Students').get();
+
+    studentData.addAll(querySnapshot.docs);
+    isLoadingTOstudent = false;
+
+  }
+  

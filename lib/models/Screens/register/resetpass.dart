@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sa7a7/models/Screens/Login/logen.dart';
 import 'package:sa7a7/models/Screens/register/admin_register_screen.dart';
-import 'package:sa7a7/models/shared/componantes/back_ground2.dart';
+import 'package:sa7a7/models/shared/background.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
 
 class ResetPassword extends StatefulWidget {

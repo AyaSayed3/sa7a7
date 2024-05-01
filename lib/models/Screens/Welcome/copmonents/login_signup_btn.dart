@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sa7a7/models/Screens/Login/logen.dart';
 import 'package:sa7a7/models/Screens/register/before_register.dart';
 
-import '../../../constants.dart';
+import 'constants.dart';
 
 
 

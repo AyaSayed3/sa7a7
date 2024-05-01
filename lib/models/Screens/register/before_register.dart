@@ -3,7 +3,7 @@ import 'package:sa7a7/models/Screens/Welcome/welcome_screen.dart';
 import 'package:sa7a7/models/Screens/register/admin_register_screen.dart';
 import 'package:sa7a7/models/Screens/register/doctor_register_screen.dart';
 import 'package:sa7a7/models/Screens/register/stusent_register_screen.dart';
-import 'package:sa7a7/models/shared/componantes/back_ground2.dart';
+import 'package:sa7a7/models/shared/background.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
 
 class ChooseStutesOfMemberBeforRegister extends StatelessWidget {

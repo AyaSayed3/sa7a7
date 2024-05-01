@@ -1,10 +1,11 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sa7a7/models/Screens/register/before_register.dart';
 import 'package:sa7a7/models/Screens/register/resetpass.dart';
 import 'package:sa7a7/models/Screens/verification.dart/verifiction_email.dart';
-import 'package:sa7a7/models/shared/componantes/back_ground2.dart';
+import 'package:sa7a7/models/shared/background.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
 
 class AdminRegisterScreen extends StatefulWidget {
@@ -16,12 +17,27 @@ class AdminRegisterScreen extends StatefulWidget {
 }
 
 class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
+  CollectionReference admins = FirebaseFirestore.instance.collection('Admins');
+    Future<void> addAmdinMember() {
+     
+      return admins
+          .add({
+            'Admin_Name': nameController.text, 
+            'Admin_ID': idController.text, 
+            'Email': emailController.text ,
+            'Status': 'admin',
+            'Passward': passwordController.text
+          })
+          .then((value) => print("Admin member Added"))
+          .catchError((error) => print("Failed to add Amin member: $error"));
+    }
+
+
+
+
+
   //Password Field obscureText  Handler
 
-  var emailController = TextEditingController();
-  var passwardController = TextEditingController();
-  var nameController = TextEditingController();
-  var idController = TextEditingController();
   GlobalKey<FormState> adminFormKey = GlobalKey<FormState>();
 
   bool isPasswoed = true;
@@ -99,7 +115,7 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
                           ),
                           const SizedBox(height: 30),
                           defaultTextFromFiled(
-                            controller: passwardController,
+                            controller: passwordController,
                             label: 'Password',
                             keyboardType: TextInputType.visiblePassword,
                             prefix: Icons.lock,
@@ -124,6 +140,7 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
                             Expanded(
                               child: defaultButton(
                                   onPressedFunction: () async {
+                                    
                                     if (adminFormKey.currentState!.validate()) {
                                       if (int.parse(idController.text) > 10) {
                                         AwesomeDialog(
@@ -137,7 +154,10 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const ChooseStutesOfMemberBeforRegister())));
+                                                    const ChooseStutesOfMemberBeforRegister())),
+                                                     
+                                                    );
+                                                     clearMethodofRegister();
                                       } else {
                                         try {
                                           isLoading = true;
@@ -145,7 +165,7 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
                                           await FirebaseAuth.instance
                                               .createUserWithEmailAndPassword(
                                             email: emailController.text,
-                                            password: passwardController.text,
+                                            password: passwordController.text,
                                           )
                                               .then((value) {
                                             Navigator.push(
@@ -156,6 +176,8 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
 
                                             FirebaseAuth.instance.currentUser!
                                                 .sendEmailVerification();
+                                                addAmdinMember();
+                                                clearMethodofRegister();
                                           });
                                         } on FirebaseAuthException catch (e) {
                                           if (e.code == 'weak-password') {
