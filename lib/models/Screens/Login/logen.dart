@@ -136,6 +136,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                             // ignore: use_build_context_synchronously
                                             CheckIfUserStudent(context, value);
                                           } else {
+                                            isLoading = false;
+                                            setState(() {});
                                             AwesomeDialog(
                                               context: context,
                                               dialogType: DialogType.error,
@@ -315,7 +317,7 @@ class _LoginScreenState extends State<LoginScreen> {
           dialogType: DialogType.error,
           animType: AnimType.rightSlide,
           title: 'Error',
-          desc: 'اختر صح يا حيوان.',
+          desc: 'اختر صح يا  بيه و متقرفناش معاك.',
         ).show();
         setState(() {
           isLoading = false;
@@ -356,6 +358,7 @@ class _LoginScreenState extends State<LoginScreen> {
     //         }
 
     // }
+ 
   }
 
   void CheckIfUserEdecatour(BuildContext context, UserCredential credential) {
@@ -400,7 +403,7 @@ class _LoginScreenState extends State<LoginScreen> {
           dialogType: DialogType.error,
           animType: AnimType.rightSlide,
           title: 'Error',
-          desc: 'اختر صح يا حيوان.',
+          desc: 'اختر صح يا  بيه و متقرفناش معاك.',
         ).show();
         setState(() {
           isLoading = false;
@@ -448,13 +451,13 @@ class _LoginScreenState extends State<LoginScreen> {
           break;
         }
       }
-        if (isStudent == false) {
+      if (isStudent == false) {
         AwesomeDialog(
           context: context,
           dialogType: DialogType.error,
           animType: AnimType.rightSlide,
           title: 'Error',
-          desc: 'اختر صح يا حيوان.',
+          desc: 'اختر صح يا بيه و متقرفناش معاك.',
         ).show();
         setState(() {
           isLoading = false;

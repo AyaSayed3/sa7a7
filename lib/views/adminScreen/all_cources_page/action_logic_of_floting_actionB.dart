@@ -1,53 +1,46 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sa7a7/views/adminScreen/amdin_layout/admin_layout.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
+import 'package:sa7a7/views/adminScreen/amdin_layout/admin_layout.dart';
 
 class LogicOfFlotingActionBottom extends StatefulWidget {
   const LogicOfFlotingActionBottom({
     super.key,
- 
   });
 
-
-
   @override
-  State<LogicOfFlotingActionBottom> createState() => _LogicOfFlotingActionBottomState();
+  State<LogicOfFlotingActionBottom> createState() =>
+      _LogicOfFlotingActionBottomState();
 }
 
-class _LogicOfFlotingActionBottomState extends State<LogicOfFlotingActionBottom> {
+class _LogicOfFlotingActionBottomState
+    extends State<LogicOfFlotingActionBottom> {
+  CollectionReference courses =
+      FirebaseFirestore.instance.collection('Courses');
+  Future<void> addCourses() {
+    return courses
+        .add({
+          'Course_Name': nameCourseController.text,
+          'Course_ID': idCourseController.text,
+          'Level': levelCourseController.text,
+          'Uniq_ID': FirebaseAuth.instance.currentUser!.uid,
+        })
+        .then((value) => print("Course Added"))
+        .catchError((error) => print("Failed to add Course: $error"));
+  }
 
-
-
-   CollectionReference courses = FirebaseFirestore.instance.collection('Courses');
-    Future<void> addCourses() {
-     
-      return courses
-          .add({
-            'Course_Name': nameCourseController.text, 
-            'Course_ID': idCourseController.text, 
-            'Level': levelCourseController.text ,
-            'Uniq_ID' : FirebaseAuth.instance.currentUser!.uid,
-          })
-          .then((value) => print("Course Added"))
-          .catchError((error) => print("Failed to add Course: $error"));
-    }
-
-    
-
+  // bool isLoadingOfAdd = false;
 
   @override
   Widget build(BuildContext context) {
-    
-    return SizedBox(
+    return isLoading? const Center(child: CircularProgressIndicator()) :SizedBox(
       height: 350,
       child: SafeArea(
         child: Form(
-         key: formKeyAddCourse,
+          key: formKeyAddCourse,
           child: Padding(
-            padding:  const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
                 const Text(
@@ -71,7 +64,6 @@ class _LogicOfFlotingActionBottomState extends State<LogicOfFlotingActionBottom>
                     }
                     return null;
                   },
-                  
                 ),
                 const Spacer(flex: 2),
                 Row(
@@ -107,24 +99,26 @@ class _LogicOfFlotingActionBottomState extends State<LogicOfFlotingActionBottom>
                     ),
                   ],
                 ),
-                 const SizedBox(height: 30),
+                const SizedBox(height: 30),
                 defaultButton(
                   width: 200,
-                  onPressedFunction: () async{
-                    
+                  onPressedFunction: () async {
                     if (formKeyAddCourse.currentState!.validate()) {
+                      isLoading = true;
+                      setState(() {});
                       addCourses();
 
                       await getData(context: context).then((value) {
                         clearMethodOfFlotBottom();
-                     
-                      Navigator.pop(context);
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const AdminHomePage() ));
+                        // isLoadingOfAdd = false;
+                        // setState(() {});
+                        Navigator.pop(context);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const AdminHomePage()));
                       });
-                  
                     }
-                  
-            
                   },
                   text: 'Add',
                 ),

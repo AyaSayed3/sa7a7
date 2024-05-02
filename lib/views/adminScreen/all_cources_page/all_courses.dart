@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
+import 'package:sa7a7/views/adminScreen/all_cources_page/update_course.dart';
 import 'package:sa7a7/views/adminScreen/amdin_layout/admin_layout.dart';
 
 class AllCoursesScreen extends StatefulWidget {
@@ -14,7 +15,6 @@ class AllCoursesScreen extends StatefulWidget {
 }
 
 class _AllCoursesScreenState extends State<AllCoursesScreen> {
-
   //  List<QueryDocumentSnapshot> dataCourse = [];
   // bool isLoading = true;
 
@@ -23,22 +23,17 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
   //   dataCourse.addAll(querySnapshot.docs);
   //   isLoading = false;
   //   setState(() {
-      
-  //   });
-    
-  // }
 
-  
+  //   });
+
+  // }
 
   @override
   void initState() {
     super.initState();
     getData(context: context).then((value) {
-       setState(() {
-      
+      setState(() {});
     });
-    });
-   
   }
 
   @override
@@ -55,27 +50,40 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
                 child: InkWell(
                   onLongPress: () {
                     AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.warning,
-                            animType: AnimType.rightSlide,
-                            title: 'Worning',
-                            desc: 'Are You Sure about Dlete this Course..',
-                            btnOkOnPress: () async {
-                              await FirebaseFirestore.instance
-                                  .collection('Courses')
-                                  .doc(dataCourse[index].id)
-                                  .delete();
+                      context: context,
+                      dialogType: DialogType.warning,
+                      animType: AnimType.rightSlide,
+                      title: 'Worning',
+                      desc: '=> Choose Whate do you want to do ? <=.',
+                      btnCancelText: 'Delet',
+                      btnCancelOnPress: () async {
+                        await FirebaseFirestore.instance
+                            .collection('Courses')
+                            .doc(dataCourse[index].id)
+                            .delete();
 
-                                  setState(() {});
-                                  
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const AdminHomePage()));
-                            },
-                            btnCancelOnPress: () {})
-                        .show();
+                        setState(() {});
+
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const AdminHomePage()));
+                      },
+                      btnOkText: 'Edit',
+                      btnOkOnPress: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UpdatCourseData(
+                                docId: dataCourse[index].id,
+                                oldLevel: dataCourse[index]['Level'],
+                                oldId: dataCourse[index]['Course_ID'],
+                                oldName: dataCourse[index]['Course_Name'],
+                              ),
+                            ));
+                            
+                      },
+                    ).show();
                   },
                   child: Card(
                     child: Container(
@@ -87,8 +95,9 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
                             height: 100,
                           ),
                           const SizedBox(height: 10),
-                          Text("${dataCourse[index]['Course_Name']}",
-                          overflow: TextOverflow.ellipsis,
+                          Text(
+                            "${dataCourse[index]['Course_Name']}",
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),
@@ -99,5 +108,4 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
             },
           );
   }
-
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sa7a7/views/adminScreen/add_edecatour/add_edecator.dart';
-import 'package:sa7a7/views/adminScreen/add_students/add_students.dart';
+import 'package:sa7a7/views/adminScreen/all_student/all_students.dart';
 import 'package:sa7a7/views/adminScreen/all_cources_page/action_logic_of_floting_actionB.dart';
 import 'package:sa7a7/views/adminScreen/all_cources_page/all_courses.dart';
-import 'package:sa7a7/models/setting_page/setting.dart';
+import 'package:sa7a7/models/Screens/setting_page/setting.dart';
 
   int currentIndex = 0;
 

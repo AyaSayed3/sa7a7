@@ -65,7 +65,7 @@ class _AddCourseToStudentScreenState extends State<AddCourseToStudentScreen> {
                       child: Column(
                         children: [
                           Image.asset(
-                            'assets/images/files.png',
+                            'assets/images/student.png',
                             height: 100,
                           ),
                           const SizedBox(height: 10),
