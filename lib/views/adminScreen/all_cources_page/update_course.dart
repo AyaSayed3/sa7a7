@@ -53,118 +53,118 @@ class _UpdatCourseDataState extends State<UpdatCourseData> {
   Widget build(BuildContext context) {
     return isLoadingOfAdd
         ? const Center(child: CircularProgressIndicator())
-        : Background(
-            child: Scaffold(
-                 appBar: AppBar(
-              elevation: null,
-              backgroundColor: Colors.transparent,
-              leading: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AdminHomePage()));
-                },
-                child: const Icon(
-                  Icons.arrow_back_ios_rounded,
-                  color: Colors.black,
-                ),
-              )),
-              body: SafeArea(
-                child: Form(
-                  key: formKeyUpdateCourse,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        const Text(
-                          'UpDate  Courses',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+        : Scaffold(
+             appBar: AppBar(
+          elevation: null,
+          backgroundColor: Colors.transparent,
+          leading: TextButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AdminHomePage()));
+            },
+            child: const Icon(
+              Icons.arrow_back_ios_rounded,
+              color: Colors.black,
+            ),
+          )),
+          body: Background(
+            child: SafeArea(
+              child: Form(
+                key: formKeyUpdateCourse,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      const Text(
+                        'UpDate  Courses',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Spacer(
+                        flex: 1,
+                      ),
+                      defaultTextFromFiled(
+                        controller: nameCourseController,
+                        label: 'Course Name',
+                        keyboardType: TextInputType.text,
+                        prefix: Icons.menu_book_sharp,
+                        vlidator: (value) {
+                          if (value.isEmpty) {
+                            return 'course Name must be not empty';
+                          }
+                          return null;
+                        },
+                      ),
+                      const Spacer(flex: 1),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: defaultTextFromFiled(
+                              controller: idCourseController,
+                              label: 'course ID',
+                              keyboardType: TextInputType.text,
+                              prefix: Icons.vpn_lock_sharp,
+                              vlidator: (value) {
+                                if (value.isEmpty) {
+                                  return 'course ID must be not empty';
+                                }
+                                return null;
+                              },
+                            ),
                           ),
-                        ),
-                        const Spacer(
-                          flex: 1,
-                        ),
-                        defaultTextFromFiled(
-                          controller: nameCourseController,
-                          label: 'Course Name',
-                          keyboardType: TextInputType.text,
-                          prefix: Icons.menu_book_sharp,
-                          vlidator: (value) {
-                            if (value.isEmpty) {
-                              return 'course Name must be not empty';
-                            }
-                            return null;
-                          },
-                        ),
-                        const Spacer(flex: 1),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: defaultTextFromFiled(
-                                controller: idCourseController,
-                                label: 'course ID',
-                                keyboardType: TextInputType.text,
-                                prefix: Icons.vpn_lock_sharp,
-                                vlidator: (value) {
-                                  if (value.isEmpty) {
-                                    return 'course ID must be not empty';
-                                  }
-                                  return null;
-                                },
-                              ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: defaultTextFromFiled(
+                              controller: levelCourseController,
+                              label: 'course\'s Level',
+                              keyboardType: TextInputType.number,
+                              prefix: Icons.star_rounded,
+                              vlidator: (value) {
+                                if (value.isEmpty) {
+                                  return 'course\'s Level must be not empty';
+                                }
+                                return null;
+                              },
                             ),
-                            const SizedBox(width: 20),
-                            Expanded(
-                              child: defaultTextFromFiled(
-                                controller: levelCourseController,
-                                label: 'course\'s Level',
-                                keyboardType: TextInputType.number,
-                                prefix: Icons.star_rounded,
-                                vlidator: (value) {
-                                  if (value.isEmpty) {
-                                    return 'course\'s Level must be not empty';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 30),
-                        defaultButton(
-                          width: 200,
-                          onPressedFunction: () async {
-                            if (formKeyUpdateCourse.currentState!.validate()) {
-                              isLoadingOfAdd = true;
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+                      defaultButton(
+                        width: 200,
+                        onPressedFunction: () async {
+                          if (formKeyUpdateCourse.currentState!.validate()) {
+                            isLoadingOfAdd = true;
+                            setState(() {});
+                            upDateCourses();
+                    
+                            await getData(context: context).then((value) {
+                              clearMethodOfFlotBottom();
+                              isLoadingOfAdd = false;
                               setState(() {});
-                              upDateCourses();
-
-                              await getData(context: context).then((value) {
-                                clearMethodOfFlotBottom();
-                                isLoadingOfAdd = false;
-                                setState(() {});
-                                // Navigator.pop(context);
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const AdminHomePage()));
-                              });
-                            }
-                          },
-                          text: 'Up Date',
-                        ),
-                        const Spacer(flex: 2),
-                      ],
-                    ),
+                              Navigator.pop(context);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const AdminHomePage()));
+                            });
+                          }
+                        },
+                        text: 'Up Date',
+                      ),
+                      const Spacer(flex: 2),
+                    ],
                   ),
                 ),
               ),
             ),
-          );
+          ),
+        );
   }
 }
 

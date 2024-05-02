@@ -52,7 +52,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       Icons.arrow_back_ios_rounded,
                       color: Colors.black,
                     ),
-                  )),
+                  ),
+                  ),
               backgroundColor: Colors.transparent,
               body: isLoading
                   ? const Center(child: CircularProgressIndicator())
@@ -211,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       visualDensity: VisualDensity.comfortable,
                                       title: const Text(
                                         "Admin",
-                                        style: TextStyle(fontSize: 18),
+                                        style: TextStyle(fontSize: 16),
                                       ),
                                       value: "Admin",
                                       groupValue: user,
@@ -229,7 +230,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: RadioListTile(
                                       title: const Text(
                                         "Edecatour",
-                                        style: TextStyle(fontSize: 19),
+                                        style: TextStyle(fontSize: 15),
                                       ),
                                       value: "Edecatour",
                                       groupValue: user,

@@ -36,7 +36,7 @@ class ChooseStutesOfMemberBeforRegister extends StatelessWidget {
               children: [
                 const Text(
                   maxLines: 2,
-                  'Please Choose Stutes Of You \n         Befor Your Register',
+                  'Please Choose Stutes Of You Befor Your Register',
                   style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),

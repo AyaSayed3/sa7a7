@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sa7a7/models/shared/background.dart';
 
 class DoctorHomPage extends StatelessWidget {
   const DoctorHomPage({super.key});
@@ -6,7 +7,7 @@ class DoctorHomPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text('Doctor Screen')),
+      body: Background(child: Center(child: Text('Doctor Screen'))),
     );
   }
 }

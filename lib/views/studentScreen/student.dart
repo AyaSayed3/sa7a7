@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sa7a7/models/shared/background.dart';
 
 class StudentHomPage extends StatelessWidget {
   const StudentHomPage({super.key});
@@ -6,7 +7,7 @@ class StudentHomPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text('Student Screen')),
+      body: Background(child: Center(child: Text('Student Screen'))),
     );
   }
 }
