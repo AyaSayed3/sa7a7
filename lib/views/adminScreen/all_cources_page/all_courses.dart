@@ -16,18 +16,7 @@ class AllCoursesScreen extends StatefulWidget {
 }
 
 class _AllCoursesScreenState extends State<AllCoursesScreen> {
-  //  List<QueryDocumentSnapshot> dataCourse = [];
-  // bool isLoading = true;
 
-  //  getData() async {
-  //   QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('Courses').get();
-  //   dataCourse.addAll(querySnapshot.docs);
-  //   isLoading = false;
-  //   setState(() {
-
-  //   });
-
-  // }
 
   @override
   void initState() {
@@ -45,7 +34,7 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
           child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, mainAxisExtent: 160),
-              itemCount: dataCourse.length,
+              itemCount: dataCourses.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -61,7 +50,7 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
                         btnCancelOnPress: () async {
                           await FirebaseFirestore.instance
                               .collection('Courses')
-                              .doc(dataCourse[index].id)
+                              .doc(dataCourses[index].id)
                               .delete();
           
                           setState(() {});
@@ -77,10 +66,10 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => UpdatCourseData(
-                                  docId: dataCourse[index].id,
-                                  oldLevel: dataCourse[index]['Level'],
-                                  oldId: dataCourse[index]['Course_ID'],
-                                  oldName: dataCourse[index]['Course_Name'],
+                                  docId: dataCourses[index].id,
+                                  oldLevel: dataCourses[index]['Level'],
+                                  oldId: dataCourses[index]['Course_ID'],
+                                  oldName: dataCourses[index]['Course_Name'],
                                 ),
                               ));
                               
@@ -98,7 +87,7 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
                             ),
                             const SizedBox(height: 10),
                             Text(
-                              "${dataCourse[index]['Course_Name']}",
+                              "${dataCourses[index]['Course_Name']}",
                               overflow: TextOverflow.ellipsis,
                             ),
                           ],

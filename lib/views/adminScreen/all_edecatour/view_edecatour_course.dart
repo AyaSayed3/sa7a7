@@ -17,27 +17,40 @@ class ViewEdecatourCourse extends StatefulWidget {
 }
 
 class _ViewEdecatourCourseState extends State<ViewEdecatourCourse> {
-  List<QueryDocumentSnapshot> edecatourData = [];
+  //List<QueryDocumentSnapshot> edecatourData = [];
 
-  Future<void> getEdecatourData({required BuildContext context}) async {
-    edecatourData = [];
-
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('Edecatour')
-        .doc(widget.EdecatourId)
-        .collection('Course')
-        .get();
-
-    edecatourData.addAll(querySnapshot.docs);
-    isLoadingECV = false;
-  }
+DocumentReference? doctorDoc ;
+Future<void> getDoctorData() async {
+  print(widget.EdecatourId);
+  try {
+  // Map<String, dynamic> doctorData= 
+ doctorDoc = await FirebaseFirestore.instance.collection('Edecatour').doc(widget.EdecatourId);
+  doctorDoc?.get().then((value) async {
+      // print(value.data() );
+      Map<String, dynamic>? doctorData= value.data() as Map<String, dynamic>?;
+      // print(doctorData );
+      print(doctorData?['courses'] );
+      fetchDataAndCheckField(coursesId: doctorData?['courses'] as List<dynamic>  );
+  }) ;
+    // await fetchDataAndCheckField(coursesId: doctorData['courses']).then((value) {
+    //   isLoadingECV =false;
+    //   setState(() {
+        
+    //   });
+    //  });
+}   catch (e) {
+  isLoadingECV =false;
+      setState(() {
+        
+      });
+}
+}
 
   @override
-  void initState() {
+  void initState()  {
+   getDoctorData();
     super.initState();
-    getEdecatourData(context: context).then((value) {
-      setState(() {});
-    });
+  
   }
 
   bool isLoadingECV = true;
@@ -79,58 +92,157 @@ class _ViewEdecatourCourseState extends State<ViewEdecatourCourse> {
       body: isLoadingECV
           ? const Center(child: CircularProgressIndicator())
           : Background(
-            child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, mainAxisExtent: 160),
-                itemCount: edecatourData.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: InkWell(
-                      onLongPress: () {
-                        AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.warning,
-                                animType: AnimType.rightSlide,
-                                title: 'Worning',
-                                desc: 'Are You Sure about Dlete this Course..',
-                                btnOkOnPress: () async {
-                                  // await FirebaseFirestore.instance
-                                  //     .collection('Edecatour')
-                                  //     .doc(edecatourData[index].id)
-                                  //     .delete();
-            
-                                  // setState(() {});
-            
-                                  // Navigator.pushReplacement(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) =>
-                                  //             const AdminHomePage()));
-                                },
-                                btnCancelOnPress: () {})
-                            .show();
-                      },
-                      child: Card(
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 10),
-                              // Text(
-                              //   "${edecatourData[index]['Course']}",
-                              //   overflow: TextOverflow.ellipsis,
-                              // ),
-                              
-                            ],
+            child: RefreshIndicator(
+              onRefresh: () async {
+              await  getDoctorData();
+              },
+              child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, mainAxisExtent: 160),
+                  itemCount: Courses?.length ??0,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: InkWell(
+                        onLongPress: () {
+                          AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.warning,
+                                  animType: AnimType.rightSlide,
+                                  title: 'Worning',
+                                  desc: 'Are You Sure about Dlete this Course..',
+                                  btnOkOnPress: () async {
+                                    // await FirebaseFirestore.instance
+                                    //     .collection('Edecatour')
+                                    //     .doc(Courses?[index]['Uniq_ID'])
+                                    //     .delete();
+                                    deleteCoure(Courses?[index]['Course_ID']);
+                                       
+                                    setState(() {});
+              
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const AdminHomePage()));
+                                  },
+                                  btnCancelOnPress: () {})
+                              .show();
+                        },
+                        child: Card(
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 10),
+                                Text(
+                                  "${Courses?[index]['Course_Name']}",
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              ),
+                    );
+                  },
+                ),
+            ),
           ),
     );
   }
+
+List<Map<String , dynamic>>? Courses =[] ;
+Future<void> fetchDataAndCheckField({required List<dynamic> coursesId}) async {
+  print("hello bobnaya");
+  Courses =[] ;
+  try {
+    // Access the Firestore instance
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    // Efficient filtering query (if applicable)
+    Query query = firestore.collection('Courses').where('Course_ID', whereIn: coursesId);
+    QuerySnapshot querySnapshot = await query.get();
+     
+    querySnapshot.docs.forEach((e) {
+      print(e.data());
+      Map<String, dynamic>  temp = e.data() as Map<String, dynamic> ;
+      Courses?.add( temp);
+
+    });
+    // Loop through documents and add matching ones to Courses
+    // for (var doc in querySnapshot.docs) {
+    //   var docData = doc.data() as Map<String, dynamic>;
+    //   var fieldValue = docData['Uniq_ID'];
+
+    //   if (fieldValue == element) {
+    //     Courses.add(doc);
+    //     print('Document ID: ${doc.id}, Field Value: $fieldValue');
+    //   }
+    // }
+
+    // Update state based on fetched data (if needed)
+    setState(() {
+      isLoadingECV = false;
+    });
+  } catch (error) {
+    // Handle specific errors (e.g., FirebaseException)
+    print('Error fetching data: $error');
+    // Update state based on error (if needed)
+    // setState(() {
+    //   // ...
+    // });
+  } finally {
+    // Perform cleanup tasks if necessary (e.g., indicating loading completion)
+    isLoadingECV = false; // Assuming this flag is used for loading state
+    setState(() {
+      // Update loading state if relevant
+    });
+  }
+
+  return; // Explicitly return to match function signature
 }
+
+Future<void> deleteCoure( String stringToRemove) async {
+  try {
+    // FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    // Fetch the document
+    DocumentSnapshot docSnapshot = await doctorDoc!.get();
+
+    if (!docSnapshot.exists) {
+      print('Document does not exist!');
+      return;
+    }
+
+    Map<String, dynamic>? doctorData= docSnapshot.data() as Map<String, dynamic>?;
+    // Access the field containing the array (replace 'your_array_field' with actual field name)
+    List<dynamic> existingArray = doctorData?['courses'] as List<dynamic>;
+
+    // Remove the string (consider efficiency for large arrays)
+    List<dynamic> newArray=[];
+      existingArray.forEach((element) {
+      print("<<<<<<<<<<<<$element>>>>>>>>>>>>>");
+
+        if (element != stringToRemove){
+          newArray.add(element);
+        }
+      });
+      print("<<<<<<<<<<<<$newArray>>>>>>>>>>>>>");
+
+    // Update the document with the modified array
+    await doctorDoc?.update({
+      'courses': newArray,
+    });
+
+    print('String removed successfully!');
+  } catch (error) {
+    print('Error removing string: $error');
+  }
+}
+
+
+}
+
+

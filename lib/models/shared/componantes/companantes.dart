@@ -134,24 +134,24 @@ var formKeyAddCourse = GlobalKey<FormState>();
 
 bool isButtomSheetShown = false;
 
-List<QueryDocumentSnapshot> dataCourse = [];
+List<QueryDocumentSnapshot> dataCourses = [];
 bool isLoading = true;
 
 Future<void> getData({required BuildContext context}) async {
-  dataCourse = [];
+  dataCourses = [];
 
   print("///////////////////////count\\\\\\\\\\\\\\\\\\\\\\");
   QuerySnapshot querySnapshot = await FirebaseFirestore.instance
       .collection('Courses')
       .where('Uniq_ID', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
       .get();
-  dataCourse.clear();
-  dataCourse.addAll(querySnapshot.docs);
+  dataCourses.clear();
+  dataCourses.addAll(querySnapshot.docs);
   isLoading = false;
   isButtomSheetShown = false;
 
   print("///////////////////////dataCourse.length\\\\\\\\\\\\\\\\\\\\\\");
-  print("${dataCourse.length}");
+  print("=============${dataCourses.length}=============");
   print("///////////////////////dataCourse.length\\\\\\\\\\\\\\\\\\\\\\");
 }
 

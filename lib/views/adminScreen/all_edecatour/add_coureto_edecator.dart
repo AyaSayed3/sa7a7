@@ -106,7 +106,7 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
             child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, mainAxisExtent: 160),
-                itemCount: dataCourse.length,
+                itemCount: dataCourses.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -160,7 +160,7 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
                           btnCancelOnPress: () async {
                             await FirebaseFirestore.instance
                                 .collection('Courses')
-                                .doc(dataCourse[index].id)
+                                .doc(dataCourses[index].id)
                                 .delete();
                                 isLoading=true;
                             setState(() {});
@@ -177,10 +177,10 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => UpdatCourseData(
-                                    docId: dataCourse[index].id,
-                                    oldLevel: dataCourse[index]['Level'],
-                                    oldId: dataCourse[index]['Course_ID'],
-                                    oldName: dataCourse[index]['Course_Name'],
+                                    docId: dataCourses[index].id,
+                                    oldLevel: dataCourses[index]['Level'],
+                                    oldId: dataCourses[index]['Course_ID'],
+                                    oldName: dataCourses[index]['Course_Name'],
                                   ),
                                 ));
                           },
@@ -200,7 +200,7 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      "${dataCourse[index]['Course_Name']}",
+                                      "${dataCourses[index]['Course_Name']}",
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -208,7 +208,7 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
                                     width: 5,
                                   ),
                                   Text(
-                                    "${dataCourse[index]['Level']}",
+                                    "${dataCourses[index]['Level']}",
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ],

@@ -36,7 +36,7 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
             child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, mainAxisExtent: 160),
-                itemCount: dataCourse.length,
+                itemCount: dataCourses.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -90,7 +90,7 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
                           btnCancelOnPress: () async {
                             await FirebaseFirestore.instance
                                 .collection('Courses')
-                                .doc(dataCourse[index].id)
+                                .doc(dataCourses[index].id)
                                 .delete();
                                 isLoading=true;
                             setState(() {});
@@ -107,10 +107,10 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => UpdatCourseData(
-                                    docId: dataCourse[index].id,
-                                    oldLevel: dataCourse[index]['Level'],
-                                    oldId: dataCourse[index]['Course_ID'],
-                                    oldName: dataCourse[index]['Course_Name'],
+                                    docId: dataCourses[index].id,
+                                    oldLevel: dataCourses[index]['Level'],
+                                    oldId: dataCourses[index]['Course_ID'],
+                                    oldName: dataCourses[index]['Course_Name'],
                                   ),
                                 ));
                           },
@@ -130,7 +130,7 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      "${dataCourse[index]['Course_Name']}",
+                                      "${dataCourses[index]['Course_Name']}",
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -138,7 +138,7 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
                                     width: 5,
                                   ),
                                   Text(
-                                    " Level ${dataCourse[index]['Level']}",
+                                    " Level ${dataCourses[index]['Level']}",
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ],

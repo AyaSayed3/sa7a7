@@ -24,6 +24,7 @@ class _LogicOfFlotingActionBottomState
           'Course_Name': nameCourseController.text,
           'Course_ID': idCourseController.text,
           'Level': levelCourseController.text,
+          // 'UniqCoursID': courses.id,
           'Uniq_ID': FirebaseAuth.instance.currentUser!.uid,
         })
         .then((value) => print("Course Added"))
