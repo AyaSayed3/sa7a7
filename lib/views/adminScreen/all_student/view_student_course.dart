@@ -80,7 +80,7 @@ Future<void> getStudentData() async {
             context,
             MaterialPageRoute(
                 builder: (context) => AddCourseToStudent(
-                      docId: widget.studentId,
+                      studentId: widget.studentId,
                     )),
           );
         },

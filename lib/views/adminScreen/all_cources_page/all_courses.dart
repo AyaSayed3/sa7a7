@@ -16,10 +16,9 @@ class AllCoursesScreen extends StatefulWidget {
 }
 
 class _AllCoursesScreenState extends State<AllCoursesScreen> {
-
-
   @override
   void initState() {
+
     super.initState();
     getData(context: context).then((value) {
       setState(() {});

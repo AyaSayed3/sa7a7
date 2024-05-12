@@ -119,7 +119,7 @@ class _UpdatCourseDataState extends State<UpdatCourseData> {
                           const SizedBox(width: 20),
                           Expanded(
                             child: defaultTextFromFiled(
-                              controller: levelCourseController,
+                              controller: levelController,
                               label: 'course\'s Level',
                               keyboardType: TextInputType.number,
                               prefix: Icons.star_rounded,

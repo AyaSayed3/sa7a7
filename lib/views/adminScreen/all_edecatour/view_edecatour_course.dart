@@ -32,12 +32,7 @@ Future<void> getDoctorData() async {
       print(doctorData?['courses'] );
       fetchDataAndCheckField(coursesId: doctorData?['courses'] as List<dynamic>  );
   }) ;
-    // await fetchDataAndCheckField(coursesId: doctorData['courses']).then((value) {
-    //   isLoadingECV =false;
-    //   setState(() {
-        
-    //   });
-    //  });
+   
 }   catch (e) {
   isLoadingECV =false;
       setState(() {
@@ -171,28 +166,14 @@ Future<void> fetchDataAndCheckField({required List<dynamic> coursesId}) async {
       Courses?.add( temp);
 
     });
-    // Loop through documents and add matching ones to Courses
-    // for (var doc in querySnapshot.docs) {
-    //   var docData = doc.data() as Map<String, dynamic>;
-    //   var fieldValue = docData['Uniq_ID'];
-
-    //   if (fieldValue == element) {
-    //     Courses.add(doc);
-    //     print('Document ID: ${doc.id}, Field Value: $fieldValue');
-    //   }
-    // }
-
-    // Update state based on fetched data (if needed)
+   
     setState(() {
       isLoadingECV = false;
     });
   } catch (error) {
     // Handle specific errors (e.g., FirebaseException)
     print('Error fetching data: $error');
-    // Update state based on error (if needed)
-    // setState(() {
-    //   // ...
-    // });
+    
   } finally {
     // Perform cleanup tasks if necessary (e.g., indicating loading completion)
     isLoadingECV = false; // Assuming this flag is used for loading state

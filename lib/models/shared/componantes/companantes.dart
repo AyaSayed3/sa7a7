@@ -117,7 +117,7 @@ clearMethodofRegister() {
 
 clearMethodofStudentRegister() {
   clearMethodofRegister();
-  levelController.clear();
+  // levelController.clear();
 }
 
 var nameCourseController = TextEditingController();

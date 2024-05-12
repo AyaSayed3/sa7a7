@@ -7,10 +7,10 @@ import 'package:sa7a7/views/adminScreen/all_cources_page/update_course.dart';
 import 'package:sa7a7/views/adminScreen/all_student/view_student_course.dart';
 
 class AddCourseToStudent extends StatefulWidget {
-  final String docId;
+  final String studentId;
   const AddCourseToStudent({
     super.key,
-    required this.docId,
+    required this.studentId,
   });
 
   @override
@@ -20,10 +20,12 @@ class AddCourseToStudent extends StatefulWidget {
 class _AddCourseToStudentState extends State<AddCourseToStudent> {
   @override
   void initState() {
-    super.initState();
+  
+     getDoctorData(docId: widget.studentId);
     getData(context: context).then((value) {
       setState(() {});
     });
+      super.initState();
   }
 
   @override
@@ -64,18 +66,15 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
                           // },
                           btnOkText: 'Add',
                           btnOkOnPress: () {
-                            //معملتش لسه الفانكشن بتاع الفايربيز اللي تضفلي الكورس ل الدكتور
-            
-                            // Navigator.pushReplacement(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder: (context) => UpdatCourseData(
-                            //         docId: dataCourse[index].id,
-                            //         oldLevel: dataCourse[index]['Level'],
-                            //         oldId: dataCourse[index]['Course_ID'],
-                            //         oldName: dataCourse[index]['Course_Name'],
-                            //       ),
-                            //     ));
+                           addCoure(dataCourses[index]['Course_ID'].toString() ).then((value) {
+
+                                
+                              });
+                            Navigator.pop(
+
+                               context,
+
+                                );
                           },
                         ).show();
                       },
@@ -98,7 +97,7 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>  ViewStudentCourse(studentId: widget.docId , )));
+                                    builder: (context) =>  ViewStudentCourse(studentId: widget.studentId , )));
                           },
                           
                           btnOkText: 'Edit',
@@ -154,4 +153,50 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
           ),
     );
   }
+DocumentReference? doctorDoc ;
+Future<void> getDoctorData({required String docId}) async {
+  
+  try {
+  
+ doctorDoc = await FirebaseFirestore.instance.collection('Students').doc(docId);
+  doctorDoc?.get();
+   
+}   catch (e) {
+  
+      setState(() {
+        
+      });
+}
+}
+
+Future<void> addCoure( String coursesId) async {
+  try {
+    // FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    // Fetch the document
+    DocumentSnapshot docSnapshot = await doctorDoc!.get();
+
+    if (!docSnapshot.exists) {
+      print('Document does not exist!');
+      return;
+    }
+
+    Map<String, dynamic>? doctorData= docSnapshot.data() as Map<String, dynamic>?;
+    // Access the field containing the array (replace 'your_array_field' with actual field name)
+    List<dynamic> existingArray = doctorData?['courses'] as List<dynamic>;
+
+    // add the string (consider efficiency for large arrays)
+    existingArray.add(coursesId);
+
+    // Update the document with the modified array
+    await doctorDoc?.update({
+      'courses': existingArray,
+    });
+
+    print('String add successfully!');
+  } catch (error) {
+    print('Error add string: $error');
+  }
+}
+
 }
