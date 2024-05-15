@@ -27,7 +27,7 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
             'Email': emailController.text ,
             'Status': 'admin',
             'Passward': passwordController.text,
-            // 'Uniq_ID' : FirebaseAuth.instance.currentUser!.uid,
+            'Uniq_ID' : FirebaseAuth.instance.currentUser!.uid,
           })
           .then((value) => print("Admin member Added"))
           .catchError((error) => print("Failed to add Amin member: $error"));
@@ -92,6 +92,7 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
                             prefix: Icons.person,
                             vlidator: (value) {
                               if (value.isEmpty) return 'Name Must not Empty';
+                              return null;
                             },
                           ),
                           const SizedBox(height: 30),
@@ -102,6 +103,7 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
                             prefix: Icons.email,
                             vlidator: (value) {
                               if (value.isEmpty) return 'Email Must not Empty';
+                              return null;
                             },
                           ),
                           const SizedBox(height: 30),
@@ -112,6 +114,7 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
                             prefix: Icons.perm_identity,
                             vlidator: (value) {
                               if (value.isEmpty) return 'ID Must not Empty';
+                              return null;
                             },
                           ),
                           const SizedBox(height: 30),

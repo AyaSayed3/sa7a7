@@ -6,10 +6,10 @@ import 'package:sa7a7/views/adminScreen/all_edecatour/add_coureto_edecator.dart'
 import 'package:sa7a7/views/adminScreen/amdin_layout/admin_layout.dart';
 
 class ViewEdecatourCourse extends StatefulWidget {
-  final String EdecatourId;
+  final String edecatourId;
   const ViewEdecatourCourse({
     super.key,
-    required this.EdecatourId,
+    required this.edecatourId,
   });
 
   @override
@@ -21,10 +21,10 @@ class _ViewEdecatourCourseState extends State<ViewEdecatourCourse> {
 
 DocumentReference? doctorDoc ;
 Future<void> getDoctorData() async {
-  print(widget.EdecatourId);
+  print(widget.edecatourId);
   try {
   // Map<String, dynamic> doctorData= 
- doctorDoc = await FirebaseFirestore.instance.collection('Edecatour').doc(widget.EdecatourId);
+ doctorDoc = await FirebaseFirestore.instance.collection('Edecatour').doc(widget.edecatourId);
   doctorDoc?.get().then((value) async {
       // print(value.data() );
       Map<String, dynamic>? doctorData= value.data() as Map<String, dynamic>?;
@@ -75,11 +75,11 @@ Future<void> getDoctorData() async {
             context,
             MaterialPageRoute(
                 builder: (context) => AddCourseToEdecatour(
-                      docId: widget.EdecatourId,
+                      docId: widget.edecatourId,
                     )),
           );
         },
-        child: Icon(
+        child: const Icon(
           Icons.bookmark_added_sharp,
           size: 35,
         ),
@@ -94,7 +94,7 @@ Future<void> getDoctorData() async {
               child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, mainAxisExtent: 160),
-                  itemCount: Courses?.length ??0,
+                  itemCount: courses?.length ??0,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -111,7 +111,7 @@ Future<void> getDoctorData() async {
                                     //     .collection('Edecatour')
                                     //     .doc(Courses?[index]['Uniq_ID'])
                                     //     .delete();
-                                    deleteCoure(Courses?[index]['Course_ID']);
+                                    deleteCoure(courses?[index]['Course_ID']);
                                        
                                     setState(() {});
               
@@ -131,7 +131,7 @@ Future<void> getDoctorData() async {
                               children: [
                                 const SizedBox(height: 10),
                                 Text(
-                                  "${Courses?[index]['Course_Name']}",
+                                  "${courses?[index]['Course_Name']}",
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 
@@ -148,10 +148,10 @@ Future<void> getDoctorData() async {
     );
   }
 
-List<Map<String , dynamic>>? Courses =[] ;
+List<Map<String , dynamic>>? courses =[] ;
 Future<void> fetchDataAndCheckField({required List<dynamic> coursesId}) async {
   print("hello bobnaya");
-  Courses =[] ;
+  courses =[] ;
   try {
     // Access the Firestore instance
     FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -163,7 +163,7 @@ Future<void> fetchDataAndCheckField({required List<dynamic> coursesId}) async {
     querySnapshot.docs.forEach((e) {
       print(e.data());
       Map<String, dynamic>  temp = e.data() as Map<String, dynamic> ;
-      Courses?.add( temp);
+      courses?.add( temp);
 
     });
    

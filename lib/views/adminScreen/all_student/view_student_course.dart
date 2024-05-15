@@ -84,7 +84,7 @@ Future<void> getStudentData() async {
                     )),
           );
         },
-        child: Icon(
+        child: const Icon(
           Icons.bookmark_added_sharp,
           size: 35,
         ),
@@ -99,7 +99,7 @@ Future<void> getStudentData() async {
               child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, mainAxisExtent: 160),
-                  itemCount: Courses?.length ??0,
+                  itemCount: courses?.length ??0,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -116,7 +116,7 @@ Future<void> getStudentData() async {
                                       //     .collection('Edecatour')
                                       //     .doc(Courses?[index]['Uniq_ID'])
                                       //     .delete();
-                                      deleteCoure(Courses?[index]['Course_ID']);
+                                      deleteCoure(courses?[index]['Course_ID']);
                                          
                                       setState(() {});
                 
@@ -134,14 +134,14 @@ Future<void> getStudentData() async {
                             padding: const EdgeInsets.all(10),
                             child:  Column(
                               children: [
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                  Text(
-                                    "${Courses?[index]['Course_ID']}",
+                                    "${courses?[index]['Course_ID']}",
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                  Text(
-                                    "${Courses?[index]['Course_Name']}",
+                                    "${courses?[index]['Course_Name']}",
                                     overflow: TextOverflow.ellipsis,
                                   ),
                               ],
@@ -158,10 +158,10 @@ Future<void> getStudentData() async {
   }
 
 
-List<Map<String , dynamic>>? Courses =[] ;
+List<Map<String , dynamic>>? courses =[] ;
 Future<void> fetchDataAndCheckField({required List<dynamic> coursesId}) async {
   print("hello bobnaya");
-  Courses =[] ;
+  courses =[] ;
   try {
     // Access the Firestore instance
     FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -173,7 +173,7 @@ Future<void> fetchDataAndCheckField({required List<dynamic> coursesId}) async {
     querySnapshot.docs.forEach((e) {
       print(e.data());
       Map<String, dynamic>  temp = e.data() as Map<String, dynamic> ;
-      Courses?.add( temp);
+      courses?.add( temp);
 
     });
     // Loop through documents and add matching ones to Courses

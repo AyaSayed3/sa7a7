@@ -99,7 +99,7 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>  ViewEdecatourCourse(EdecatourId: widget.docId , )));
+                                    builder: (context) =>  ViewEdecatourCourse(edecatourId: widget.docId , )));
                           },
                           
                           btnOkText: 'Edit',

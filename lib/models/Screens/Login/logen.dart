@@ -120,6 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       isLoading = true;
                                       try {
                                         setState(() {});
+                                        // ignore: unused_local_variable
                                         final credential =
                                             await FirebaseAuth.instance
                                                 .signInWithEmailAndPassword(
@@ -155,6 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       } on FirebaseAuthException catch (e) {
                                         isLoading = false;
                                         setState(() {});
+                                        print(e);
 
                                         AwesomeDialog(
                                           // ignore: use_build_context_synchronously

@@ -41,7 +41,7 @@ class _AllEdecatourScreenState extends State<AllEdecatourScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>  ViewEdecatourCourse(EdecatourId: edecatourData[index].id,)));
+                              builder: (context) =>  ViewEdecatourCourse(edecatourId: edecatourData[index].id,)));
                     },
                     onLongPress: () {
                       AwesomeDialog(
@@ -49,7 +49,7 @@ class _AllEdecatourScreenState extends State<AllEdecatourScreen> {
                               dialogType: DialogType.warning,
                               animType: AnimType.rightSlide,
                               title: 'Worning',
-                              desc: 'Are You Sure about Dlete this Edecatour..',
+                              desc: 'Are You Sure about Delete this Edecatour..',
                               btnOkOnPress: () async {
                                 await FirebaseFirestore.instance
                                     .collection('Edecatour')

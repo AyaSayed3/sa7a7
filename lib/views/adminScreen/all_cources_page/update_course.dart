@@ -78,7 +78,7 @@ class _UpdatCourseDataState extends State<UpdatCourseData> {
                   child: Column(
                     children: [
                       const Text(
-                        'UpDate  Courses',
+                        'Up Date  Courses',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

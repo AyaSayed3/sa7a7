@@ -23,7 +23,7 @@ class _EdecatourRegisterScreenState extends State<EdecatourRegisterScreen> {
      
       return edecatour
           .add({
-            'Adecatour_Name': nameController.text, 
+            'Edecatour_Name': nameController.text, 
             'Edecatour_ID': idController.text, 
             'Email': emailController.text ,
             'Status': 'edecatour',
@@ -87,6 +87,7 @@ class _EdecatourRegisterScreenState extends State<EdecatourRegisterScreen> {
                       prefix: Icons.person,
                       vlidator: (value) {
                         if (value.isEmpty) return 'Name Must not Empty';
+                        return null;
                       },
                     ),
                     const SizedBox(height: 30),
@@ -97,6 +98,7 @@ class _EdecatourRegisterScreenState extends State<EdecatourRegisterScreen> {
                       prefix: Icons.email,
                       vlidator: (value) {
                         if (value.isEmpty) return 'Email Must not Empty';
+                        return null;
                       },
                     ),
                     const SizedBox(height: 30),
@@ -107,6 +109,7 @@ class _EdecatourRegisterScreenState extends State<EdecatourRegisterScreen> {
                       prefix: Icons.perm_identity,
                       vlidator: (value) {
                         if (value.isEmpty) return 'ID Must not Empty';
+                        return null;
                       },
                     ),
                     const SizedBox(height: 30),

@@ -21,7 +21,7 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
   @override
   void initState() {
   
-     getDoctorData(docId: widget.studentId);
+     getStudentData(stuId: widget.studentId);
     getData(context: context).then((value) {
       setState(() {});
     });
@@ -49,21 +49,11 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
                           dialogType: DialogType.warning,
                           animType: AnimType.rightSlide,
                           title: 'Worning',
-                          desc: '=> Are you Sure About Adding this Course ? <=.',
+                          desc: ' Are you Sure About Adding this Course with \n level ${dataCourses[index]['Level']} ? ',
             
-                          // btnCancelOnPress: () async {
-                          //   await FirebaseFirestore.instance
-                          //       .collection('Courses')
-                          //       .doc(dataCourse[index].id)
-                          //       .delete();
-            
-                          //   setState(() {});
-            
-                          //   Navigator.pushReplacement(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //           builder: (context) => const AdminHomePage()));
-                          // },
+                          btnCancelOnPress: ()  {
+                          
+                          },
                           btnOkText: 'Add',
                           btnOkOnPress: () {
                            addCoure(dataCourses[index]['Course_ID'].toString() ).then((value) {
@@ -153,13 +143,13 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
           ),
     );
   }
-DocumentReference? doctorDoc ;
-Future<void> getDoctorData({required String docId}) async {
+DocumentReference? studentDoc ;
+Future<void> getStudentData({required String stuId}) async {
   
   try {
   
- doctorDoc = await FirebaseFirestore.instance.collection('Students').doc(docId);
-  doctorDoc?.get();
+ studentDoc = await FirebaseFirestore.instance.collection('Students').doc(stuId);
+  studentDoc?.get();
    
 }   catch (e) {
   
@@ -174,7 +164,7 @@ Future<void> addCoure( String coursesId) async {
     // FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     // Fetch the document
-    DocumentSnapshot docSnapshot = await doctorDoc!.get();
+    DocumentSnapshot docSnapshot = await studentDoc!.get();
 
     if (!docSnapshot.exists) {
       print('Document does not exist!');
@@ -189,7 +179,7 @@ Future<void> addCoure( String coursesId) async {
     existingArray.add(coursesId);
 
     // Update the document with the modified array
-    await doctorDoc?.update({
+    await studentDoc?.update({
       'courses': existingArray,
     });
 

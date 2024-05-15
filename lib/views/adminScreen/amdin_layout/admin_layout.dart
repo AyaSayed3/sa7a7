@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sa7a7/models/Screens/setting_page/setting.dart';
 import 'package:sa7a7/models/shared/background.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
 import 'package:sa7a7/views/adminScreen/all_cources_page/action_logic_of_floting_actionB.dart';
 import 'package:sa7a7/views/adminScreen/all_cources_page/all_courses.dart';
 import 'package:sa7a7/views/adminScreen/all_edecatour/all_edecator.dart';
 import 'package:sa7a7/views/adminScreen/all_student/all_students.dart';
+import 'package:sa7a7/views/adminScreen/setting_profile/setting_profile.dart';
 
 class AdminHomePage extends StatefulWidget {
   const AdminHomePage({super.key});
@@ -17,17 +17,17 @@ class AdminHomePage extends StatefulWidget {
 class _AdminHomePageState extends State<AdminHomePage> {
   List<BottomNavigationBarItem> bottomItems = [
     const BottomNavigationBarItem(icon: Icon(Icons.book), label: 'All course'),
-    const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'edecator'),
+    const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Edecator'),
     const BottomNavigationBarItem(
-        icon: Icon(Icons.groups_rounded), label: 'students'),
-    const BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Setting'),
+        icon: Icon(Icons.groups_rounded), label: 'Students'),
+    const BottomNavigationBarItem(icon: Icon(Icons.personal_injury), label: 'Profile'),
   ];
   int currentIndex = 0;
   List<Widget> screens = [
     const AllCoursesScreen(),
     const AllEdecatourScreen(),
     const AllStudentScreen(),
-    const AdminSettingPage(),
+    const AdminProfilePage(),
   ];
 
   List<Icon> icons = [
@@ -37,6 +37,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
     const Icon(Icons.person_pin_outlined),
   ];
 
+  // ignore: non_constant_identifier_names
   Widget ActionButtonCourse(BuildContext context) {
     return const LogicOfFlotingActionBottom();
   }
@@ -90,15 +91,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                     if (currentIndex == 0) {
                       return ActionButtonCourse(context);
                     }
-                    //  else if (currentIndex == 1) {
-                    //       return Container(
-                    //         height: 100,
-                    //         color: Colors.grey,
-                    //       );
-                    //     }
-                    //    else  if (currentIndex == 2) {
-                    //   return screens[2];
-                    //    }
+                
                     return screens[3];
                   });
                   isButtomSheetShown = true;
