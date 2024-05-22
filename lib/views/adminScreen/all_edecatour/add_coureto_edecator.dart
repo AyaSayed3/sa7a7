@@ -6,7 +6,6 @@ import 'package:sa7a7/models/shared/componantes/companantes.dart';
 import 'package:sa7a7/views/adminScreen/all_cources_page/update_course.dart';
 import 'package:sa7a7/views/adminScreen/all_edecatour/view_edecatour_course.dart';
 
-
 class AddCourseToEdecatour extends StatefulWidget {
   final String docId;
   const AddCourseToEdecatour({
@@ -19,7 +18,6 @@ class AddCourseToEdecatour extends StatefulWidget {
 }
 
 class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
-
   @override
   void initState() {
     super.initState();
@@ -36,7 +34,7 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : Background(
-            child: GridView.builder(
+              child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, mainAxisExtent: 160),
                 itemCount: dataCourses.length,
@@ -50,33 +48,16 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
                           dialogType: DialogType.warning,
                           animType: AnimType.rightSlide,
                           title: 'Worning',
-                          desc: '=> Are you Sure About Adding this Course ? <=.',
-            
-                          // btnCancelOnPress: () async {
-                          //   await FirebaseFirestore.instance
-                          //       .collection('Courses')
-                          //       .doc(dataCourse[index].id)
-                          //       .delete();
-            
-                          //   setState(() {});
-            
-                          //   Navigator.pushReplacement(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //           builder: (context) => const AdminHomePage()));
-                          // },
+                          desc:
+                              ' Are you Sure About Adding this Course with \n level ${dataCourses[index]['Level']} ? ',
+                          btnCancelOnPress: () {},
                           btnOkText: 'Add',
                           btnOkOnPress: () {
-                            //معملتش لسه الفانكشن بتاع الفايربيز اللي تضفلي الكورس ل الدكتور
-                              addCoure(dataCourses[index]['Course_ID'].toString() ).then((value) {
-
-                                
-                              });
+                            addCoure(dataCourses[index]['Course_ID'].toString())
+                                .then((value) {});
                             Navigator.pop(
-
-                               context,
-
-                                );
+                              context,
+                            );
                           },
                         ).show();
                       },
@@ -86,22 +67,23 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
                           dialogType: DialogType.warning,
                           animType: AnimType.rightSlide,
                           title: 'Worning',
-                          desc: '=> Choose Whate do you want to do ? <=.',
+                          desc: ' Choose Whate do you want to do ? ',
                           btnCancelText: 'Delet',
                           btnCancelOnPress: () async {
                             await FirebaseFirestore.instance
                                 .collection('Courses')
                                 .doc(dataCourses[index].id)
                                 .delete();
-                                isLoading=true;
+                            isLoading = true;
                             setState(() {});
-            
+
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>  ViewEdecatourCourse(edecatourId: widget.docId , )));
+                                    builder: (context) => ViewEdecatourCourse(
+                                          edecatourId: widget.docId,
+                                        )));
                           },
-                          
                           btnOkText: 'Edit',
                           btnOkOnPress: () {
                             Navigator.pushReplacement(
@@ -152,56 +134,49 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
                   );
                 },
               ),
-          ),
+            ),
     );
   }
 
-  
-DocumentReference? doctorDoc ;
-Future<void> getDoctorData({required String docId}) async {
-  
-  try {
-  
- doctorDoc = await FirebaseFirestore.instance.collection('Edecatour').doc(docId);
-  doctorDoc?.get();
-   
-}   catch (e) {
-  
-      setState(() {
-        
-      });
-}
-}
-
-Future<void> addCoure( String coursesId) async {
-  try {
-    // FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-    // Fetch the document
-    DocumentSnapshot docSnapshot = await doctorDoc!.get();
-
-    if (!docSnapshot.exists) {
-      print('Document does not exist!');
-      return;
+  DocumentReference? doctorDoc;
+  Future<void> getDoctorData({required String docId}) async {
+    try {
+      doctorDoc =
+          await FirebaseFirestore.instance.collection('Edecatour').doc(docId);
+      doctorDoc?.get();
+    } catch (e) {
+      setState(() {});
     }
-
-    Map<String, dynamic>? doctorData= docSnapshot.data() as Map<String, dynamic>?;
-    // Access the field containing the array (replace 'your_array_field' with actual field name)
-    List<dynamic> existingArray = doctorData?['courses'] as List<dynamic>;
-
-    // add the string (consider efficiency for large arrays)
-    existingArray.add(coursesId);
-
-    // Update the document with the modified array
-    await doctorDoc?.update({
-      'courses': existingArray,
-    });
-
-    print('String add successfully!');
-  } catch (error) {
-    print('Error add string: $error');
   }
-}
 
+  Future<void> addCoure(String coursesId) async {
+    try {
+      // FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+      // Fetch the document
+      DocumentSnapshot docSnapshot = await doctorDoc!.get();
+
+      if (!docSnapshot.exists) {
+        print('Document does not exist!');
+        return;
+      }
+
+      Map<String, dynamic>? doctorData =
+          docSnapshot.data() as Map<String, dynamic>?;
+      // Access the field containing the array (replace 'your_array_field' with actual field name)
+      List<dynamic> existingArray = doctorData?['courses'] as List<dynamic>;
+
+      // add the string (consider efficiency for large arrays)
+      existingArray.add(coursesId);
+
+      // Update the document with the modified array
+      await doctorDoc?.update({
+        'courses': existingArray,
+      });
+
+      print('String add successfully!');
+    } catch (error) {
+      print('Error add string: $error');
+    }
+  }
 }

@@ -74,7 +74,7 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
                           dialogType: DialogType.warning,
                           animType: AnimType.rightSlide,
                           title: 'Worning',
-                          desc: '=> Choose Whate do you want to do ? <=.',
+                          desc: 'Choose Whate do you want to do ? ',
                           btnCancelText: 'Delet',
                           btnCancelOnPress: () async {
                             await FirebaseFirestore.instance

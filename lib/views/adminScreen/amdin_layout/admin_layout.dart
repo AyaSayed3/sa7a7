@@ -66,7 +66,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
 
     return Background(
       child: Scaffold(
-        appBar: AppBar(),
+        // appBar: AppBar(),
         key: scaffoldKey,
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,

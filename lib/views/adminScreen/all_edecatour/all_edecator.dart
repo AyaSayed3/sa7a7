@@ -78,7 +78,7 @@ class _AllEdecatourScreenState extends State<AllEdecatourScreen> {
                             ),
                             const SizedBox(height: 10),
                             Text(
-                              "${edecatourData[index]['Adecatour_Name']}",
+                              "${edecatourData[index]['Edecatour_Name']}",
                               overflow: TextOverflow.ellipsis,
                             ),
                           ],
