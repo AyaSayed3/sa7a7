@@ -107,10 +107,7 @@ Future<void> getDoctorData() async {
                                   title: 'Worning',
                                   desc: 'Are You Sure about Dlete this Course..',
                                   btnOkOnPress: () async {
-                                    // await FirebaseFirestore.instance
-                                    //     .collection('Edecatour')
-                                    //     .doc(Courses?[index]['Uniq_ID'])
-                                    //     .delete();
+                                
                                     deleteCoure(courses?[index]['Course_ID']);
                                        
                                     setState(() {});

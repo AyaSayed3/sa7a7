@@ -30,7 +30,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
             'Passward': passwordController.text,
             'Student_Level': levelController.text,
             'Uniq_ID' : FirebaseAuth.instance.currentUser!.uid,
-            'courses':[]   
+            'courses':[{}]   
           })
           .then((value) => print("/////////////Student member Added"))
           .catchError((error) => print("========Failed to add Student member: $error"));

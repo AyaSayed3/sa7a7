@@ -53,7 +53,11 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
                           btnCancelOnPress: () {},
                           btnOkText: 'Add',
                           btnOkOnPress: () {
-                            addCoure(dataCourses[index]['Course_ID'].toString())
+                            addCoure(
+                                    dataCourses[index]['Course_ID'].toString(),
+                                    dataCourses[index]['Course_Name'].toString(),
+                                    dataCourses[index]['Level'].toString(),
+                                    )
                                 .then((value) {});
                             Navigator.pop(
                               context,
@@ -149,7 +153,11 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
     }
   }
 
-  Future<void> addCoure(String coursesId) async {
+  Future<void> addCoure(
+    String coursesId,
+    String courseName,
+    String courseLevel
+  ) async {
     try {
       // FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -167,7 +175,11 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
       List<dynamic> existingArray = doctorData?['courses'] as List<dynamic>;
 
       // add the string (consider efficiency for large arrays)
-      existingArray.add(coursesId);
+      existingArray.add({
+        'Course_ID': coursesId,
+        'Course_Name': courseName,
+        'Level': courseLevel
+      });
 
       // Update the document with the modified array
       await doctorDoc?.update({

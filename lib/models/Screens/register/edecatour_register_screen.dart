@@ -29,7 +29,7 @@ class _EdecatourRegisterScreenState extends State<EdecatourRegisterScreen> {
             'Status': 'edecatour',
             'Passward': passwordController.text,
             'Uniq_ID' : FirebaseAuth.instance.currentUser!.uid,
-            'courses':[]          })
+            'courses':[{}]          })
           .then((value) => print("/////////////edecator member Added"))
           .catchError((error) => print("========Failed to add Edecatour member: $error"));
     }
