@@ -87,7 +87,7 @@ class _LogicOfFlotingActionBottomState
                     Expanded(
                       child: defaultTextFromFiled(
                         controller: levelCourseController,
-                        label: 'course\'s Level',
+                        label: 'Level',
                         keyboardType: TextInputType.number,
                         prefix: Icons.star_rounded,
                         vlidator: (value) {

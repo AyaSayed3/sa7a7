@@ -45,9 +45,9 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
                       onTap: () {
                         AwesomeDialog(
                           context: context,
-                          dialogType: DialogType.warning,
+                         dialogType: DialogType.success,
                           animType: AnimType.rightSlide,
-                          title: 'Worning',
+                          title: 'Add Course',
                           desc:
                               ' Are you Sure About Adding this Course with \n level ${dataCourses[index]['Level']} ? ',
                           btnCancelOnPress: () {},
@@ -109,7 +109,7 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
                           child: Column(
                             children: [
                               Image.asset(
-                                'assets/images/files.png',
+                                'assets/images/addcotoedecatour.jpg',
                                 height: 100,
                               ),
                               const SizedBox(height: 10),

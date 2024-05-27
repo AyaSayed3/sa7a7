@@ -54,21 +54,22 @@ class _UpdatCourseDataState extends State<UpdatCourseData> {
     return isLoadingOfAdd
         ? const Center(child: CircularProgressIndicator())
         : Scaffold(
-             appBar: AppBar(
-          elevation: null,
-          backgroundColor: Colors.transparent,
-          leading: TextButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const AdminHomePage()));
-            },
-            child: const Icon(
-              Icons.arrow_back_ios_rounded,
-              color: Colors.black,
-            ),
-          )),
+          //    appBar: AppBar(
+          // elevation: null,
+          // backgroundColor: Colors.transparent,
+          // leading: TextButton(
+          //   onPressed: () {
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //             builder: (context) => const AdminHomePage()));
+          //   },
+          //   child: const Icon(
+          //     Icons.arrow_back_ios_rounded,
+          //     color: Colors.black,
+          //   ),
+          // )),
+         
           body: Background(
             child: SafeArea(
               child: Form(

@@ -75,7 +75,7 @@ class _AllStudentScreenState extends State<AllStudentScreen> {
                         child: Column(
                           children: [
                             Image.asset(
-                              'assets/images/student.png',
+                              'assets/images/student.jpg',
                               height: 100,
                             ),
                             const SizedBox(height: 10),

@@ -41,9 +41,9 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
                     onLongPress: () {
                       AwesomeDialog(
                         context: context,
-                        dialogType: DialogType.warning,
+                        dialogType: DialogType.success,
                         animType: AnimType.rightSlide,
-                        title: 'Worning',
+                        title: 'Action',
                         desc: 'Choose Whate do you want to do ? ',
                         btnCancelText: 'Delete',
                         btnCancelOnPress: () async {
@@ -81,7 +81,7 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
                         child: Column(
                           children: [
                             Image.asset(
-                              'assets/images/files.png',
+                              'assets/images/course.jpg',
                               height: 100,
                             ),
                             const SizedBox(height: 10),

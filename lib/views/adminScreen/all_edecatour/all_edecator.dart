@@ -73,7 +73,7 @@ class _AllEdecatourScreenState extends State<AllEdecatourScreen> {
                         child: Column(
                           children: [
                             Image.asset(
-                              'assets/images/person4.jpg',
+                              'assets/images/person2.jpg',
                               height: 100,
                             ),
                             const SizedBox(height: 10),
