@@ -16,20 +16,27 @@ class LogicOfFlotingActionBottom extends StatefulWidget {
 
 class _LogicOfFlotingActionBottomState
     extends State<LogicOfFlotingActionBottom> {
-  CollectionReference courses =
-      FirebaseFirestore.instance.collection('Courses');
-  Future<void> addCourses() {
-    return courses
-        .add({
-          'Course_Name': nameCourseController.text,
-          'Course_ID': idCourseController.text,
-          'Level': levelCourseController.text,
-          // 'UniqCoursID': courses.id,
-          'Uniq_ID': FirebaseAuth.instance.currentUser!.uid,
-        })
-        .then((value) => print("Course Added"))
-        .catchError((error) => print("Failed to add Course: $error"));
-  }
+  CollectionReference courses = FirebaseFirestore.instance.collection('Courses');
+
+Future<void> addCourses() {
+  // Get the static ID from the course ID text controller
+  String staticId = idCourseController.text;
+
+  // Set the document with the specified static ID
+  return courses
+      .doc(staticId)
+      .set({
+        'Course_Name': nameCourseController.text,
+        'Course_ID': idCourseController.text,
+        'Level': levelCourseController.text,
+        'Uniq_ID': FirebaseAuth.instance.currentUser!.uid,
+      })
+      .then((value) {
+        print("Course Added with ID: $staticId");
+      })
+      .catchError((error) => print("Failed to add Course: $error"));
+}
+ 
 
   // bool isLoadingOfAdd = false;
 
