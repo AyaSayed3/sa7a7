@@ -65,6 +65,7 @@ class _VerifictionEmailState extends State<VerifictionEmail> {
                 onPressedFunction: () {
                    FirebaseAuth.instance.currentUser!
                                 .sendEmailVerification();
+                                clearMethodofStudentRegister();
                   Navigator.push(
                       context,
                       MaterialPageRoute(

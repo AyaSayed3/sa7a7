@@ -20,9 +20,9 @@ class _EdecatourRegisterScreenState extends State<EdecatourRegisterScreen> {
 
   CollectionReference edecatour = FirebaseFirestore.instance.collection('Edecatour');
     Future<void> addEdecatourMember() {
-     
-      return edecatour
-          .add({
+     String staticId = idController.text;
+      return edecatour.doc(staticId)
+          .set({
             'Edecatour_Name': nameController.text, 
             'Edecatour_ID': idController.text, 
             'Email': emailController.text ,
@@ -139,7 +139,7 @@ class _EdecatourRegisterScreenState extends State<EdecatourRegisterScreen> {
                         child: defaultButton(
                             onPressedFunction: () async {
                                if (adminFormKey.currentState!.validate()) {
-                                      if (int.parse(idController.text) > 300 || int.parse(idController.text)<=10) {
+                                      if (int.parse(idController.text) > 900 || int.parse(idController.text)<=10) {
                                         AwesomeDialog(
                                           context: context,
                                           dialogType: DialogType.warning,

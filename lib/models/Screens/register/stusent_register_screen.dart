@@ -20,9 +20,9 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
 
   CollectionReference students = FirebaseFirestore.instance.collection('Students');
     Future<void> addStudentMember() {
-     
-      return students
-          .add({
+      String staticId = idController.text;
+      return students.doc(staticId)
+          .set({
             'Student_Name': nameController.text, 
             'Student_ID': idController.text, 
             'Email': emailController.text ,
@@ -155,7 +155,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                         child: defaultButton(
                             onPressedFunction: () async {
                               if (adminFormKey.currentState!.validate()) {
-                                      if (int.parse(idController.text)<300) {
+                                      if (int.parse(idController.text)<900) {
                                         AwesomeDialog(
                                           context: context,
                                           dialogType: DialogType.warning,
@@ -188,7 +188,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                             FirebaseAuth.instance.currentUser!
                                                 .sendEmailVerification();
                                                 addStudentMember();
-                                                 clearMethodofStudentRegister();
+                                                // clearMethodofStudentRegister();
                                           });
                                         } on FirebaseAuthException catch (e) {
                                           if (e.code == 'weak-password') {
