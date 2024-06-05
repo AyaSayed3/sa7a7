@@ -29,66 +29,69 @@ class _AllEdecatourScreenState extends State<AllEdecatourScreen> {
     return isLoadingTOedecatour
         ? const Center(child: CircularProgressIndicator())
         : Background(
-          child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, mainAxisExtent: 160),
-              itemCount: edecatourData.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>  ViewEdecatourCourse(edecatourId: edecatourData[index].id,)));
-                    },
-                    onLongPress: () {
-                      AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.warning,
-                              animType: AnimType.rightSlide,
-                              title: 'Worning',
-                              desc: 'Are You Sure about Delete this Edecatour..',
-                              btnOkOnPress: () async {
-                                await FirebaseFirestore.instance
-                                    .collection('Edecatour')
-                                    .doc(edecatourData[index].id)
-                                    .delete();
-          
-                                setState(() {});
-          
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const AdminHomePage()));
-                              },
-                              btnCancelOnPress: () {})
-                          .show();
-                    },
-                    child: Card(
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/images/person2.jpg',
-                              height: 100,
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              "${edecatourData[index]['Edecatour_Name']}",
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, mainAxisExtent: 160),
+                itemCount: edecatourData.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>  ViewEdecatourCourse(edecatourId: edecatourData[index].id,)));
+                      },
+                      onLongPress: () {
+                        AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.warning,
+                                animType: AnimType.rightSlide,
+                                title: 'Worning',
+                                desc: 'Are You Sure about Delete this Edecatour..',
+                                btnOkOnPress: () async {
+                                  await FirebaseFirestore.instance
+                                      .collection('Edecatour')
+                                      .doc(edecatourData[index].id)
+                                      .delete();
+            
+                                  setState(() {});
+            
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const AdminHomePage()));
+                                },
+                                btnCancelOnPress: () {})
+                            .show();
+                      },
+                      child: Card(
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/images/DrHamada.jpg',
+                                height: 100,
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                "${edecatourData[index]['Edecatour_Name']}",
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                );
-              },
-            ),
+                  );
+                },
+              ),
+          ),
         );
   }
 }

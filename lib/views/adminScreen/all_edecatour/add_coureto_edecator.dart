@@ -30,7 +30,7 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+    appBar: AppBar(title: const Text('Add Course',style: TextStyle(color: Colors.black),),),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : Background(

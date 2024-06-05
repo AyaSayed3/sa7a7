@@ -197,7 +197,8 @@ Future<void> getstudentData({required BuildContext context}) async {
   isLoadingTOstudent = false;
 }
 
-
+List <dynamic> allEdecatorCourse=[];
+List <dynamic> allStudentCourse=[];
 
 
 

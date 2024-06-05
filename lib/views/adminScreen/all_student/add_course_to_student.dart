@@ -30,7 +30,7 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: const Text('Add Course'),),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : Background(

@@ -79,7 +79,7 @@ class _UpdatCourseDataState extends State<UpdatCourseData> {
                   child: Column(
                     children: [
                       const Text(
-                        'Up Date  Courses',
+                        'UpDate  Courses',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -156,7 +156,7 @@ class _UpdatCourseDataState extends State<UpdatCourseData> {
                             });
                           }
                         },
-                        text: 'Up Date',
+                        text: 'UpDate',
                       ),
                       const Spacer(flex: 2),
                     ],

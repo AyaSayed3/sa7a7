@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
 
 class AdminProfilePage extends StatelessWidget {
-  const AdminProfilePage({Key? key}) : super(key: key);
+  const AdminProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {

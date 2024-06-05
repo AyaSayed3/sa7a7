@@ -5,7 +5,7 @@ import 'package:sa7a7/views/adminScreen/all_cources_page/action_logic_of_floting
 import 'package:sa7a7/views/adminScreen/all_cources_page/all_courses.dart';
 import 'package:sa7a7/views/adminScreen/all_edecatour/all_edecator.dart';
 import 'package:sa7a7/views/adminScreen/all_student/all_students.dart';
-import 'package:sa7a7/views/adminScreen/setting_profile/setting_profile.dart';
+import 'package:sa7a7/views/adminScreen/setting_profile/adminprofilepage.dart';
 
 class AdminHomePage extends StatefulWidget {
   const AdminHomePage({super.key});

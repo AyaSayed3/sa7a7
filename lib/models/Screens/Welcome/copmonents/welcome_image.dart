@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'constants.dart';
 
 class WelcomeImage extends StatelessWidget {
@@ -12,9 +12,9 @@ class WelcomeImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text(
-          "Welcome Good Luck In Your Exam",
-          style: TextStyle(fontWeight: FontWeight.bold),
+        Image.asset(
+          'assets/images/Correx.jpg',
+          height: 100,
         ),
         const SizedBox(height: defaultPadding * 2),
         Row(

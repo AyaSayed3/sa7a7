@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sa7a7/models/shared/background.dart';
+import 'package:sa7a7/models/shared/componantes/companantes.dart';
 import 'package:sa7a7/views/adminScreen/all_edecatour/add_coureto_edecator.dart';
 import 'package:sa7a7/views/adminScreen/amdin_layout/admin_layout.dart';
 
@@ -17,20 +18,29 @@ class ViewEdecatourCourse extends StatefulWidget {
 }
 
 class _ViewEdecatourCourseState extends State<ViewEdecatourCourse> {
-  //List<QueryDocumentSnapshot> edecatourData = [];
-
+bool isLoadingECV = true;
 DocumentReference? doctorDoc ;
 Future<void> getDoctorData() async {
-  print(widget.edecatourId);
-  try {
-  // Map<String, dynamic> doctorData= 
+  isLoadingECV=true;
+  try { 
  doctorDoc = await FirebaseFirestore.instance.collection('Edecatour').doc(widget.edecatourId);
   doctorDoc?.get().then((value) async {
-      // print(value.data() );
       Map<String, dynamic>? doctorData= value.data() as Map<String, dynamic>?;
       // print(doctorData );
       print(doctorData?['courses'] );
-      fetchDataAndCheckField(coursesId: doctorData?['courses'] as List<dynamic>  );
+       allEdecatorCourse =doctorData?['courses'] ;
+      
+        print("///////////////////////mM\\\\\\\\\\\\\\\\\\\\\\");
+        print(allEdecatorCourse[0]["Level"]);
+        print(allEdecatorCourse.length);
+        print("///////////////////////mM\\\\\\\\\\\\\\\\\\\\\\");
+
+        setState(() {
+            isLoadingECV=false;
+        });
+        
+      
+      // fetchDataAndCheckField(coursesId: doctorData?['courses'] as List<dynamic>  );
   }) ;
    
 }   catch (e) {
@@ -43,12 +53,15 @@ Future<void> getDoctorData() async {
 
   @override
   void initState()  {
-   getDoctorData();
     super.initState();
+    
+   getDoctorData();
+   
+    
   
   }
 
-  bool isLoadingECV = true;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,11 +103,14 @@ Future<void> getDoctorData() async {
             child: RefreshIndicator(
               onRefresh: () async {
               await  getDoctorData();
+              setState(() {
+                
+              });
               },
               child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, mainAxisExtent: 160),
-                  itemCount: courses?.length ??0,
+                  itemCount: allEdecatorCourse.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -108,7 +124,7 @@ Future<void> getDoctorData() async {
                                   desc: 'Are You Sure about Dlete this Course..',
                                   btnOkOnPress: () async {
                                 
-                                    deleteCoure(courses?[index]['Course_ID']);
+                                    deleteCoure(allEdecatorCourse[index]['Course_ID']);
                                        
                                     setState(() {});
               
@@ -126,9 +142,18 @@ Future<void> getDoctorData() async {
                             padding: const EdgeInsets.all(10),
                             child: Column(
                               children: [
-                                const SizedBox(height: 10),
+                                  Image.asset(
+                                'assets/images/addcotoedecatour.jpg',
+                                height: 80,
+                              ),
+                                const SizedBox(height: 8),
                                 Text(
-                                  "${courses?[index]['Course_Name']}",
+                                  "${allEdecatorCourse[index]['Course_Name']}",
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                             
+                                Text(
+                                  "Level ${allEdecatorCourse[index]['Level']}",
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 
@@ -145,42 +170,44 @@ Future<void> getDoctorData() async {
     );
   }
 
-List<Map<String , dynamic>>? courses =[] ;
-Future<void> fetchDataAndCheckField({required List<dynamic> coursesId}) async {
-  print("hello bobnaya");
-  courses =[] ;
-  try {
-    // Access the Firestore instance
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
+// List<Map<String , dynamic>>? courses =[] ;
+// Future<void> fetchDataAndCheckField({required List<dynamic> coursesId}) async {
+//   print("hello bobnaya");
+//   courses =[] ;
+//   try {
+//     // Access the Firestore instance
+//     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    // Efficient filtering query (if applicable)
-    Query query = firestore.collection('Courses').where('Course_ID', whereIn: coursesId);
-    QuerySnapshot querySnapshot = await query.get();
+//     // Efficient filtering query (if applicable)
+//     Query query = firestore.collection('Courses').where('Course_ID', whereIn: coursesId);
+//     QuerySnapshot querySnapshot = await query.get();
      
-    querySnapshot.docs.forEach((e) {
-      print(e.data());
-      Map<String, dynamic>  temp = e.data() as Map<String, dynamic> ;
-      courses?.add( temp);
+//     querySnapshot.docs.forEach((e) {
+//       print(e.data());
+//       Map<String, dynamic>  temp = e.data() as Map<String, dynamic> ;
+//       courses?.add( temp);
 
-    });
+//     });
    
-    setState(() {
-      isLoadingECV = false;
-    });
-  } catch (error) {
-    // Handle specific errors (e.g., FirebaseException)
-    print('Error fetching data: $error');
-    
-  } finally {
-    // Perform cleanup tasks if necessary (e.g., indicating loading completion)
-    isLoadingECV = false; // Assuming this flag is used for loading state
-    setState(() {
-      // Update loading state if relevant
-    });
-  }
+//     setState(() {
+//       isLoadingECV = false;
+//     });
+//   } catch (error) {
+//     // Handle specific errors (e.g., FirebaseException)
+//     print('Error fetching data: $error');
 
-  return; // Explicitly return to match function signature
-}
+    
+//   } finally {
+//     // Perform cleanup tasks if necessary (e.g., indicating loading completion)
+//     isLoadingECV = false; // Assuming this flag is used for loading state
+//     setState(() {
+//       // Update loading state if relevant
+//     });
+//       print(courses);
+//   }
+
+//   return; // Explicitly return to match function signature
+// }
 
 Future<void> deleteCoure( String stringToRemove) async {
   try {

@@ -219,7 +219,7 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
                                   
                                     }
                                   },
-                                  text: 'Regster'),
+                                  text: 'Register'),
                             ),
                             const SizedBox(width: 15),
                             Expanded(
@@ -231,7 +231,7 @@ class _AdminRegisterScreenState extends State<AdminRegisterScreen> {
                                             builder: (context) =>
                                                 const ResetPassword()));
                                   },
-                                  text: 'Forget Passward'),
+                                  text: 'Forget Password'),
                             ),
                           ]),
                         ],
