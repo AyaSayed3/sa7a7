@@ -159,9 +159,7 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
     String courseLevel
   ) async {
     try {
-      // FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-      // Fetch the document
+  
       DocumentSnapshot docSnapshot = await doctorDoc!.get();
 
       if (!docSnapshot.exists) {

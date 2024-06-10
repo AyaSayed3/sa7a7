@@ -46,8 +46,7 @@ class ChooseStutesOfMemberBeforRegister extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const AdminRegisterScreen()));
-                    },
+                              builder: (context) => const AdminRegisterScreen()));  },
                     text: 'Admin'),
                 const SizedBox(height: 40),
                 defaultButton(
@@ -57,8 +56,7 @@ class ChooseStutesOfMemberBeforRegister extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  const EdecatourRegisterScreen()));
-                    },
+                                  const EdecatourRegisterScreen())); },
                     text: 'Edecatour'),
                 const SizedBox(height: 40),
                 defaultButton(
@@ -68,8 +66,7 @@ class ChooseStutesOfMemberBeforRegister extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  const StudentRegisterScreen()));
-                    },
+                                  const StudentRegisterScreen())); },
                     text: 'Student'),
                 const Spacer(),
               ],

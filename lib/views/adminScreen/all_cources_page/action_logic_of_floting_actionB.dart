@@ -118,8 +118,6 @@ Future<void> addCourses() {
 
                       await getData(context: context).then((value) {
                         clearMethodOfFlotBottom();
-                        // isLoadingOfAdd = false;
-                        // setState(() {});
                         Navigator.pop(context);
                         Navigator.pushReplacement(
                             context,

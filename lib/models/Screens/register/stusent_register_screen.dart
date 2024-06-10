@@ -30,7 +30,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
             'Passward': passwordController.text,
             'Student_Level': levelController.text,
             'Uniq_ID' : FirebaseAuth.instance.currentUser!.uid,
-            'courses':[{}]   
+            'courses':[]   
           })
           .then((value) => print("/////////////Student member Added"))
           .catchError((error) => print("========Failed to add Student member: $error"));
@@ -168,7 +168,6 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     const ChooseStutesOfMemberBeforRegister())));
-                                                    
                                       } else {
                                         try {
                                           isLoading = true;
@@ -177,8 +176,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                               .createUserWithEmailAndPassword(
                                             email: emailController.text,
                                             password: passwordController.text,
-                                          )
-                                              .then((value) {
+                                          ).then((value) {
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
@@ -188,7 +186,6 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                             FirebaseAuth.instance.currentUser!
                                                 .sendEmailVerification();
                                                 addStudentMember();
-                                                // clearMethodofStudentRegister();
                                           });
                                         } on FirebaseAuthException catch (e) {
                                           if (e.code == 'weak-password') {

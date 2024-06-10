@@ -139,65 +139,44 @@ bool isLoading = true;
 
 Future<void> getData({required BuildContext context}) async {
   dataCourses = [];
-
-  print("///////////////////////count\\\\\\\\\\\\\\\\\\\\\\");
   QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-      .collection('Courses')
-      .where('Uniq_ID', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-      .get();
+      .collection('Courses') .where('Uniq_ID', isEqualTo: FirebaseAuth.instance.currentUser!.uid).get();
   dataCourses.clear();
   dataCourses.addAll(querySnapshot.docs);
   isLoading = false;
   isButtomSheetShown = false;
-
-  print("///////////////////////dataCourse.length\\\\\\\\\\\\\\\\\\\\\\");
-  print("=============${dataCourses.length}=============");
-  print("///////////////////////dataCourse.length\\\\\\\\\\\\\\\\\\\\\\");
 }
-
 List<QueryDocumentSnapshot> adminData = [];
 bool isLoadingTOadmin = true;
-
 Future<void> getAdminData({required BuildContext context}) async {
   adminData = [];
-
   QuerySnapshot querySnapshot = await FirebaseFirestore.instance
       .collection('Admins')
-      //not work
-      //.where('Uniq_ID', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
       .get();
-
   adminData.addAll(querySnapshot.docs);
   isLoadingTOadmin = false;
 }
-
 List<QueryDocumentSnapshot> edecatourData = [];
 bool isLoadingTOedecatour = true;
-
 Future<void> getEdecatourData({required BuildContext context}) async {
   edecatourData = [];
-
   QuerySnapshot querySnapshot =
       await FirebaseFirestore.instance.collection('Edecatour').get();
-
   edecatourData.addAll(querySnapshot.docs);
   isLoadingTOedecatour = false;
 }
 
 List<QueryDocumentSnapshot> studentData = [];
 bool isLoadingTOstudent = true;
-
 Future<void> getstudentData({required BuildContext context}) async {
   studentData = [];
-
   QuerySnapshot querySnapshot =
       await FirebaseFirestore.instance.collection('Students').get();
-
   studentData.addAll(querySnapshot.docs);
   isLoadingTOstudent = false;
 }
 
-List <dynamic> allEdecatorCourse=[];
+List <dynamic>? allEdecatorCourse=[];
 List <dynamic> allStudentCourse=[];
 
 

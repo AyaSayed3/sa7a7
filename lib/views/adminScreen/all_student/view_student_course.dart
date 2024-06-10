@@ -34,10 +34,10 @@ class _ViewStudentCourseState extends State<ViewStudentCourse> {
         print(studentData?['courses']);
         allStudentCourse = studentData?['courses'];
 
-        print("///////////////////////mM\\\\\\\\\\\\\\\\\\\\\\");
-        print(allEdecatorCourse[0]["Level"]);
-        print(allEdecatorCourse.length);
-        print("///////////////////////mM\\\\\\\\\\\\\\\\\\\\\\");
+        // print("///////////////////////mM\\\\\\\\\\\\\\\\\\\\\\");
+        // print(allEdecatorCourse?[0]["Level"]);
+        // print(allEdecatorCourse?.length);
+        // print("///////////////////////mM\\\\\\\\\\\\\\\\\\\\\\");
 
         setState(() {
           isLoadingCS = false;
@@ -49,6 +49,10 @@ class _ViewStudentCourseState extends State<ViewStudentCourse> {
       isLoadingCS = false;
       setState(() {});
     }
+    
+        setState(() {
+          isLoadingCS = false;
+        });
   }
 
   @override
@@ -242,7 +246,7 @@ class _ViewStudentCourseState extends State<ViewStudentCourse> {
       existingArray.forEach((element) {
         print("<<<<<<<<<<<<$element>>>>>>>>>>>>>");
 
-        if (element != stringToRemove) {
+        if (element['Course_ID'] != stringToRemove) {
           newArray.add(element);
         }
       });

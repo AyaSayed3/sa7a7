@@ -37,14 +37,21 @@ class InformationBody extends StatelessWidget {
     super.key,
   });
   final List<String> _listLabels = ['Name', 'Email', "Phone"];
-  final List<String> _listInformation = [
-    //need to index of current admin
-    '${adminData[1]['Admin_Name']}',
-    (emailController.text),
-    "01123456789"
-  ];
+  // final List<String> _listInformation = [
+  //   // need to index of current admin
+  //   '${adminData[0]['Admin_Name']}',
+  //   (emailController.text),
+  //   "01123456789"
+  // ];
   @override
   Widget build(BuildContext context) {
+  final List<String> _listInformation = [
+    // need to index of current admin
+    'Dr Essam',
+    (emailController.text),
+    "01123456789",
+  ];
+    getAdminData(context: context);
     return ListView.builder(
       shrinkWrap: true,
       itemCount: _listLabels.length,
@@ -87,6 +94,7 @@ class _ProfileInfoRow extends StatelessWidget {
     ProfileInfoItem("Students", studentData.length),
     ProfileInfoItem("Courses", dataCourses.length),
   ];
+  
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +139,7 @@ class _ProfileInfoRow extends StatelessWidget {
       );
 }
 
-class ProfileInfoItem {
+class ProfileInfoItem  {
   final String title;
   final int value;
   const ProfileInfoItem(this.title, this.value);
@@ -171,7 +179,7 @@ class _TopPortion extends StatelessWidget {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage('assets/images/person_image.jpg')),
+                        image: AssetImage('assets/images/ProfEssam.jpg')),
                   ),
                 ),
                 Positioned(

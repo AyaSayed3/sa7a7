@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 'LOGIN',
                                 style: TextStyle(
                                   fontSize: 30.0,
-                                 fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const SizedBox(
@@ -125,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       isLoading = true;
                                       try {
                                         setState(() {});
-                                        // ignore: unused_local_variable
+                                              // ignore: unused_local_variable
                                         final credential =
                                             await FirebaseAuth.instance
                                                 .signInWithEmailAndPassword(
@@ -147,16 +147,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                             setState(() {});
                                           });
                                         });
-
-                                        // setState(() {});
-                                        // isLoading = false;
                                       } on FirebaseAuthException catch (e) {
                                         isLoading = false;
                                         setState(() {});
                                         print(e);
 
                                         AwesomeDialog(
-                                          // ignore: use_build_context_synchronously
                                           context: context,
                                           dialogType: DialogType.error,
                                           animType: AnimType.rightSlide,
@@ -268,205 +264,5 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // void CheckIfUserAdmin(BuildContext context, UserCredential credential) {
-  //   ////  admin data and compare it
-  //   // ignore: use_build_context_synchronously
-  //   getAdminData(context: context).then((value) {
-  //     for (int i = 0; i < adminData.length; i++) {
-  //       if (adminData[i]['Email'] == emailController.text) {
-  //         isAdmin = true;
-  //         print('<<<<<<<<<<<<<<<<<<<<4 $isAdmin >>>>>>>>>>>>>>>>>>>>>');
 
-  //         if (credential.user != null &&
-  //             credential.user?.uid != null &&
-  //             isAdmin) {
-  //           print('<<<<<<<<<<<<<<<<<<<<5>>>>>>>>>>>>>>>>>>>>>');
-
-  //           if (credential.user!.emailVerified) {
-  //             print('<<<<<<<<<<<<<<<<<<<<6>>>>>>>>>>>>>>>>>>>>>');
-
-  //             Navigator.push(
-  //               context,
-  //               MaterialPageRoute(builder: (context) => const AdminHomePage()),
-  //             ).then((value) {
-  //               isLoading = false;
-  //               print('<<<<<<<<<<<<<<<<<<<<2>>>>>>>>>>>>>>>>>>>>>');
-  //               setState(() {});
-  //             });
-  //           } else {
-  //             setState(() {
-  //               isLoading = false;
-  //             });
-  //             AwesomeDialog(
-  //               context: context,
-  //               dialogType: DialogType.error,
-  //               animType: AnimType.rightSlide,
-  //               title: 'Error',
-  //               desc:
-  //                   '----->Please Check your Email we Send Verification e-mail......',
-  //             ).show();
-  //           }
-  //         }
-
-  //         break;
-  //       }
-  //     }
-  //     if (isAdmin == false) {
-  //       AwesomeDialog(
-  //         context: context,
-  //         dialogType: DialogType.error,
-  //         animType: AnimType.rightSlide,
-  //         title: 'Error',
-  //         desc: 'اختر صح يا  بيه و متقرفناش معاك.',
-  //       ).show();
-  //       setState(() {
-  //         isLoading = false;
-  //       });
-  //     }
-  //   });
-
-  //   /// email and passwowrd => login
-
-  //   /// navgator to screen
-  //   // if (credential.user != null && credential.user?.uid != null && isAdmin) {
-
-  //   //             print('<<<<<<<<<<<<<<<<<<<<5>>>>>>>>>>>>>>>>>>>>>');
-
-  //   //         if (credential.user!.emailVerified) {
-  //   //             print('<<<<<<<<<<<<<<<<<<<<6>>>>>>>>>>>>>>>>>>>>>');
-
-  //   //           Navigator.push(
-  //   //             context,
-  //   //             MaterialPageRoute(builder: (context) => const AdminHomePage()),
-  //   //           ).then((value) {
-  //   //             isLoading = false;
-  //   //             print('<<<<<<<<<<<<<<<<<<<<2>>>>>>>>>>>>>>>>>>>>>');
-  //   //             setState(() {});
-  //   //           });
-  //   //         } else {
-  //   //           setState(() {
-  //   //             isLoading = false;
-  //   //           });
-  //   //           AwesomeDialog(
-  //   //             context: context,
-  //   //             dialogType: DialogType.error,
-  //   //             animType: AnimType.rightSlide,
-  //   //             title: 'Error',
-  //   //             desc:
-  //   //                 '----->Please Check your Email we Send Verification e-mail......',
-  //   //           ).show();
-  //   //         }
-
-  //   // }
-
-  // }
-
-  // void CheckIfUserEdecatour(BuildContext context, UserCredential credential) {
-  //   ////  admin data and compare it
-  //   // ignore: use_build_context_synchronously
-  //   getEdecatourData(context: context).then((value) {
-  //     for (int i = 0; i < edecatourData.length; i++) {
-  //       if (edecatourData[i]['Email'] == emailController.text) {
-  //         isEdecatour = true;
-
-  //         if (credential.user != null &&
-  //             credential.user?.uid != null &&
-  //             isEdecatour) {
-  //           if (credential.user!.emailVerified) {
-  //             Navigator.push(
-  //               context,
-  //               MaterialPageRoute(builder: (context) => const DoctorHomPage()),
-  //             ).then((value) {
-  //               isLoading = false;
-  //               setState(() {});
-  //             });
-  //           } else {
-  //             setState(() {
-  //               isLoading = false;
-  //             });
-  //             AwesomeDialog(
-  //               context: context,
-  //               dialogType: DialogType.error,
-  //               animType: AnimType.rightSlide,
-  //               title: 'Error',
-  //               desc:
-  //                   '----->Please Check your Email we Send Verification e-mail......',
-  //             ).show();
-  //           }
-  //         }
-  //         break;
-  //       }
-  //     }
-  //     if (isEdecatour == false) {
-  //       AwesomeDialog(
-  //         context: context,
-  //         dialogType: DialogType.error,
-  //         animType: AnimType.rightSlide,
-  //         title: 'Error',
-  //         desc: 'اختر صح يا  بيه و متقرفناش معاك.',
-  //       ).show();
-  //       setState(() {
-  //         isLoading = false;
-  //       });
-  //     }
-  //   });
-
-  //   /// email and passwowrd => login
-
-  //   /// navgator to screen
-  // }
-
-  // void CheckIfUserStudent(BuildContext context, UserCredential credential) {
-  //   ////  admin data and compare it
-  //   // ignore: use_build_context_synchronously
-  //   getstudentData(context: context).then((value) {
-  //     for (int i = 0; i < studentData.length; i++) {
-  //       if (studentData[i]['Email'] == emailController.text) {
-  //         isStudent = true;
-  //         if (credential.user != null &&
-  //             credential.user?.uid != null &&
-  //             isStudent) {
-  //           if (credential.user!.emailVerified) {
-  //             Navigator.push(
-  //               context,
-  //               MaterialPageRoute(builder: (context) => const StudentHomPage()),
-  //             ).then((value) {
-  //               isLoading = false;
-  //               setState(() {});
-  //             });
-  //           } else {
-  //             setState(() {
-  //               isLoading = false;
-  //             });
-  //             AwesomeDialog(
-  //               context: context,
-  //               dialogType: DialogType.error,
-  //               animType: AnimType.rightSlide,
-  //               title: 'Error',
-  //               desc:
-  //                   '----->Please Check your Email we Send Verification e-mail......',
-  //             ).show();
-  //           }
-  //         }
-  //         break;
-  //       }
-  //     }
-  //     if (isStudent == false) {
-  //       AwesomeDialog(
-  //         context: context,
-  //         dialogType: DialogType.error,
-  //         animType: AnimType.rightSlide,
-  //         title: 'Error',
-  //         desc: 'اختر صح يا بيه و متقرفناش معاك.',
-  //       ).show();
-  //       setState(() {
-  //         isLoading = false;
-  //       });
-  //     }
-  //   });
-
-  //   /// email and passwowrd => login
-
-  //   /// navgator to screen
-  // }
 }
