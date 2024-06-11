@@ -18,6 +18,7 @@ class AddCourseToEdecatour extends StatefulWidget {
 }
 
 class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
+  List<QueryDocumentSnapshot<Object?>> allCouresNotAddedToEd=[];
   @override
   void initState() {
     super.initState();
@@ -29,6 +30,14 @@ class _AddCourseToEdecatourState extends State<AddCourseToEdecatour> {
 
   @override
   Widget build(BuildContext context) {
+     allCouresNotAddedToEd=dataCourses;
+
+    for(int index=0;index<allCouresNotAddedToEd.length;index++){
+      if(addedAlreadyCoursesOfED.contains(allCouresNotAddedToEd[index]['Course_ID'])){
+        allCouresNotAddedToEd.removeAt(index);
+         index--;
+    }
+    }
     return Scaffold(
     appBar: AppBar(title: const Text('Add Course',style: TextStyle(color: Colors.black),),),
       body: isLoading

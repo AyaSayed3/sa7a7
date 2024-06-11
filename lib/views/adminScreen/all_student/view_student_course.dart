@@ -21,19 +21,18 @@ class _ViewStudentCourseState extends State<ViewStudentCourse> {
   bool isLoadingCS = true;
   DocumentReference? studentDoc;
   Future<void> getStudentData() async {
-   isLoadingCS=true;
+    isLoadingCS = true;
     try {
       studentDoc = await FirebaseFirestore.instance
           .collection('Students')
           .doc(widget.studentId);
       studentDoc?.get().then((value) async {
-     
         Map<String, dynamic>? studentData =
             value.data() as Map<String, dynamic>?;
         // print(doctorData );
         print(studentData?['courses']);
         allStudentCourse = studentData?['courses'];
-
+        addedAlreadyCoursesOfED.clear();
         // print("///////////////////////mM\\\\\\\\\\\\\\\\\\\\\\");
         // print(allEdecatorCourse?[0]["Level"]);
         // print(allEdecatorCourse?.length);
@@ -49,10 +48,10 @@ class _ViewStudentCourseState extends State<ViewStudentCourse> {
       isLoadingCS = false;
       setState(() {});
     }
-    
-        setState(() {
-          isLoadingCS = false;
-        });
+
+    setState(() {
+      isLoadingCS = false;
+    });
   }
 
   @override
@@ -109,6 +108,14 @@ class _ViewStudentCourseState extends State<ViewStudentCourse> {
                       crossAxisCount: 2, mainAxisExtent: 160),
                   itemCount: allStudentCourse.length,
                   itemBuilder: (context, index) {
+                    addedAlreadyCoursesOfED
+                        .add((allStudentCourse[index]['Course_ID']));
+                    print(
+                        "///////////////////////addedAlreadyCourses student\\\\\\\\\\\\\\\\\\\\\\");
+                    print("${addedAlreadyCoursesOfED}");
+                    print(
+                        "///////////////////////addedAlreadyCourses student\\\\\\\\\\\\\\\\\\\\\\");
+
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: InkWell(

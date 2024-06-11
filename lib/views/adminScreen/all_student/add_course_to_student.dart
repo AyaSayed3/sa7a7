@@ -26,9 +26,30 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
     });
     super.initState();
   }
-
+ List<QueryDocumentSnapshot<Object?>> allCouresNotAdded=[];
   @override
   Widget build(BuildContext context) {
+
+
+    allCouresNotAdded=dataCourses;
+                          
+
+                          print("///////////////////////addedAlreadyCoursesOfED\\\\\\\\\\\\\\\\\\\\\\");
+                          print("${addedAlreadyCoursesOfED}");
+                          print("///////////////////////\\\\\\\\\\\\\\\\\\\\\\");
+
+    for(int index=0;index<allCouresNotAdded.length;index++){
+        print("///////////////////////allCouresNotAdded\\\\\\\\\\\\\\\\\\\\\index/$index");
+        print("${allCouresNotAdded[index]['Course_ID']}");
+        print("///////////////////////allCouresNotAdded\\\\\\\\\\\\\\\\\\\\\index/$index");
+        
+      if(addedAlreadyCoursesOfED.contains(allCouresNotAdded[index]['Course_ID'])){
+        allCouresNotAdded.removeAt(index);
+        index--;
+    }
+    }
+    
+
     return Scaffold(
       appBar: AppBar(title: const Text('Add Course'),),
       body: isLoading
@@ -37,9 +58,21 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, mainAxisExtent: 160),
-                itemCount: dataCourses.length,
+                itemCount: allCouresNotAdded.length,
                 itemBuilder: (context, index) {
-                  return Padding(
+
+                  //         print("///////////////////////dataCourses[index]['Course_ID']\\\\\\\\\\\\\\\\\\\\\\");
+                  //         print("${dataCourses[index]['Course_ID']}");
+                  //         print("///////////////////////\\\\\\\\\\\\\\\\\\\\\\");
+
+                  //         print("///////////////////////addedAlreadyCourses\\\\\\\\\\\\\\\\\\\\\\");
+                  //         print("${addedAlreadyCourses}");
+                  //         print("///////////////////////\\\\\\\\\\\\\\\\\\\\\\");
+
+                  // if( addedAlreadyCourses.contains(dataCourses[index]['Course_ID'])){
+                  //   return SizedBox.shrink();
+                  
+                    return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: InkWell(
                       onTap: () {
@@ -57,7 +90,10 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
                               dataCourses[index]['Course_ID'].toString(),
                               dataCourses[index]['Course_Name'].toString(),
                               dataCourses[index]['Level'].toString(),
-                            ).then((value) {});
+                            ).then((value) {
+
+
+                            });
                             Navigator.pop(
                               context,
                             );
@@ -135,6 +171,9 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
                       ),
                     ),
                   );
+                  
+                  
+               
                 },
               ),
             ),
@@ -158,9 +197,7 @@ class _AddCourseToStudentState extends State<AddCourseToStudent> {
      String courseLevel
   ) async {
     try {
-      // FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-      // Fetch the document
+    
       DocumentSnapshot docSnapshot = await studentDoc!.get();
 
       if (!docSnapshot.exists) {

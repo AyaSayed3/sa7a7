@@ -29,20 +29,13 @@ class _ViewEdecatourCourseState extends State<ViewEdecatourCourse> {
       doctorDoc?.get().then((value) async {
         Map<String, dynamic>? doctorData =
             value.data() as Map<String, dynamic>?;
-        // print(doctorData );
-        // print(doctorData?['courses']);
+       
         allEdecatorCourse = doctorData?['courses'];
-
-        // print("///////////////////////mM\\\\\\\\\\\\\\\\\\\\\\");
-        // print(allEdecatorCourse?[0]["Level"]);
-        // print(allEdecatorCourse?.length);
-        // print("///////////////////////mM\\\\\\\\\\\\\\\\\\\\\\");
+          addedAlreadyCoursesOfED.clear();
 
         setState(() {
           isLoadingECV = false;
         });
-
-        // fetchDataAndCheckField(coursesId: doctorData?['courses'] as List<dynamic>  );
       });
     } catch (e) {
       isLoadingECV = false;
@@ -109,6 +102,14 @@ class _ViewEdecatourCourseState extends State<ViewEdecatourCourse> {
                       crossAxisCount: 2, mainAxisExtent: 160),
                   itemCount: allEdecatorCourse?.length,
                   itemBuilder: (context, index) {
+
+                    addedAlreadyCoursesOfED.add(
+                      (allEdecatorCourse?[index]['Course_ID'])
+                      ); 
+        print("///////////////////////addedAlreadyCourses\\\\\\\\\\\\\\\\\\\\\\");
+        print("${addedAlreadyCoursesOfED}");
+        print("///////////////////////addedAlreadyCourses\\\\\\\\\\\\\\\\\\\\\\");     
+
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: InkWell(

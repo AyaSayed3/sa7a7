@@ -179,6 +179,8 @@ Future<void> getstudentData({required BuildContext context}) async {
 List <dynamic>? allEdecatorCourse=[];
 List <dynamic> allStudentCourse=[];
 
+List<String?> addedAlreadyCourses=[];
 
+List<String?> addedAlreadyCoursesOfED=[];
 
 
