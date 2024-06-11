@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sa7a7/models/Screens/Welcome/welcome_screen.dart';
 import 'package:sa7a7/models/shared/componantes/companantes.dart';
-import 'package:sa7a7/views/adminScreen/amdin_layout/admin_layout.dart';
 
 import 'firebase_options.dart';
 
@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       /*home: HomeScreen(),*/
-      home: const AdminHomePage(),
+      home: const WelcomeScreen(),
     );
   }
 }
