@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sa7a7/models/Screens/Welcome/welcome_screen.dart';
+import 'package:sa7a7/models/shared/componantes/companantes.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -19,9 +21,6 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-
-
-
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
@@ -33,6 +32,12 @@ class _MyAppState extends State<MyApp> {
     //   }
     // });
     super.initState();
+    getstudentData(context: context).then((value) {
+      setState(() {});
+    });
+    getEdecatourData(context: context).then((value) {
+      setState(() {});
+    });
   }
 
   @override
@@ -55,9 +60,7 @@ class _MyAppState extends State<MyApp> {
               statusBarColor: Colors.white,
               statusBarIconBrightness: Brightness.dark),
           titleTextStyle: TextStyle(
-              color: Colors.black,
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold),
+              color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
       ),
       /*home: HomeScreen(),*/
@@ -65,6 +68,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-
-

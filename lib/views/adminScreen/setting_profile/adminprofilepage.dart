@@ -47,7 +47,7 @@ class InformationBody extends StatelessWidget {
   Widget build(BuildContext context) {
   final List<String> _listInformation = [
     // need to index of current admin
-    'Dr Essam',
+    'Prof Dr.Essam Halim',
     (emailController.text),
     "01123456789",
   ];
